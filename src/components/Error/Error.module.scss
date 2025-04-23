@@ -1,0 +1,41 @@
+@use 'sass:color';
+@use '@/styles/colors.module' as colors;
+
+.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.ErrorMessage {
+  font-size: 2.25rem;
+  font-weight: 600;
+}
+
+.BackContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  padding: 1.2rem;
+}
+
+.BackButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7rem;
+  height: 2.25rem;
+  font-size: 1.25rem;
+  color: colors.$gray-10;
+  border-radius: 5px;
+  background: colors.$primary-main;
+
+  &:hover {
+    background: color.adjust(colors.$primary-main, $lightness: -5%);
+  }
+}

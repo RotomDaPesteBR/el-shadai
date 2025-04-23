@@ -1,0 +1,35 @@
+{
+  "Pages": {
+    "Index": {
+      "Title": "Home"
+    },
+    "404": {
+      "Title": "Page not found",
+      "Message": "Error 404 - Page not found"
+    },
+    "Error": {
+      "Title": "An error occurred",
+      "Message": "An error occurred"
+    }
+  },
+  "Components": {
+    "Layout": {
+      "Title": "Boilerplate",
+      "Navigation": {
+        "Home": "Home"
+      }
+    },
+    "Buttons": {},
+    "ToggleTheme": {
+      "Light": "Light Mode",
+      "Dark": "Dark Mode",
+      "Loading": "Loading"
+    },
+    "Error": {
+      "Back": "Back"
+    },
+    "LoadingSplash": {
+      "Loading": "Loading"
+    }
+  }
+}

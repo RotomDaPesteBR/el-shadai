@@ -1,0 +1,49 @@
+@use 'sass:color';
+@use '@/styles/colors.module' as colors;
+
+.datePickerWrapper {
+  height: 40px;
+  box-sizing: border-box;
+
+  & :global(.react-datepicker-wrapper) {
+    height: 100%;
+    width: 240px;
+    box-sizing: border-box;
+  }
+
+  & :global(.react-datepicker__input-container) {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  svg {
+    height: 21px;
+    width: 21px;
+  }
+
+  input {
+    height: 100%;
+    width: 100%;
+    padding: 2px 0 0 34px;
+    font-size: 1.2rem;
+    display: flex;
+    line-height: 5px;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background: #ffffff;
+    color: colors.$text;
+    border: 1px solid color.adjust(colors.$background, $lightness: -22.5%);
+  }
+}
+
+:root[data-theme='dark'] {
+  .datePickerWrapper {
+    input {
+      background: #ffffff;
+      color: colors.$text;
+      border: 1px solid color.adjust(colors.$dark-background, $lightness: 22.5%);
+    }
+  }
+}

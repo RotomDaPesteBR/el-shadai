@@ -1,0 +1,61 @@
+@use 'sass:color';
+@use '@/styles/colors.module' as colors;
+
+.themeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  white-space: nowrap;
+  margin: 10px;
+  width: 120px;
+  height: 29px;
+  user-select: none;
+  border: 1px solid colors.$text;
+  box-sizing: border-box;
+
+  &:hover {
+    color: colors.$dark-text;
+    background-color: colors.$text;
+  }
+}
+
+:root[data-theme='dark'] {
+  .themeButton {
+    border: 1px solid colors.$dark-text;
+
+    &:hover {
+      color: colors.$text;
+      background-color: colors.$dark-text;
+    }
+  }
+}
+
+.themeButton button {
+  border: 0;
+  background: none;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  background: none;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}

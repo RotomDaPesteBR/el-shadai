@@ -1,0 +1,35 @@
+{
+  "Pages": {
+    "Index": {
+      "Title": "Inicio"
+    },
+    "404": {
+      "Title": "Página no encontrada",
+      "Message": "Error 404 - Página no encontrada"
+    },
+    "Error": {
+      "Title": "Se produjo un error",
+      "Message": "Se produjo un error"
+    }
+  },
+  "Components": {
+    "Layout": {
+      "Title": "Boilerplate",
+      "Navigation": {
+        "Home": "Inicio"
+      }
+    },
+    "Buttons": {},
+    "ToggleTheme": {
+      "Light": "Modo Claro",
+      "Dark": "Modo Oscuro",
+      "Loading": "Cargando"
+    },
+    "Error": {
+      "Back": "Volver"
+    },
+    "LoadingSplash": {
+      "Loading": "Cargando"
+    }
+  }
+}

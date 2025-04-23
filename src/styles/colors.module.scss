@@ -1,0 +1,103 @@
+// Primary
+$primary-main: #000099;
+$primary-alt: #003366;
+$primary-light: #6699cc;
+$primary-success: #009900;
+$primary-success-dark: #336633;
+$primary-accent: #cc0066;
+$primary-accent-dark: #660066;
+$primary-muted: #666666;
+$primary-dark: #000000;
+$primary-black: #000000;
+
+// Secondary
+$secondary-main: #006666;
+$secondary-alt: #006633;
+$secondary-light: #ff9900;
+$secondary-success: #009900;
+$secondary-success-dark: #993300;
+$secondary-accent: #ff3300;
+$secondary-accent-dark: #990000;
+$secondary-muted: #666600;
+$secondary-dark: #330000;
+
+// Tertiary
+$tertiary-main: #330066;
+$tertiary-alt: #009999;
+$tertiary-light: #0099cc;
+$tertiary-success: #99cc00;
+$tertiary-success-dark: #999933;
+$tertiary-accent: #cc99cc;
+$tertiary-accent-dark: #6699cc;
+$tertiary-muted: #999933;
+$tertiary-dark: #333333;
+
+//Grays
+$gray-10: #f3f3f3;
+$gray-20: #e5e5e5;
+$gray-30: #d3d3d3;
+$gray-40: #c2c2c2;
+
+//Other
+$background: #f3f3f3;
+$text: #333333;
+
+$dark-background: #333333;
+$dark-text: #f3f3f3;
+
+$border: #333333;
+
+:export {
+  // Primary
+  primary-main: $primary-main;
+  primary-alt: $primary-alt;
+  primary-light: $primary-light;
+  primary-success: $primary-success;
+  primary-success-dark: $primary-success-dark;
+  primary-accent: $primary-accent;
+  primary-accent-dark: $primary-accent-dark;
+  primary-muted: $primary-muted;
+  primary-dark: $primary-dark;
+  primary-black: $primary-black;
+
+  // Secondary
+  secondary-main: $secondary-main;
+  secondary-alt: $secondary-alt;
+  secondary-light: $secondary-light;
+  secondary-success: $secondary-success;
+  secondary-success-dark: $secondary-success-dark;
+  secondary-accent: $secondary-accent;
+  secondary-accent-dark: $secondary-accent-dark;
+  secondary-muted: $secondary-muted;
+  secondary-dark: $secondary-dark;
+
+  // Tertiary
+  tertiary-main: $tertiary-main;
+  tertiary-alt: $tertiary-alt;
+  tertiary-light: $tertiary-light;
+  tertiary-success: $tertiary-success;
+  tertiary-success-dark: $tertiary-success-dark;
+  tertiary-accent: $tertiary-accent;
+  tertiary-accent-dark: $tertiary-accent-dark;
+  tertiary-muted: $tertiary-muted;
+  tertiary-dark: $tertiary-dark;
+
+  // Grays
+  gray-10: $gray-10;
+  gray-20: $gray-20;
+  gray-30: $gray-30;
+  gray-40: $gray-40;
+
+  //Other
+  background: $background;
+  text: $text;
+  dark-background: $dark-background;
+  dark-text: $dark-text;
+  border: $border;
+}
+
+// @include themed-color(primary, main);
+@mixin themed-color($group, $type) {
+  $var-name: unquote("#{$group}-#{$type}");
+  color: var(--#{$var-name});
+}

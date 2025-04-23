@@ -1,0 +1,75 @@
+@use 'sass:color';
+@use '@/styles/colors.module' as colors;
+
+.Container {
+  $itemSpacing: 10px;
+  --navItems: 6;
+
+  width: auto;
+  min-width: calc(
+    (100% / var(--navItems)) -
+      ($itemSpacing * (var(--navItems) - 1) / var(--navItems))
+  );
+
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  box-sizing: content-box;
+  margin: 0 calc($itemSpacing / 2) 0 calc($itemSpacing / 2);
+  border: 0;
+  background: color.adjust(colors.$background, $lightness: -10%);
+  text-align: center;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    background: color.adjust(colors.$background, $lightness: -20%);
+  }
+
+  @media (max-width: 800px) {
+    --navItems: 4;
+  }
+}
+
+.selectedNavItem {
+  background: colors.$primary-main;
+  color: colors.$gray-10;
+
+  &:hover {
+    background: color.adjust(colors.$primary-main, $lightness: -5%);
+    color: colors.$gray-10;
+  }
+}
+
+:root[data-theme='dark'] {
+  .Container {
+    background: color.adjust(colors.$dark-background, $lightness: 10%);
+
+    &:hover {
+      background: color.adjust(colors.$dark-background, $lightness: 20%);
+    }
+  }
+
+  .selectedNavItem {
+    & {
+      background: colors.$primary-main;
+      color: colors.$gray-10;
+    }
+
+    &:hover {
+      background: color.adjust(colors.$primary-main, $lightness: -5%);
+      color: colors.$gray-10;
+    }
+  }
+}

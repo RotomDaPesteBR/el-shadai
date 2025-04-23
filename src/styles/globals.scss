@@ -1,0 +1,96 @@
+@use 'colors.module' as colors;
+
+body {
+  font-family: system-ui, Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+a {
+  user-select: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+:root {
+  color-scheme: light;
+
+  body {
+    background: colors.$background;
+    color: colors.$text;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  body {
+    background: colors.$dark-background;
+    color: colors.$dark-text;
+  }
+}
+
+:root {
+  // Primary
+  --primary-main: #{colors.$primary-main};
+  --primary-alt: #{colors.$primary-alt};
+  --primary-light: #{colors.$primary-light};
+  --primary-success: #{colors.$primary-success};
+  --primary-success-dark: #{colors.$primary-success-dark};
+  --primary-accent: #{colors.$primary-accent};
+  --primary-accent-dark: #{colors.$primary-accent-dark};
+  --primary-muted: #{colors.$primary-muted};
+  --primary-dark: #{colors.$primary-dark};
+  --primary-black: #{colors.$primary-black};
+
+  // Secondary
+  --secondary-main: #{colors.$secondary-main};
+  --secondary-alt: #{colors.$secondary-alt};
+  --secondary-light: #{colors.$secondary-light};
+  --secondary-success: #{colors.$secondary-success};
+  --secondary-success-dark: #{colors.$secondary-success-dark};
+  --secondary-accent: #{colors.$secondary-accent};
+  --secondary-accent-dark: #{colors.$secondary-accent-dark};
+  --secondary-muted: #{colors.$secondary-muted};
+  --secondary-dark: #{colors.$secondary-dark};
+
+  // Tertiary
+  --tertiary-main: #{colors.$tertiary-main};
+  --tertiary-alt: #{colors.$tertiary-alt};
+  --tertiary-light: #{colors.$tertiary-light};
+  --tertiary-success: #{colors.$tertiary-success};
+  --tertiary-success-dark: #{colors.$tertiary-success-dark};
+  --tertiary-accent: #{colors.$tertiary-accent};
+  --tertiary-accent-dark: #{colors.$tertiary-accent-dark};
+  --tertiary-muted: #{colors.$tertiary-muted};
+  --tertiary-dark: #{colors.$tertiary-dark};
+  
+  // Grays
+  --gray-10: #{colors.$gray-10};
+  --gray-20: #{colors.$gray-20};
+  --gray-30: #{colors.$gray-30};
+  --gray-40: #{colors.$gray-40};
+
+  // Other
+  --background: #{colors.$background};
+  --text: #{colors.$text};
+  --dark-background: #{colors.$dark-background};
+  --dark-text: #{colors.$dark-text};
+  
+  --border: #{colors.$border};
+}
+
+:root[data-theme='dark'] {
+  --background: #{colors.$dark-background};
+  --text: #{colors.$dark-text};
+  --dark-background: #{colors.$background};
+  --dark-text: #{colors.$text};
+}

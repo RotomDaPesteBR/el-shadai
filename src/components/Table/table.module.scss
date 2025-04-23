@@ -1,0 +1,180 @@
+@use 'sass:color';
+@use '@/styles/colors.module' as colors;
+
+.tableContent {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  box-sizing: border-box;
+
+  thead {
+    tr {
+      background-color: color.adjust(colors.$background, $lightness: -20%);
+
+      & > th {
+        text-align: center;
+        padding: 5px;
+        border: 1px solid colors.$background;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border: 1px solid colors.$background;
+      background-color: color.adjust(colors.$background, $lightness: -2.5%);
+
+      td {
+        text-align: center;
+        padding: 5px;
+        border: 1px solid colors.$background;
+      }
+
+      &:hover {
+        background-color: color.adjust(colors.$background, $lightness: -15%);
+      }
+    }
+  }
+}
+
+.alert {
+  background: #ffff20 !important;
+  color: colors.$text !important;
+
+  &:hover {
+    background-color: color.adjust(#ffff00, $lightness: -5%) !important;
+  }
+}
+
+.error {
+  background: #ff2020 !important;
+  color: colors.$dark-text !important;
+
+  &:hover {
+    background-color: color.adjust(#ff0000, $lightness: -7.5%) !important;
+  }
+}
+
+.striped {
+  background-color: color.adjust(
+    colors.$background,
+    $lightness: -10%
+  ) !important;
+
+  &:hover {
+    background-color: color.adjust(
+      colors.$background,
+      $lightness: -15%
+    ) !important;
+  }
+
+  &.alert {
+    background-color: color.adjust(#ffff20, $lightness: -7.5%) !important;
+    color: colors.$text !important;
+
+    &:hover {
+      background-color: color.adjust(#ffff00, $lightness: -5%) !important;
+    }
+  }
+
+  &.error {
+    background-color: color.adjust(#ff2020, $lightness: -10%) !important;
+
+    &:hover {
+      background-color: color.adjust(#ff0000, $lightness: -7.5%) !important;
+    }
+  }
+}
+
+:root[data-theme='dark'] {
+  .table {
+    thead {
+      tr {
+        background-color: color.adjust(colors.$dark-background, $lightness: 20%);
+
+        & > th {
+          text-align: center;
+          padding: 5px;
+          border: 1px solid colors.$dark-background;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border: 1px solid colors.$dark-background;
+        background-color: color.adjust(colors.$dark-background, $lightness: 5%);
+
+        td {
+          text-align: center;
+          padding: 5px;
+          border: 1px solid colors.$dark-background;
+        }
+
+        &:hover {
+          background-color: color.adjust(
+            colors.$dark-background,
+            $lightness: 15%
+          );
+        }
+      }
+    }
+  }
+
+  .alert {
+    background: #ffff20 !important;
+    color: colors.$text !important;
+
+    &:hover {
+      background-color: color.adjust(#ffff00, $lightness: -5%) !important;
+    }
+  }
+
+  .error {
+    background: #ff2020 !important;
+    color: colors.$dark-text !important;
+
+    &:hover {
+      background-color: color.adjust(#ff0000, $lightness: -7.5%) !important;
+    }
+  }
+
+  .striped {
+    background-color: color.adjust(
+      colors.$dark-background,
+      $lightness: 10%
+    ) !important;
+
+    &:hover {
+      background-color: color.adjust(
+        colors.$dark-background,
+        $lightness: 15%
+      ) !important;
+    }
+
+    &.alert {
+      background-color: color.adjust(#ffff20, $lightness: -7.5%) !important;
+      color: colors.$text !important;
+
+      &:hover {
+        background-color: color.adjust(#ffff00, $lightness: -5%) !important;
+      }
+    }
+
+    &.error {
+      background-color: color.adjust(#ff2020, $lightness: -10%) !important;
+
+      &:hover {
+        background-color: color.adjust(#ff0000, $lightness: -7.5%) !important;
+      }
+    }
+  }
+}
