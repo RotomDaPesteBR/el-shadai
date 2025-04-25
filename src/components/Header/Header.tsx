@@ -6,7 +6,7 @@ export default function TenarisHeader({ ...props }) {
       <header className={`${styles.Container} ${props.className}`} id="header">
         <div className={styles.TopBar}>
           <div className={styles.LogoContainer}>
-            <img className={styles.LogoImg} src={null} alt="" />
+            <img className={styles.LogoImg} src={undefined} alt="" />
           </div>
         </div>
       </header>
