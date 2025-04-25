@@ -32,9 +32,10 @@ export default function Home() {
           data
         );
 
-        // console.log(res);
-        toast.success('Login realizado com sucesso');
-        setAuthenticated(true);
+        if ((res.status = 200)) {
+          toast.success('Login realizado com sucesso');
+          setAuthenticated(true);
+        }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (ex: any) {
         const { response } = ex;
