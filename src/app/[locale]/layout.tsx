@@ -9,13 +9,9 @@ import {
   setRequestLocale
 } from 'next-intl/server';
 
-import Footer from '@/components/Footer/Footer';
-import Header from '@/components/Header/Header';
+//import Header from '@/components/Header/Header';
 import { getTheme } from '@/lib/getTheme';
 
-import NavigationBar from '@/components/Navigation/NavigationBar/NavigationBar';
-import NavigationItem from '@/components/Navigation/NavigationItem/NavigationItem';
-import ToggleTheme from '@/components/ToggleTheme/ToggleThemeWrapper';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './layout.module.scss';
 
@@ -70,14 +66,14 @@ export default async function RootLayout({
           timeZone="America/Sao_Paulo"
           messages={messages}
         >
-		  {/*<Header />*/}
-          <NavigationBar>
+          {/*<Header />*/}
+          {/* <NavigationBar>
             <NavigationItem href="/">{t('Navigation.Home')}</NavigationItem>
-          </NavigationBar>
-          <main className={styles.content}>{children}</main>
-          <Footer>
+          </NavigationBar> */}
+          <main className={styles.page_wrapper}>{children}</main>
+          {/* <Footer>
             <ToggleTheme />
-          </Footer>
+          </Footer> */}
         </NextIntlClientProvider>
       </body>
     </html>

@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use '@/styles/colors.module' as colors;
+
 .container {
   height: 100vh;
   max-height: 100vh;
@@ -7,17 +10,11 @@
   flex-direction: column;
 }
 
-.content {
+.page_wrapper {
   width: 100%;
-  height: max-content;
+  height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  padding: 10px 0px 0px 0px;
-
-  & > * {
-    flex-shrink: 0;
-  }
 }

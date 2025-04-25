@@ -1,5 +1,5 @@
 // Primary
-$primary-main: #000099;
+$primary-main: #006b33;
 $primary-alt: #003366;
 $primary-light: #6699cc;
 $primary-success: #009900;
@@ -39,7 +39,7 @@ $gray-30: #d3d3d3;
 $gray-40: #c2c2c2;
 
 //Other
-$background: #f3f3f3;
+$background: #ffd089;
 $text: #333333;
 
 $dark-background: #333333;
@@ -98,6 +98,6 @@ $border: #333333;
 
 // @include themed-color(primary, main);
 @mixin themed-color($group, $type) {
-  $var-name: unquote("#{$group}-#{$type}");
+  $var-name: unquote('#{$group}-#{$type}');
   color: var(--#{$var-name});
 }
