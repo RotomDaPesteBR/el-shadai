@@ -15,8 +15,12 @@ export default async function RouteProtection({
     if (roles) {
       const user = session?.user;
 
-      if (!roles.includes(user?.role)) {
-        redirect('/');
+      if (user) {
+        if (!user.role || !roles.includes(user.role)) {
+          redirect('/');
+        }
+      } else {
+        redirect('/auth/login');
       }
     }
   }

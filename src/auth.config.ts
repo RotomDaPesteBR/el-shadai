@@ -1,4 +1,5 @@
-import type { NextAuthConfig } from 'next-auth';
+import type { NextAuthConfig, Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import Credentials from 'next-auth/providers/credentials';
 
 export default {
@@ -39,8 +40,7 @@ export default {
     })
   ],
   callbacks: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    jwt({ token, user }: { token: any; user: any }) {
+    jwt({ token, user }) {
       if (user) {
         token.user = {
           ...user,
@@ -51,12 +51,11 @@ export default {
 
       return token;
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    session({ session, token }: { session: any; token: any }) {
+    session({ session, token }: { session: Session; token: JWT }) {
       session.user = {
         ...session.user,
-        name: token.user.name,
-        role: token.user.role
+        name: token.user?.name,
+        role: token.user?.role
       };
 
       return session;
