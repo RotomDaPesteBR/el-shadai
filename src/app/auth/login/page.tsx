@@ -1,10 +1,14 @@
+import AccessRouteProtection from '@/components/AccessRouteProtection';
+import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { use } from 'react';
+import { Toaster } from 'react-hot-toast';
+import Login from './login';
 import styles from './page.module.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Home({ params }: any) {
+export default function LoginPage({ params }: any) {
   const { locale }: { locale: string } = use(params);
   setRequestLocale(locale);
 
@@ -13,8 +17,12 @@ export default function Home({ params }: any) {
   return (
     <>
       <title>{t('Title')}</title>
-      <div className={`font-[family-name:inter] ${styles.container}`}>
-        <div className={`${styles.content}`}>{}</div>
+      <Toaster />
+      <AccessRouteProtection />
+      <div className={`${styles.container}`}>
+        <div className={`${styles.content}`}>
+          <Login signIn={signIn} />
+        </div>
       </div>
     </>
   );

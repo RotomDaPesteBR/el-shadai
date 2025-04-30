@@ -1,7 +1,7 @@
 import '@/styles/globals.scss';
 import { Geist, Geist_Mono, Inter } from 'next/font/google';
 
-import { redirect, routing } from '@/i18n/routing';
+// import { redirect, routing } from '@/i18n/routing';
 import { NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,
@@ -29,9 +29,9 @@ const geistMono = Geist_Mono({
   subsets: ['latin']
 });
 
-export function generateStaticParams() {
-  return routing.locales.map(locale => ({ locale }));
-}
+// export function generateStaticParams() {
+//   return routing.locales.map(locale => ({ locale }));
+//}
 
 export default async function RootLayout({
   children,
@@ -42,11 +42,6 @@ export default async function RootLayout({
   params: Promise<any>;
 }) {
   const { locale }: { locale: string } = await params;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if (!routing.locales.includes(locale as any)) {
-    redirect({ href: `/${locale}`, locale: routing.defaultLocale });
-  }
 
   const messages = await getMessages();
   setRequestLocale(locale);
