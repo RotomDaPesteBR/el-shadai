@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { use } from 'react';
 import styles from './page.module.scss';
+import Register from './register';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Home({ params }: any) {
@@ -14,7 +15,9 @@ export default function Home({ params }: any) {
     <>
       <title>{t('Title')}</title>
       <div className={`font-[family-name:inter] ${styles.container}`}>
-        <div className={`${styles.content}`}>{}</div>
+        <div className={`${styles.content}`}>
+          <Register />
+        </div>
       </div>
     </>
   );

@@ -1,0 +1,36 @@
+@use 'sass:color';
+@use '@/styles/colors.module' as colors;
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 10px 10px;
+  box-sizing: border-box;
+}
+
+.content {
+  width: 100%;
+  height: max-content;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.btn {
+  width: 90%;
+  max-width: 300px;
+  height: 40px;
+  background: colors.$primary-main;
+  color: colors.$dark-text;
+  border: 0;
+  border-radius: 3px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: color.adjust(colors.$primary-main, $lightness: -10%);
+}
