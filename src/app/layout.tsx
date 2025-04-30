@@ -1,7 +1,6 @@
 import '@/styles/globals.scss';
 import { Geist, Geist_Mono, Inter } from 'next/font/google';
 
-// import { redirect, routing } from '@/i18n/routing';
 import { NextIntlClientProvider } from 'next-intl';
 import {
   getMessages,

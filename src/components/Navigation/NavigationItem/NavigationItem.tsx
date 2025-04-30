@@ -1,6 +1,7 @@
 'use client';
 
-import { Link, usePathname } from '@/i18n/routing';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import NavigationItemProps from './NavigationItem.d';
 import styles from './NavigationItem.module.scss';
 
