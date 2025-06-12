@@ -1,12 +1,7 @@
 import { auth } from '@/app/auth';
 import { redirect } from 'next/navigation';
 
-export default async function RouteProtection({
-  roles
-}: {
-  roles?: string[];
-  locale?: string;
-}) {
+export default async function RouteProtection({ roles }: { roles?: string[] }) {
   const session = await auth();
 
   if (!session) {

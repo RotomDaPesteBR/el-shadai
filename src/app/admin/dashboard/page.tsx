@@ -14,7 +14,7 @@ export default function DashboardPage({ params }: any) {
 
   return (
     <>
-      <RouteProtection locale={locale} roles={['admin']} />
+      <RouteProtection roles={['admin']} />
       <title>{t('Title')}</title>
       <div className={`font-[family-name:inter] ${styles.container}`}>
         <div className={`${styles.content}`}>

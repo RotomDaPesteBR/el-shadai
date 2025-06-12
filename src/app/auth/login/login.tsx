@@ -39,7 +39,7 @@ export default function Login({
         await signIn('credentials', data);
 
         //if ((res.status = 200)) {
-        toast.success('Login realizado com sucesso');
+        //toast.success('Login realizado com sucesso');
         setAuthenticated(true);
 
         redirect('/');
@@ -65,7 +65,7 @@ export default function Login({
     <>
       <div className={styles.logo}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo.png" alt="El Shadai Logo" />
+        <img src="/images/logo.png" alt="El Shadai Logo" />
         <div>El Shadai</div>
       </div>
       <form onSubmit={e => login(e)} className={styles.credentials}>

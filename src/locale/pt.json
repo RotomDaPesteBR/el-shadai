@@ -1,7 +1,7 @@
 {
   "Pages": {
     "Index": {
-      "Title": "Início"
+      "Title": "Catálogo"
     },
     "Error": {
       "Title": "Ocorreu um erro",
@@ -14,7 +14,7 @@
   },
   "Components": {
     "Layout": {
-      "Title": "Boilerplate",
+      "Title": "El Shadai",
       "Navigation": {
         "Home": "Início"
       }

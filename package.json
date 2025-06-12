@@ -11,17 +11,18 @@
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^2.9.0",
-    "@prisma/client": "^6.6.0",
-    "axios": "^1.8.4",
+    "@auth/prisma-adapter": "^2.9.1",
+    "@prisma/client": "^6.9.0",
+    "axios": "^1.9.0",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
-    "next": "15.3.1",
+    "next": "15.3.3",
     "next-auth": "^5.0.0-beta.27",
-    "next-intl": "^4.0.3",
+    "next-intl": "^4.1.0",
     "react": "^19.1.0",
-    "react-datepicker": "^8.3.0",
+    "react-datepicker": "^8.4.0",
     "react-dom": "^19.1.0",
     "react-hot-toast": "^2.5.2"
   },
@@ -31,10 +32,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.3.1",
+    "eslint-config-next": "15.3.3",
     "postcss": "^8",
-    "prisma": "^6.6.0",
-    "sass": "^1.87.0",
+    "prisma": "^6.9.0",
+    "sass": "^1.89.1",
     "typescript": "^5"
   }
 }
