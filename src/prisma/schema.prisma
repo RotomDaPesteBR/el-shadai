@@ -15,12 +15,29 @@ model User {
   username      String?         @unique
   email         String?         @unique
   emailVerified DateTime?
+  password      String?
   image         String?
+  roleId        Int
+  address       String?
+  neighId       Int
+
+  ordersClient Order[] @relation("client")
+  ordersStaff  Order[] @relation("staff")
   accounts      Account[]
   sessions      Session[]
+
+  role Role  @relation(fields: [roleId], references: [id])
+  neighborhood Neighborhood  @relation(fields: [neighId], references: [id])
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Role{
+  id    Int       @id @default(autoincrement())
+  role    String
+
+  users User[]
 }
  
 model Account {
@@ -69,6 +86,94 @@ model VerificationToken {
 
 // Entities
 
-// model Product {
-  
-// }
+model Product {
+    id            Int @id @default(autoincrement())
+    categoryId    Int
+    stock         Int
+    name          String
+    description   String
+    price         Decimal
+    image         String?
+
+    itemProduct ItemProduct[]
+
+    category Category   @relation(fields: [categoryId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Category{
+    id      Int  @id @default(autoincrement())
+    categoryName    String
+
+    products    Product[]
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+}
+
+model Neighborhood{
+    id      Int  @id @default(autoincrement())
+    description    String
+    active     Boolean
+    zone       String
+
+    users   User[]
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+}
+
+model OrderState{
+    id      Int  @id @default(autoincrement())
+    state  String
+
+    order Order[]
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+}
+
+model DeliveryMethod{
+    id      Int  @id @default(autoincrement())
+    method  Int
+
+    order Order[]
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+}
+
+model Order{
+    id      Int  @id @default(autoincrement())
+    price  Decimal
+    clientId  String
+    staffId   String
+    orderStateId    Int
+    deliveryMethodId    Int
+    
+    itemProduct ItemProduct[]
+
+    client  User    @relation("client", fields: [clientId], references: [id])
+    staff   User    @relation("staff", fields: [staffId], references: [id])
+    orderState OrderState  @relation(fields: [orderStateId], references: [id])
+    deliveryMethod DeliveryMethod  @relation(fields: [deliveryMethodId], references: [id])
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+
+model ItemProduct{
+    orderId     Int
+    productId       Int
+
+    order Order  @relation(fields: [orderId], references: [id])
+    product Product  @relation(fields: [productId], references: [id])
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@id([orderId, productId])
+}

@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import { use } from 'react';
-import { signOut } from './auth';
+import { signOut } from '../auth';
 import Catalog from './catalog';
 import styles from './page.module.scss';
 

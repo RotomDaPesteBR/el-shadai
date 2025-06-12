@@ -1,0 +1,16 @@
+@use 'sass:color';
+@use '@/styles/colors.module' as colors;
+
+.disabled {
+  display: none !important;
+}
+
+.products_wrapper {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: row;
+  height: 100%;
+  flex-wrap: wrap;
+  gap: 10px;
+}

@@ -1,17 +1,16 @@
 // Primary
 $primary-main: #006b33;
-$primary-alt: #003366;
-$primary-light: #6699cc;
-$primary-success: #009900;
-$primary-success-dark: #336633;
-$primary-accent: #cc0066;
-$primary-accent-dark: #660066;
+$primary-alt: #009e4b;
+$primary-light: #fafafa;
+$primary-success: #5a43eb;
+$primary-success-dark: #5a43eb;
+$primary-accent: #da1e1e;
+$primary-accent-dark: #da1e1e;
 $primary-muted: #666666;
 $primary-dark: #000000;
-$primary-black: #000000;
 
 // Secondary
-$secondary-main: #006666;
+$secondary-main: #00bc5a;
 $secondary-alt: #006633;
 $secondary-light: #ff9900;
 $secondary-success: #009900;
@@ -38,6 +37,8 @@ $gray-20: #e5e5e5;
 $gray-30: #d3d3d3;
 $gray-40: #c2c2c2;
 
+$black: #000000;
+
 //Other
 $background: #ffd089;
 $text: #333333;
@@ -58,7 +59,6 @@ $border: #333333;
   primary-accent-dark: $primary-accent-dark;
   primary-muted: $primary-muted;
   primary-dark: $primary-dark;
-  primary-black: $primary-black;
 
   // Secondary
   secondary-main: $secondary-main;
@@ -87,6 +87,8 @@ $border: #333333;
   gray-20: $gray-20;
   gray-30: $gray-30;
   gray-40: $gray-40;
+
+  black: $black;
 
   //Other
   background: $background;

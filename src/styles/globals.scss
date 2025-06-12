@@ -49,7 +49,6 @@ a {
   --primary-accent-dark: #{colors.$primary-accent-dark};
   --primary-muted: #{colors.$primary-muted};
   --primary-dark: #{colors.$primary-dark};
-  --primary-black: #{colors.$primary-black};
 
   // Secondary
   --secondary-main: #{colors.$secondary-main};
@@ -72,19 +71,21 @@ a {
   --tertiary-accent-dark: #{colors.$tertiary-accent-dark};
   --tertiary-muted: #{colors.$tertiary-muted};
   --tertiary-dark: #{colors.$tertiary-dark};
-  
+
   // Grays
   --gray-10: #{colors.$gray-10};
   --gray-20: #{colors.$gray-20};
   --gray-30: #{colors.$gray-30};
   --gray-40: #{colors.$gray-40};
 
+  --black: #{colors.$black};
+
   // Other
   --background: #{colors.$background};
   --text: #{colors.$text};
   --dark-background: #{colors.$dark-background};
   --dark-text: #{colors.$dark-text};
-  
+
   --border: #{colors.$border};
 }
 

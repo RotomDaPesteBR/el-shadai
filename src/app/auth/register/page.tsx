@@ -1,3 +1,4 @@
+import AccessRouteProtection from '@/components/AccessRouteProtection';
 import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { use } from 'react';
@@ -14,6 +15,7 @@ export default function Home({ params }: any) {
   return (
     <>
       <title>{t('Title')}</title>
+      <AccessRouteProtection />
       <div className={`font-[family-name:inter] ${styles.container}`}>
         <div className={`${styles.content}`}>
           <Register />
