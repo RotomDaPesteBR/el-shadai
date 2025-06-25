@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { CredentialsSignin, NextAuthConfig, Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import Credentials from 'next-auth/providers/credentials';
@@ -18,20 +17,37 @@ export default {
             throw new Error('Please enter both email/username and password.');
           }
 
-          const response = await axios.post(
+          const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/login`,
             {
-              identifier: email,
-              password: password
-            },
-            {
+              method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
-              }
+              },
+              body: JSON.stringify({
+                identifier: email,
+                password: password
+              })
             }
           );
 
-          const { user } = response.data;
+          if (!response.ok) {
+            // Se a resposta não for OK, tenta extrair a mensagem de erro do corpo
+            const errorData = await response.json();
+
+            console.error('Login API error:', errorData);
+
+            if (response.status === 401) {
+              throw new CredentialsSignin('InvalidCredentials');
+            }
+            // Lança um erro com a mensagem do servidor ou uma genérica
+            throw new CredentialsSignin(
+              errorData.message || 'Erro inesperado do servidor.'
+            );
+          }
+
+          const responseData = await response.json();
+          const { user } = responseData; // Assumindo que a resposta bem-sucedida tem { user: {...} }
 
           if (user) {
             return {
@@ -48,20 +64,18 @@ export default {
         } catch (error: any) {
           console.error(
             'Login error in NextAuth Credentials provider:',
-            error.response?.data || error.message
+            error.message
           );
 
-          if (axios.isAxiosError(error) && error.response) {
-            if (error.response.status === 401) {
-              throw new CredentialsSignin('InvalidCredentials');
-            }
-            throw new CredentialsSignin(
-              error.response.data.message || 'Erro inesperado do servidor.'
-            );
+          // O tratamento de erro com fetch é um pouco diferente de Axios.
+          // O `error` capturado aqui geralmente será o que você `throw` dentro do `try`.
+          if (error instanceof CredentialsSignin) {
+            throw error; // Relança o erro CredentialsSignin original
           }
 
+          // Para outros tipos de erro (ex: falha de rede), pode ser um erro genérico
           throw new CredentialsSignin(
-            'Ocorreu um erro desconhecido durante o login.'
+            'Ocorreu um erro desconhecido durante o login. Verifique sua conexão.'
           );
         }
       }
