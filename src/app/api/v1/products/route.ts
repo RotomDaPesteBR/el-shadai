@@ -1,79 +1,57 @@
-import { auth } from '@/app/auth';
-import { ProductType } from '@/types/products';
-import { PrismaClient, Product } from '@prisma/client';
+// src/app/api/v1/products/route.ts
+import { auth } from '@/app/auth'; // Mantém para autenticação e RBAC
+import { ProductsService } from '@/services/ProductsService'; // Importa o serviço de produtos
 import { NextResponse } from 'next/server';
 
-const prisma = new PrismaClient();
-
-// Define the type for the grouped products output
-type ProductsType = Array<ProductType>;
+// Não precisamos mais do PrismaClient e ProductType aqui, pois a lógica está no serviço.
+// const prisma = new PrismaClient();
+// type ProductsType = Array<ProductType>;
 
 export async function GET() {
   try {
-    const products = await prisma.product.findMany({
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        price: true,
-        stock: true,
-        image: true,
-        categoryId: true,
-        category: {
-          select: {
-            categoryName: true
-          }
-        }
-      }
-    });
+    // 1. Chama a lógica de buscar todos os produtos do ProductsService
+    const products = await ProductsService.getAllProducts();
 
-    const modifiedProducts: ProductsType = [];
-
-    products.forEach(product => {
-      // Destructure to omit specific fields directly in the type
-      const { category, ...productWithoutCategory } = product;
-
-      const modifiedProduct: ProductType = {
-        ...productWithoutCategory,
-        categoryName: category.categoryName
-      };
-
-      modifiedProducts.push(modifiedProduct);
-    });
-
-    return NextResponse.json(modifiedProducts, { status: 200 });
+    // 2. Retorna a resposta JSON.
+    // Lembre-se: se o seu front-end espera { data: [...] }, ajuste aqui.
+    // O ProductsService.getAllProducts() já retorna ProductType[],
+    // então a linha abaixo deve ser consistente com o que o front-end espera.
+    // Se o front-end espera ProductType[], retorne NextResponse.json(products, { status: 200 });
+    // Se o front-end espera { data: ProductType[] }, retorne NextResponse.json({ data: products }, { status: 200 });
+    // Com base nas discussões anteriores, a expectativa era { data: [...] }, então manteremos assim.
+    return NextResponse.json({ data: products }, { status: 200 });
   } catch (error) {
-    console.error('Error fetching products:', error);
-    // Use instanceof for better error checking if possible with Prisma errors
+    console.error('Error fetching products via service in API route:', error);
     return NextResponse.json(
       { message: 'Failed to fetch products' },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
+  // Não precisamos de `finally { await prisma.$disconnect(); }` aqui,
+  // pois o serviço já gerencia a desconexão do Prisma.
 }
 
 export async function POST(req: Request) {
-  // 1. Authenticate and get session with NextAuth.js v5
+  // 1. Autentica e obtém a sessão com NextAuth.js v5
   const session = await auth();
 
-  // Basic session check
+  // Verificação básica de sessão
   if (!session || !session.user || !session.user.email) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
-  // 2. Implement Role-Based Access Control (RBAC)
   try {
-    // Check if the user exists and has the 'admin' role
-    if (!session.user || session.user.role !== 'admin') {
+    // 2. Implementa Controle de Acesso Baseado em Função (RBAC)
+    // Verifica se o usuário tem a função 'admin'
+    if (session.user.role !== 'admin') {
+      // Assumindo que session.user.role já é a string do role
       return NextResponse.json(
         { message: 'Forbidden: Only admin users can create products' },
         { status: 403 }
       );
     }
 
-    // Type the incoming request body
+    // Define a interface para o corpo da requisição POST
     interface CreateProductRequestBody {
       name: string;
       description: string;
@@ -86,6 +64,7 @@ export async function POST(req: Request) {
     const body: CreateProductRequestBody = await req.json();
     const { name, description, price, stock, categoryId, image } = body;
 
+    // 3. Validação dos dados de entrada
     if (
       !name ||
       !description ||
@@ -99,53 +78,49 @@ export async function POST(req: Request) {
       );
     }
 
-    const newProduct: Product = await prisma.product.create({
-      data: {
-        name,
-        description,
-        price,
-        stock,
-        categoryId,
-        image
-      }
+    // 4. Chama a lógica de criação de produto do ProductsService
+    const newProduct = await ProductsService.createProduct({
+      name,
+      description,
+      price,
+      stock,
+      categoryId,
+      image
     });
 
-    return NextResponse.json(newProduct, { status: 201 }); // 201 Created
+    return NextResponse.json(newProduct, { status: 201 }); // Retorna o produto criado com status 201 Created
   } catch (error) {
-    console.error('Error creating product:', error);
+    console.error('Error creating product via service in API route:', error);
 
-    // Using type guards for PrismaClientKnownRequestError for specific error handling
+    // Trata erros específicos do Prisma ou outros erros lançados pelo serviço
     if (error instanceof Error) {
-      // Prisma errors usually have a 'code' property
-      const prismaError = error as { code?: string; message: string }; // Type assertion for common Prisma error structure
+      const prismaError = error as { code?: string; message: string };
 
       if (prismaError.code === 'P2003') {
-        // Foreign key constraint failed (e.g., categoryId does not exist)
+        // Falha de chave estrangeira (e.g., categoryId não existe)
         return NextResponse.json(
           { message: 'Category not found or invalid categoryId' },
           { status: 404 }
         );
       }
       if (prismaError.code === 'P2025') {
-        // No record found for the provided ID (e.g., user not found for session email)
+        // Nenhum registro encontrado para o ID fornecido (e.g., usuário não encontrado para o email da sessão)
         return NextResponse.json(
           { message: 'User not found in database or user session issue.' },
           { status: 404 }
         );
       }
-      // Fallback for other generic errors
+      // Fallback para outros erros genéricos
       return NextResponse.json(
         { message: 'Failed to create product', error: prismaError.message },
         { status: 500 }
       );
     }
 
-    // Generic error handling if it's not an instance of Error
+    // Tratamento genérico de erro se não for uma instância de Error
     return NextResponse.json(
       { message: 'An unexpected error occurred.' },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }

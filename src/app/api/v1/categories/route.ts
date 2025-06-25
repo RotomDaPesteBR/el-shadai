@@ -1,70 +1,36 @@
-// src/app/api/categories/route.ts (example for App Router POST)
-//import { auth } from '@/app/auth'; // Adjust path as needed
-import { CategoryType } from '@/types/categories';
-import { PrismaClient } from '@prisma/client';
+import { auth } from '@/app/auth';
+import { CategoriesService } from '@/services/CategoriesService';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { NextResponse } from 'next/server';
-
-const prisma = new PrismaClient();
 
 export async function GET() {
   try {
-    const categories = await prisma.category.findMany({
-      select: {
-        id: true,
-        categoryName: true
-      }
-    });
-
-    const modifiedCategories: Array<CategoryType> = [];
-
-    categories.forEach(category => {
-      modifiedCategories.push({ id: category.id, name: category.categoryName });
-    });
-
-    return NextResponse.json(modifiedCategories, { status: 200 });
+    const categories = await CategoriesService.getAllCategories();
+    return NextResponse.json({ data: categories }, { status: 200 });
   } catch (error) {
-    console.error('Error fetching products:', error);
-    // Use instanceof for better error checking if possible with Prisma errors
+    console.error('Error fetching categories via service in API route:', error);
     return NextResponse.json(
-      { message: 'Failed to fetch products' },
+      { message: 'Failed to fetch categories' },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
 export async function POST(req: Request) {
-  // --- NextAuth.js v5 protection (similar to product POST) ---
-  //const session = await auth();
+  const session = await auth();
 
-  //   if (!session || !session.user || !session.user.email) {
-  //     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-  //   }
-
-  //   try {
-  //     const user = await prisma.user.findUnique({
-  //       where: { email: session.user.email },
-  //       include: { role: true }
-  //     });
-
-  //     if (!user || user.role.role !== 'admin') {
-  //       // Assuming only admins can create categories
-  //       return NextResponse.json(
-  //         { message: 'Forbidden: Only admin users can create categories' },
-  //         { status: 403 }
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error('Error during user role verification:', error);
-  //     return NextResponse.json(
-  //       { message: 'Error verifying user role' },
-  //       { status: 500 }
-  //     );
-  //   }
-  // --- End NextAuth.js v5 protection ---
+  if (!session || !session.user || !session.user.email) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
 
   try {
+    if (session.user.role !== 'admin') {
+      return NextResponse.json(
+        { message: 'Forbidden: Only admin users can create categories' },
+        { status: 403 }
+      );
+    }
+
     interface CreateCategoryRequestBody {
       categoryName: string;
     }
@@ -72,7 +38,6 @@ export async function POST(req: Request) {
     const body: CreateCategoryRequestBody = await req.json();
     const { categoryName } = body;
 
-    // 1. Validation
     if (!categoryName || typeof categoryName !== 'string') {
       return NextResponse.json(
         { message: 'Missing or invalid categoryName' },
@@ -80,36 +45,54 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2. Create the category using Prisma
-    // ONLY provide categoryName. createdAt and updatedAt are handled by Prisma/DB.
-    const newCategory = await prisma.category.create({
-      data: {
-        categoryName: categoryName
-      }
+    const newCategory = await CategoriesService.createCategory({
+      categoryName
     });
 
-    return NextResponse.json(newCategory, { status: 201 }); // 201 Created
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    // Use 'any' here temporarily if you don't want full Prisma error type guards
-    console.error('Error creating category:', error);
+    return NextResponse.json(newCategory, { status: 201 });
+  } catch (error) {
+    console.error('Error creating category via service in API route:', error);
 
-    if (
-      error.code === 'P2002' &&
-      error.meta?.target?.includes('categoryName')
-    ) {
-      // P2002 is for unique constraint violation, useful if categoryName should be unique
+    if (error instanceof Error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        // P2002 is for unique constraint violation
+        if (error.code === 'P2002') {
+          // Safely check for meta and target properties
+          const target = error.meta?.target;
+          if (Array.isArray(target) && target.includes('categoryName')) {
+            return NextResponse.json(
+              { message: 'Category with this name already exists' },
+              { status: 409 }
+            );
+          }
+        }
+        // For other known Prisma errors, you can add more 'else if' here
+        return NextResponse.json(
+          {
+            message: 'Failed to create category (Prisma error)',
+            error: error.message
+          },
+          { status: 500 }
+        );
+      }
+
+      // If the error was thrown by the service with a specific message (not a direct Prisma error)
+      if (error.message.includes('already exists')) {
+        return NextResponse.json({ message: error.message }, { status: 409 });
+      } else if (error.message.includes('Missing or invalid categoryName')) {
+        return NextResponse.json({ message: error.message }, { status: 400 });
+      }
+
+      // Fallback for other generic errors (that are not Prisma errors or specific service messages)
       return NextResponse.json(
-        { message: 'Category with this name already exists' },
-        { status: 409 }
+        { message: 'Failed to create category', error: error.message },
+        { status: 500 }
       );
     }
 
     return NextResponse.json(
-      { message: 'Failed to create category', error: error.message },
+      { message: 'An unexpected error occurred.' },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }
