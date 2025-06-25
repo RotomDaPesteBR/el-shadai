@@ -1,4 +1,4 @@
-import ErrorWarning from '@/components/Error/Error';
+import ErrorWarning from '@/components/shared/Error/Error';
 import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 

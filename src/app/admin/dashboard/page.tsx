@@ -1,5 +1,5 @@
 import { signOut } from '@/app/auth';
-import RouteProtection from '@/components/RouteProtection';
+import RouteProtection from '@/components/server/RouteProtection';
 import { useTranslations } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { use } from 'react';

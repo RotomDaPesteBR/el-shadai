@@ -2,8 +2,9 @@
 @use '@/styles/colors.module' as colors;
 
 .product {
-  height: 250px;
   width: 200px;
+  height: 250px;
+  margin: 0 5px 10px 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +21,7 @@
   }
 }
 
-.product_image {
+.product_image_container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,10 +31,21 @@
   box-sizing: border-box;
 }
 
-.product_image img {
+.product_image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
   background-color: colors.$primary-light;
+}
+
+.product_image img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  box-sizing: border-box;
 }
 
 .product_info {

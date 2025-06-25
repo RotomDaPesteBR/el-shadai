@@ -1,39 +1,18 @@
 import RouteProtection from '@/components/server/RouteProtection';
-import { GroupedProducts, ProductType } from '@/types/products';
-import axios from 'axios';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
-import { signOut } from '../auth';
-import Catalog from '../components/catalog';
+import { use } from 'react';
+import { signOut } from '../../auth';
 import styles from './page.module.scss';
+import Product_Page from './product_page';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function Home({ params }: any) {
-  const { locale }: { locale: string } = await params;
+export default function Home({ params }: any) {
+  const { locale, id }: { locale: string; id: string } = use(params);
   setRequestLocale(locale);
 
-  const t = await getTranslations('Pages.Index');
-
-  const productsResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/products`
-  );
-
-  const categoriesResponse = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/categories`
-  );
-
-  const products = productsResponse.data;
-  const categories = categoriesResponse.data;
-
-  const groupedProducts: GroupedProducts = {};
-
-  products.forEach((product: ProductType) => {
-    if (!groupedProducts[product.categoryId]) {
-      groupedProducts[product.categoryId] = [];
-    }
-
-    groupedProducts[product.categoryId].push(product);
-  });
+  const t = useTranslations('Pages.Index');
 
   return (
     <>
@@ -57,13 +36,12 @@ export default async function Home({ params }: any) {
                 alt="El Shadai Logo"
                 height={1000}
                 width={1000}
-                draggable={false}
               />
               <div className={styles.logo_title}>El Shadai</div>
             </div>
             <div className={styles.header_spacing} />
           </div>
-          <Catalog categories={categories} products={groupedProducts} />
+          <Product_Page Id={id} />
         </div>
       </div>
     </>
