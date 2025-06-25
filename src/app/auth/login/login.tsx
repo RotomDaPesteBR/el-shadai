@@ -1,23 +1,14 @@
 'use client';
 
-import Textbox from '@/components/Textbox/Textbox';
-import { ProviderId } from 'next-auth/providers';
-import { SignInAuthorizationParams, SignInOptions } from 'next-auth/react';
+import Textbox from '@/components/shared/Textbox/Textbox';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import styles from './page.module.scss';
 
-export default function Login({
-  signIn
-}: {
-  signIn: (
-    provider?: ProviderId,
-    options?: SignInOptions<true>,
-    authorizationParams?: SignInAuthorizationParams
-  ) => Promise<void>;
-}) {
+export default function Login() {
   //const t = useTranslations('Pages.Index');
 
   const [email, setEmail] = useState<string | null>('');
@@ -25,38 +16,50 @@ export default function Login({
 
   const [processing, setProcessing] = useState<boolean>(false);
 
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
-
   async function login(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!processing && !authenticated) {
-      const data = { email, password };
+    if (processing) {
+      return;
+    }
 
-      setProcessing(true);
+    setProcessing(true);
 
-      try {
-        await signIn('credentials', data);
+    try {
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false
+      });
 
-        //if ((res.status = 200)) {
-        //toast.success('Login realizado com sucesso');
-        setAuthenticated(true);
-
-        redirect('/');
-        //}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (ex: any) {
-        const { response } = ex;
-
-        if (response.status === 401) {
-          toast.error('Email e/ou senha inválidos');
-        } else if (response.status === 500) {
-          toast.error('Ocorreu um erro, tente novamente mais tarde');
+      if (result?.error) {
+        if (result.error === 'CredentialsSignin') {
+          toast.error(
+            'Email e/ou senha inválidos. Por favor, tente novamente.'
+          );
+        } else if (result.error.includes('MissingFields')) {
+          toast.error('Por favor, preencha todos os campos.');
+        } else if (result.error.includes('An unexpected error occurred')) {
+          toast.error(
+            'Ocorreu um erro inesperado, tente novamente mais tarde.'
+          );
+        } else {
+          toast.error(result.error);
         }
-
-        console.log(ex);
+      } else if (result?.url) {
+        toast.success('Login realizado com sucesso!');
+        setTimeout(() => {
+          redirect('/');
+        }, 500);
+      } else {
+        toast.error('Ocorreu um erro desconhecido.');
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (ex: any) {
+      console.error('Unhandled login exception:', ex);
+      toast.error('Erro de conexão, tente novamente.');
+    } finally {
       setProcessing(false);
     }
   }
@@ -106,7 +109,7 @@ export default function Login({
           </button>
           <span className={styles.signup_text}>
             Não tem uma conta?{' '}
-            <Link className={styles.signup} href="/auth/signup">
+            <Link className={styles.signup} href="/auth/register">
               Cadastre-se
             </Link>
           </span>

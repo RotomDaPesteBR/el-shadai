@@ -55,13 +55,11 @@
   width: 500px;
   height: 100%;
   font-family: 'kalam';
-  user-select: none;
 }
 
 .logo img {
   height: 100%;
   width: auto;
-  user-select: none;
 }
 
 .logo_title {
@@ -70,7 +68,7 @@
   font-weight: 700;
 }
 
-.products_container {
+.product_container {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -84,50 +82,83 @@
   box-sizing: border-box;
 }
 
-.products_tabs {
+.product_image {
+  background: colors.$primary-main;
+  border-radius: 5px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: row;
-  width: 100%;
-  height: 40px;
-  margin: 0 0 10px 0;
+  height: 250px;
+  width: 250px;
+  padding: 10px;
 }
 
-.products_tabs_btn {
+.product_image img {
+  height: 100%;
+  width: 100%;
+}
+
+.product_info {
+  padding: 20px;
+  border-radius: 5px;
+  color: white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: colors.$primary-main;
-  color: white;
-  width: 200px;
-  height: 40px;
-  margin: 0 5px 0 5px;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
-.products_tabs_btn:hover {
-  background: color.adjust(colors.$primary-main, $lightness: 10%);
-}
-
-.products_scroller {
+.product_info_upper {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
-  width: 100%;
-  height: 80vh;
-  flex-wrap: wrap;
-  overflow-y: auto;
 }
 
-.products_wrapper {
+.product_description {
   display: flex;
-  justify-content: start;
-  align-items: start;
-  flex-direction: row;
-  height: 100%;
-  flex-wrap: wrap;
-  gap: 10px;
+}
+
+.product_quantity_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.product_quantity_input {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 0;
+  margin: 5px 0 5px 0;
+}
+
+.product_quantity_btn {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 5px;
+}
+
+.product_quantity_btn_increase {
+  background: #00aaff;
+}
+
+.product_quantity_btn_decrease {
+  background: red;
+}
+
+.product_price {
+  display: flex;
 }

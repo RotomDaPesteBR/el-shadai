@@ -11,16 +11,17 @@
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^2.9.1",
-    "@prisma/client": "^6.9.0",
-    "axios": "^1.9.0",
+    "@auth/prisma-adapter": "^2.10.0",
+    "@prisma/client": "^6.10.1",
+    "axios": "^1.10.0",
+    "bcrypt": "^6.0.0",
     "date-fns": "^4.1.0",
     "dotenv": "^16.5.0",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
-    "next": "15.3.3",
-    "next-auth": "^5.0.0-beta.27",
-    "next-intl": "^4.1.0",
+    "next": "15.3.4",
+    "next-auth": "^5.0.0-beta.29",
+    "next-intl": "^4.3.1",
     "react": "^19.1.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.1.0",
@@ -28,14 +29,15 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/node": "^22",
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.3.3",
+    "eslint-config-next": "15.3.4",
     "postcss": "^8",
-    "prisma": "^6.9.0",
-    "sass": "^1.89.1",
+    "prisma": "^6.10.1",
+    "sass": "^1.89.2",
     "typescript": "^5"
   }
 }

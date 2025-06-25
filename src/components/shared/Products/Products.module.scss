@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'sass:math';
 @use '@/styles/colors.module' as colors;
 
 .disabled {
@@ -7,10 +8,9 @@
 
 .products_wrapper {
   display: flex;
-  justify-content: start;
-  align-items: start;
+  justify-content: flex-start;
+  align-items: flex-start;
   flex-direction: row;
-  height: 100%;
   flex-wrap: wrap;
-  gap: 10px;
+  width: round(down, calc(100% / 210px) * 210px, 210px);
 }

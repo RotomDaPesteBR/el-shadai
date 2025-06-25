@@ -1,9 +1,38 @@
 // src/app/api/categories/route.ts (example for App Router POST)
 //import { auth } from '@/app/auth'; // Adjust path as needed
+import { CategoryType } from '@/types/categories';
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
+
+export async function GET() {
+  try {
+    const categories = await prisma.category.findMany({
+      select: {
+        id: true,
+        categoryName: true
+      }
+    });
+
+    const modifiedCategories: Array<CategoryType> = [];
+
+    categories.forEach(category => {
+      modifiedCategories.push({ id: category.id, name: category.categoryName });
+    });
+
+    return NextResponse.json(modifiedCategories, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    // Use instanceof for better error checking if possible with Prisma errors
+    return NextResponse.json(
+      { message: 'Failed to fetch products' },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
+  }
+}
 
 export async function POST(req: Request) {
   // --- NextAuth.js v5 protection (similar to product POST) ---

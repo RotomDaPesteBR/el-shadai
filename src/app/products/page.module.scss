@@ -55,11 +55,13 @@
   width: 500px;
   height: 100%;
   font-family: 'kalam';
+  user-select: none;
 }
 
 .logo img {
   height: 100%;
   width: auto;
+  user-select: none;
 }
 
 .logo_title {

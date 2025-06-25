@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './Header.module.scss';
 
 export default function TenarisHeader({ ...props }) {
@@ -6,7 +7,13 @@ export default function TenarisHeader({ ...props }) {
       <header className={`${styles.Container} ${props.className}`} id="header">
         <div className={styles.TopBar}>
           <div className={styles.LogoContainer}>
-            <img className={styles.LogoImg} src={undefined} alt="" />
+            <Image
+              height={500}
+              width={500}
+              className={styles.LogoImg}
+              src={''}
+              alt=""
+            />
           </div>
         </div>
       </header>

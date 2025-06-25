@@ -1,7 +1,16 @@
 {
   "Pages": {
     "Index": {
-      "Title": "Catálogo"
+      "Title": "El Shadai"
+    },
+    "Login": {
+      "Title": "Entrar"
+    },
+    "Register": {
+      "Title": "Cadastrar-se"
+    },
+    "Products": {
+      "Title": "Catálogo de produtos"
     },
     "Error": {
       "Title": "Ocorreu um erro",
