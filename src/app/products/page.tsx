@@ -10,7 +10,7 @@ import Catalog from '../components/catalog';
 import styles from './page.module.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function Home({ params }: any) {
+export default async function Products({ params }: any) {
   const { locale }: { locale: string } = await params;
   setRequestLocale(locale);
 

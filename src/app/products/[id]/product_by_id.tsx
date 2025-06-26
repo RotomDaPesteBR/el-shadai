@@ -1,9 +1,11 @@
 'use client';
 
 import Textbox from '@/components/shared/Textbox/Textbox';
-import axios from 'axios';
+import { toFormattedPrice } from '@/lib/toFormattedPrice';
+import { ProductType } from '@/types/products';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useState } from 'react';
 import styles from './page.module.scss';
 
 // type ProductType = {
@@ -13,21 +15,8 @@ import styles from './page.module.scss';
 //   image: string;
 // };
 
-export default function Product_Page({ Id }: { Id: string }) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [product, setProduct] = useState<any>(undefined);
-
+export default function ProductById({ product }: { product: ProductType }) {
   const [quantity, setQuantity] = useState<number>(1);
-
-  async function getProduct() {
-    try {
-      const res = await axios.get(`/api/v1/products/${Id}`);
-
-      setProduct(res.data);
-    } catch (ex) {
-      console.error(ex);
-    }
-  }
 
   function handleQuantityChange(value: number) {
     if (value >= 1) {
@@ -45,15 +34,10 @@ export default function Product_Page({ Id }: { Id: string }) {
     }
   }
 
-  useEffect(() => {
-    getProduct();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
       <div className={styles.product_container}>
-        <div>{product?.name}</div>
+        <div className={styles.product_name}>{product?.name}</div>
         <div className={styles.product_image}>
           <Image
             priority={true}
@@ -91,8 +75,16 @@ export default function Product_Page({ Id }: { Id: string }) {
             </div>
           </div>
           <div className={styles.product_price}>
-            R${parseFloat(product?.price ?? 0).toFixed(2)}
+            Preço: {toFormattedPrice(product?.price.toString() ?? 0)}
           </div>
+        </div>
+        <div className={styles.action_buttons}>
+          <button className={styles.add_shopping_cart_btn}>
+            Adicionar ao carrinho
+          </button>
+          <Link className={styles.cancel_btn} href={'/products'}>
+            Cancelar
+          </Link>
         </div>
       </div>
     </>

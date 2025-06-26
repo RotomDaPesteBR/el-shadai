@@ -105,7 +105,14 @@ export default function Login() {
         </div>
         <div className={styles.actions}>
           <button name="login" className={styles.login_btn}>
-            Login
+            {!processing ? (
+              'Entrar'
+            ) : (
+              <div className={styles.login_btn_content}>
+                <div className={styles.login_btn_text}>Entrando...</div>
+                <div className={styles.spinner} />
+              </div>
+            )}
           </button>
           <span className={styles.signup_text}>
             Não tem uma conta?{' '}

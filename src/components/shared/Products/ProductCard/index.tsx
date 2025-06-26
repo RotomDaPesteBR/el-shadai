@@ -15,7 +15,7 @@ export default function ProductCard({ ...props }) {
         <div className={styles.product_info}>
           <span className={styles.product_title}>{props.title}</span>
           <span className={styles.product_price}>
-            {toFormattedPrice(props.price)}
+            {toFormattedPrice(props.price.toString())}
           </span>
         </div>
       </div>
