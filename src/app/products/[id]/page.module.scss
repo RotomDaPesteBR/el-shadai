@@ -8,6 +8,7 @@
   flex-direction: column;
   padding: 10px 10px 10px 10px;
   box-sizing: border-box;
+  justify-content: center;
 }
 
 .content {
@@ -52,7 +53,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 100%;
   font-family: 'kalam';
 }
@@ -66,11 +68,14 @@
   margin: 0 0 0 10px;
   font-size: 50px;
   font-weight: 700;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .product_container {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   width: 100%;
   max-width: 1500px;
@@ -82,6 +87,15 @@
   box-sizing: border-box;
 }
 
+.product_name {
+  color: colors.$primary-main;
+  display: flex;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .product_image {
   background: colors.$primary-main;
   border-radius: 5px;
@@ -89,9 +103,12 @@
   height: 250px;
   width: 250px;
   padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 .product_image img {
+  background: white;
   height: 100%;
   width: 100%;
 }
@@ -105,6 +122,10 @@
   justify-content: center;
   align-items: center;
   background: colors.$primary-main;
+  margin: 10px 0 10px 0;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
 }
 
 .product_info_upper {
@@ -112,10 +133,15 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .product_description {
   display: flex;
+  padding: 0 10px 0 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .product_quantity_wrapper {
@@ -125,12 +151,12 @@
 
 .product_quantity_input {
   display: flex;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   text-align: center;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 20px;
   box-sizing: border-box;
   border-radius: 5px;
   border: 0;
@@ -139,13 +165,13 @@
 
 .product_quantity_btn {
   display: flex;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   color: white;
   text-align: center;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 20px;
   box-sizing: border-box;
   border: 0;
   border-radius: 5px;
@@ -153,12 +179,72 @@
 
 .product_quantity_btn_increase {
   background: #00aaff;
+  cursor: pointer;
+}
+
+.product_quantity_btn_increase:hover {
+  background: color.adjust(#00aaff, $lightness: -10%);
 }
 
 .product_quantity_btn_decrease {
   background: red;
+  cursor: pointer;
+}
+
+.product_quantity_btn_decrease:hover {
+  background: color.adjust(red, $lightness: -10%);
 }
 
 .product_price {
   display: flex;
+}
+
+.action_buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.add_shopping_cart_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 200px;
+  height: 40px;
+  margin-right: 10px;
+  background: colors.$primary-main;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 100%;
+}
+
+.add_shopping_cart_btn:hover {
+  background: color.adjust(colors.$primary-main, $lightness: -10%);
+}
+
+.cancel_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 200px;
+  height: 40px;
+  margin-left: 10px;
+  background: colors.$primary-main;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 100%;
+}
+
+.cancel_btn:hover {
+  background: color.adjust(colors.$primary-main, $lightness: -10%);
 }
