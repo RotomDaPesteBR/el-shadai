@@ -60,7 +60,7 @@ export default function Register({ neighborhoods }: RegisterProps) {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/signup`,
         {
           name: name || null,
           username,
@@ -232,6 +232,7 @@ export default function Register({ neighborhoods }: RegisterProps) {
             name="signup"
             className={styles.login_btn}
             disabled={processing}
+            type="submit"
           >
             {processing ? 'Cadastrando...' : 'Cadastrar'}
           </button>

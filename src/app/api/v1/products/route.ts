@@ -13,12 +13,6 @@ export async function GET() {
     const products = await ProductsService.getAllProducts();
 
     // 2. Retorna a resposta JSON.
-    // Lembre-se: se o seu front-end espera { data: [...] }, ajuste aqui.
-    // O ProductsService.getAllProducts() já retorna ProductType[],
-    // então a linha abaixo deve ser consistente com o que o front-end espera.
-    // Se o front-end espera ProductType[], retorne NextResponse.json(products, { status: 200 });
-    // Se o front-end espera { data: ProductType[] }, retorne NextResponse.json({ data: products }, { status: 200 });
-    // Com base nas discussões anteriores, a expectativa era { data: [...] }, então manteremos assim.
     return NextResponse.json({ data: products }, { status: 200 });
   } catch (error) {
     console.error('Error fetching products via service in API route:', error);
@@ -27,12 +21,10 @@ export async function GET() {
       { status: 500 }
     );
   }
-  // Não precisamos de `finally { await prisma.$disconnect(); }` aqui,
-  // pois o serviço já gerencia a desconexão do Prisma.
 }
 
 export async function POST(req: Request) {
-  // 1. Autentica e obtém a sessão com NextAuth.js v5
+  // 1. Autentica e obtém a sessão
   const session = await auth();
 
   // Verificação básica de sessão
@@ -44,7 +36,6 @@ export async function POST(req: Request) {
     // 2. Implementa Controle de Acesso Baseado em Função (RBAC)
     // Verifica se o usuário tem a função 'admin'
     if (session.user.role !== 'admin') {
-      // Assumindo que session.user.role já é a string do role
       return NextResponse.json(
         { message: 'Forbidden: Only admin users can create products' },
         { status: 403 }

@@ -116,8 +116,8 @@ model Category{
 model Neighborhood{
     id      Int  @id @default(autoincrement())
     description    String
-    active     Boolean
     zone       String
+    active     Boolean
 
     users   User[]
 
