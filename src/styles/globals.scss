@@ -30,14 +30,12 @@ a {
 }
 
 :root[data-theme='dark'] {
-  color-scheme: dark;
+  // color-scheme: dark;
 
-  body {
-    // background: colors.$dark-background;
-    // color: colors.$dark-text;
-    background: colors.$background;
-    color: colors.$text;
-  }
+  // body {
+  //   background: colors.$dark-background;
+  //   color: colors.$dark-text;
+  // }
 }
 
 :root {

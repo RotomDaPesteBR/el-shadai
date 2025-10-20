@@ -1,0 +1,250 @@
+@use 'sass:color';
+@use '@/styles/colors.module' as colors;
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 10px 10px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.content {
+  width: 100%;
+  height: max-content;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100px;
+  width: 100%;
+}
+
+.header_spacing {
+  width: 75px;
+}
+
+.logout_btn {
+  width: 75px;
+  height: 75px;
+  background: colors.$primary-main;
+  color: colors.$dark-text;
+  border: 0;
+  border-radius: 3px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.logout_btn:hover {
+  background: color.adjust(colors.$primary-main, $lightness: -10%);
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  font-family: 'kalam';
+}
+
+.logo img {
+  height: 100%;
+  width: auto;
+}
+
+.logo_title {
+  margin: 0 0 0 10px;
+  font-size: 50px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.product_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1500px;
+  height: 80vh;
+  background-color: #ffddab;
+  margin: 10px 0 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.product_name {
+  color: colors.$primary-main;
+  display: flex;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.product_image {
+  background: colors.$primary-main;
+  border-radius: 5px;
+  display: flex;
+  height: 250px;
+  width: 250px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.product_image img {
+  background: white;
+  height: 100%;
+  width: 100%;
+}
+
+.product_info {
+  padding: 20px;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: colors.$primary-main;
+  margin: 10px 0 10px 0;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+.product_info_upper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.product_description {
+  display: flex;
+  padding: 0 10px 0 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.product_quantity_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.product_quantity_input {
+  display: flex;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 0;
+  margin: 5px 0 5px 0;
+}
+
+.product_quantity_btn {
+  display: flex;
+  height: 40px;
+  width: 40px;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 5px;
+}
+
+.product_quantity_btn_increase {
+  background: #00aaff;
+  cursor: pointer;
+}
+
+.product_quantity_btn_increase:hover {
+  background: color.adjust(#00aaff, $lightness: -10%);
+}
+
+.product_quantity_btn_decrease {
+  background: red;
+  cursor: pointer;
+}
+
+.product_quantity_btn_decrease:hover {
+  background: color.adjust(red, $lightness: -10%);
+}
+
+.product_price {
+  display: flex;
+}
+
+.action_buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.add_shopping_cart_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 200px;
+  height: 40px;
+  margin-right: 10px;
+  background: colors.$primary-main;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 100%;
+}
+
+.add_shopping_cart_btn:hover {
+  background: color.adjust(colors.$primary-main, $lightness: -10%);
+}
+
+.cancel_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 200px;
+  height: 40px;
+  margin-left: 10px;
+  background: colors.$primary-main;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 100%;
+}
+
+.cancel_btn:hover {
+  background: color.adjust(colors.$primary-main, $lightness: -10%);
+}

@@ -1,12 +1,12 @@
 // src/app/products/[id]/page.tsx
 import RouteProtection from '@/components/server/RouteProtection';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
-import { signOut } from '../../auth';
+import Product_Page from '../../components/products/[id]/product_by_id';
 import styles from './page.module.scss';
-import Product_Page from './product_by_id';
 
 // Importe o ProductsService e o tipo ProductType
+import PageContainer from '@/components/shared/Containers/PageContainer';
+import PageHeader from '@/components/shared/PageHeader';
 import { ProductsService } from '@/services/ProductsService';
 import { ProductType } from '@/types/products';
 
@@ -77,34 +77,10 @@ export default async function ProductById_Page({ params }: any) {
     <>
       <title>{t('Title')}</title>
       <RouteProtection />
-      <div className={`font-[family-name:inter] ${styles.container}`}>
-        <div className={`${styles.content}`}>
-          <div className={styles.header}>
-            <form
-              action={async () => {
-                'use server';
-                await signOut();
-                return;
-              }}
-            >
-              <button className={styles.logout_btn}>Logout</button>
-            </form>
-            <div className={styles.logo}>
-              <Image
-                src="/images/logo.png"
-                alt="El Shadai Logo"
-                height={1000}
-                width={1000}
-                draggable={false}
-              />
-              <div className={styles.logo_title}>El Shadai</div>
-            </div>
-            <div className={styles.header_spacing} />
-          </div>
-          {/* Passa o objeto `product` para o componente Product_Page */}
-          <Product_Page product={product} />
-        </div>
-      </div>
+      <PageContainer>
+        <PageHeader />
+        <Product_Page product={product} />
+      </PageContainer>
     </>
   );
 }

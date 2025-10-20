@@ -6,10 +6,10 @@ import { ProductsService } from '@/services/ProductsService';
 import { CategoryType } from '@/types/categories';
 import { GroupedProducts, ProductType } from '@/types/products';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Catalog from '../components/products/catalog';
+import Cart from '../components/cart';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function Products({ params }: any) {
+export default async function CartPage({ params }: any) {
   const { locale }: { locale: string } = await params;
   setRequestLocale(locale);
 
@@ -45,7 +45,7 @@ export default async function Products({ params }: any) {
       <RouteProtection />
       <PageContainer>
         <PageHeader />
-        <Catalog categories={categories} products={groupedProducts} />
+        <Cart />
       </PageContainer>
     </>
   );

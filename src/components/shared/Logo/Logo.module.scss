@@ -1,0 +1,25 @@
+@use 'sass:color';
+@use '@/styles/colors.module' as colors;
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 100%;
+  font-family: 'kalam';
+  user-select: none;
+}
+
+.logo img {
+  height: 100%;
+  width: auto;
+  user-select: none;
+}
+
+.logo_title {
+  margin: 0 0 0 10px;
+  font-size: 50px;
+  font-weight: 700;
+}
