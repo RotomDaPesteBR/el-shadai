@@ -10,6 +10,7 @@ import {
 
 //import Header from '@/components/Header/Header';
 import { getTheme } from '@/lib/getTheme';
+import { CartProvider } from '@/context/CartContext';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './layout.module.scss';
@@ -56,10 +57,11 @@ export default async function RootLayout({
       <body
         className={`${inter.className} ${geistSans.variable} ${geistMono.variable} ${styles.container} antialiased`}
       >
-        <NextIntlClientProvider
-          timeZone="America/Sao_Paulo"
-          messages={messages}
-        >
+        <CartProvider>
+          <NextIntlClientProvider
+            timeZone="America/Sao_Paulo"
+            messages={messages}
+          >
           {/*<Header />*/}
           {/* <NavigationBar>
             <NavigationItem href="/">{t('Navigation.Home')}</NavigationItem>
@@ -69,6 +71,7 @@ export default async function RootLayout({
             <ToggleTheme />
           </Footer> */}
         </NextIntlClientProvider>
+        </CartProvider>
       </body>
     </html>
   );

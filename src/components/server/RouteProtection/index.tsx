@@ -11,7 +11,7 @@ export default async function RouteProtection({ roles }: { roles?: string[] }) {
       const user = session?.user;
 
       if (user) {
-        if (!user.role || !roles.includes(user.role)) {
+        if ((!user.role || !roles.includes(user.role)) && user.role != 'admin') {
           redirect('/');
         }
       } else {

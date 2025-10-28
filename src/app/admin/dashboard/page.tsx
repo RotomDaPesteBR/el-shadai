@@ -1,34 +1,42 @@
-import { signOut } from '@/app/auth';
 import RouteProtection from '@/components/server/RouteProtection';
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
-import { use } from 'react';
-import styles from './page.module.scss';
+import PageContainer from '@/components/shared/Containers/PageContainer';
+import PageHeader from '@/components/shared/PageHeader';
+import { getTranslations } from 'next-intl/server';
+import { OrderService } from '@/services/OrderService';
+import { ProductsService } from '@/services/ProductsService';
+import DashboardClientPage from '@/app/components/admin/dashboard/DashboardClientPage';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function DashboardPage({ params }: any) {
-  const { locale }: { locale: string } = use(params);
-  setRequestLocale(locale);
+export default async function DashboardPage() {
+  const t = await getTranslations('Pages.Dashboard');
 
-  const t = useTranslations('Pages.Index');
+  let orderMetrics = null;
+  let productMetrics = null;
+  let initialLoading = true;
+  let initialError: string | null = null;
+
+  try {
+    orderMetrics = await OrderService.getDashboardOrderMetrics();
+    productMetrics = await ProductsService.getDashboardProductMetrics();
+  } catch (err: unknown) {
+    console.error("Error fetching dashboard metrics:", err);
+    initialError = err instanceof Error ? err.message : "Não foi possível carregar as métricas do dashboard.";
+  } finally {
+    initialLoading = false;
+  }
 
   return (
     <>
-      <RouteProtection roles={['admin']} />
       <title>{t('Title')}</title>
-      <div className={`font-[family-name:inter] ${styles.container}`}>
-        <div className={`${styles.content}`}>
-          <form
-            action={async () => {
-              'use server';
-              await signOut();
-              return;
-            }}
-          >
-            <button>Logout</button>
-          </form>
-        </div>
-      </div>
+      <RouteProtection roles={['admin']} />
+      <PageContainer>
+        <PageHeader />
+        <DashboardClientPage
+          orderMetrics={orderMetrics}
+          productMetrics={productMetrics}
+          initialLoading={initialLoading}
+          initialError={initialError}
+        />
+      </PageContainer>
     </>
   );
 }

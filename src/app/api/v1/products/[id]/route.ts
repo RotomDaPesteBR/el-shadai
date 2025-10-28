@@ -1,9 +1,5 @@
-// src/app/api/v1/products/[id]/route.ts
-import { ProductsService } from '@/services/ProductsService'; // Importa o serviço de produtos
+import { ProductsService } from '@/services/ProductsService';
 import { NextRequest, NextResponse } from 'next/server';
-
-// Não precisamos mais do PrismaClient aqui, pois a lógica está no serviço.
-// const prisma = new PrismaClient();
 
 export async function GET(
   request: NextRequest,

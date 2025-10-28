@@ -48,56 +48,6 @@ $dark-text: #f3f3f3;
 
 $border: #333333;
 
-:export {
-  // Primary
-  primary-main: $primary-main;
-  primary-alt: $primary-alt;
-  primary-light: $primary-light;
-  primary-success: $primary-success;
-  primary-success-dark: $primary-success-dark;
-  primary-accent: $primary-accent;
-  primary-accent-dark: $primary-accent-dark;
-  primary-muted: $primary-muted;
-  primary-dark: $primary-dark;
-
-  // Secondary
-  secondary-main: $secondary-main;
-  secondary-alt: $secondary-alt;
-  secondary-light: $secondary-light;
-  secondary-success: $secondary-success;
-  secondary-success-dark: $secondary-success-dark;
-  secondary-accent: $secondary-accent;
-  secondary-accent-dark: $secondary-accent-dark;
-  secondary-muted: $secondary-muted;
-  secondary-dark: $secondary-dark;
-
-  // Tertiary
-  tertiary-main: $tertiary-main;
-  tertiary-alt: $tertiary-alt;
-  tertiary-light: $tertiary-light;
-  tertiary-success: $tertiary-success;
-  tertiary-success-dark: $tertiary-success-dark;
-  tertiary-accent: $tertiary-accent;
-  tertiary-accent-dark: $tertiary-accent-dark;
-  tertiary-muted: $tertiary-muted;
-  tertiary-dark: $tertiary-dark;
-
-  // Grays
-  gray-10: $gray-10;
-  gray-20: $gray-20;
-  gray-30: $gray-30;
-  gray-40: $gray-40;
-
-  black: $black;
-
-  //Other
-  background: $background;
-  text: $text;
-  dark-background: $dark-background;
-  dark-text: $dark-text;
-  border: $border;
-}
-
 // @include themed-color(primary, main);
 @mixin themed-color($group, $type) {
   $var-name: unquote('#{$group}-#{$type}');

@@ -127,7 +127,7 @@ model Neighborhood{
 
 model OrderState{
     id      Int  @id @default(autoincrement())
-    state  String
+    state  String @unique
 
     order Order[]
 

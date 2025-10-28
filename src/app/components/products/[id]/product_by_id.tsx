@@ -6,6 +6,7 @@ import { ProductType } from '@/types/products';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useCart } from '@/context/CartContext';
 import styles from './page.module.scss';
 
 // type ProductType = {
@@ -33,6 +34,14 @@ export default function ProductById({ product }: { product: ProductType }) {
       setQuantity(1);
     }
   }
+
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product, quantity);
+    }
+  };
 
   return (
     <>
@@ -79,9 +88,14 @@ export default function ProductById({ product }: { product: ProductType }) {
           </div>
         </div>
         <div className={styles.action_buttons}>
-          <button className={styles.add_shopping_cart_btn}>
+          <button
+            className={styles.add_shopping_cart_btn}
+            onClick={handleAddToCart}
+            disabled={product.stock <= 0}
+          >
             Adicionar ao carrinho
           </button>
+          {product.stock <= 0 && <p className={styles.out_of_stock_message}>Fora de estoque</p>}
           <Link className={styles.cancel_btn} href={'/products'}>
             Cancelar
           </Link>

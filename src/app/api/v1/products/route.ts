@@ -3,10 +3,6 @@ import { auth } from '@/app/auth'; // Mantém para autenticação e RBAC
 import { ProductsService } from '@/services/ProductsService'; // Importa o serviço de produtos
 import { NextResponse } from 'next/server';
 
-// Não precisamos mais do PrismaClient e ProductType aqui, pois a lógica está no serviço.
-// const prisma = new PrismaClient();
-// type ProductsType = Array<ProductType>;
-
 export async function GET() {
   try {
     // 1. Chama a lógica de buscar todos os produtos do ProductsService

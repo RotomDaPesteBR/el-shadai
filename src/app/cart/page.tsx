@@ -1,10 +1,6 @@
 import RouteProtection from '@/components/server/RouteProtection';
 import PageContainer from '@/components/shared/Containers/PageContainer';
 import PageHeader from '@/components/shared/PageHeader';
-import { CategoriesService } from '@/services/CategoriesService';
-import { ProductsService } from '@/services/ProductsService';
-import { CategoryType } from '@/types/categories';
-import { GroupedProducts, ProductType } from '@/types/products';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Cart from '../components/cart';
 
@@ -14,30 +10,6 @@ export default async function CartPage({ params }: any) {
   setRequestLocale(locale);
 
   const t = await getTranslations('Pages.Products');
-
-  let products: ProductType[] = [];
-  let categories: CategoryType[] = [];
-
-  try {
-    products = await ProductsService.getAllProducts();
-    categories = await CategoriesService.getAllCategories();
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.error('Error fetching data for catalog:', error.message);
-    products = [];
-    categories = [];
-  }
-
-  const groupedProducts: GroupedProducts = {};
-
-  products.forEach((product: ProductType) => {
-    if (!groupedProducts[product.categoryId]) {
-      groupedProducts[product.categoryId] = [];
-    }
-
-    groupedProducts[product.categoryId].push(product);
-  });
 
   return (
     <>

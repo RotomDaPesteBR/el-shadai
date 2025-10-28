@@ -10,7 +10,92 @@
       "Title": "Cadastrar-se"
     },
     "Products": {
-      "Title": "Catálogo de produtos"
+      "Title": "Produtos"
+    },
+    "Checkout": {
+      "Title": "Confirmação do Pedido",
+      "OrderItems": "Itens do Pedido",
+      "Total": "Total:",
+      "DeliveryAddress": "Endereço de Entrega",
+      "PaymentMethod": "Método de Pagamento",
+      "Cash": "Dinheiro",
+      "CardMachine": "Máquina de Cartão",
+      "ChangeNeeded": "Precisa de troco para quanto?",
+      "ConfirmOrder": "Confirmar Pedido",
+      "OrderConfirmedTitle": "Pedido Confirmado!",
+      "ConfirmationMessage1": "Seu pedido foi recebido e será processado em breve.",
+      "ConfirmationMessage2": "Agradecemos a sua preferência!",
+      "CartEmptyTitle": "Seu carrinho está vazio.",
+      "CartEmptyMessage": "Adicione produtos para finalizar seu pedido.",
+      "DeliveryOption": "Opção de Entrega",
+      "HomeDelivery": "Entrega em Casa",
+      "StorePickup": "Buscar na Loja"
+    },
+    "Orders": {
+      "Title": "Meus Pedidos",
+      "NoOrders": "Você ainda não fez nenhum pedido.",
+      "OrderNumber": "Pedido",
+      "TotalPrice": "Valor Total",
+      "Status": "Status",
+      "OrderDate": "Data do Pedido"
+    },
+    "OrderDetails": {
+      "Title": "Detalhes do Pedido",
+      "OrderNotFound": "Pedido não encontrado.",
+      "OrderSummary": "Resumo do Pedido",
+      "DeliveryMethod": "Método de Entrega",
+      "ProductsInOrder": "Produtos no Pedido"
+    },
+    "DeliveryOrders": {
+      "Title": "Pedidos para Entrega",
+      "NoDeliveryOrders": "Não há pedidos pendentes para entrega.",
+      "ClientName": "Nome do Cliente",
+      "ClientAddress": "Endereço do Cliente"
+    },
+    "DeliveryOrderDetails": {
+      "Title": "Detalhes do Pedido de Entrega",
+      "OrderNotFound": "Pedido de entrega não encontrado.",
+      "SetOnTheWay": "Definir como A Caminho",
+      "SetDelivered": "Definir como Entregue"
+    },
+    "AdminProducts": {
+      "Title": "Gerenciar Produtos",
+      "SearchPlaceholder": "Buscar produtos...",
+      "AddProduct": "Adicionar Produto",
+      "NoProductsFound": "Nenhum produto encontrado.",
+      "Price": "Preço",
+      "Stock": "Estoque",
+      "Edit": "Editar",
+      "Category": "Categoria"
+    },
+    "AdminAddProduct": {
+      "Title": "Adicionar Novo Produto",
+      "AllFieldsRequired": "Todos os campos obrigatórios devem ser preenchidos.",
+      "ProductAddedSuccessfully": "Produto adicionado com sucesso!",
+      "FailedToAddProduct": "Falha ao adicionar produto.",
+      "ProductName": "Nome do Produto",
+      "ProductDescription": "Descrição do Produto",
+      "ProductPrice": "Preço",
+      "ProductStock": "Estoque",
+      "ProductImage": "Imagem do Produto",
+      "AddingProduct": "Adicionando Produto...",
+      "ProductCategory": "Categoria do Produto",
+      "SelectCategory": "Selecione uma categoria"
+    },
+    "AdminEditProduct": {
+      "Title": "Editar Produto",
+      "ProductNotFound": "Produto não encontrado.",
+      "UpdatingProduct": "Atualizando Produto...",
+      "UpdateProduct": "Atualizar Produto",
+      "ProductUpdatedSuccessfully": "Produto atualizado com sucesso!",
+      "FailedToUpdateProduct": "Falha ao atualizar produto.",
+      "ProductName": "Nome do Produto",
+      "ProductDescription": "Descrição do Produto",
+      "ProductPrice": "Preço",
+      "ProductStock": "Estoque",
+      "ProductImage": "Imagem do Produto",
+      "ProductCategory": "Categoria do Produto",
+      "SelectCategory": "Selecione uma categoria"
     },
     "Error": {
       "Title": "Ocorreu um erro",
@@ -19,6 +104,17 @@
     "404": {
       "Title": "Página não encontrada",
       "Message": "Erro 404 - Página não encontrada"
+    },
+    "Dashboard": {
+      "Title": "Dashboard Admin",
+      "TotalOrders": "Total de Pedidos",
+      "TotalRevenue": "Faturamento Total",
+      "TotalProducts": "Total de Produtos",
+      "LowStockProducts": "Produtos com Baixo Estoque",
+      "Below": "Abaixo de",
+      "OrdersByStatus": "Pedidos por Status",
+      "OrdersCount": "Contagem de Pedidos",
+      "RevenueByStatus": "Faturamento por Status"
     }
   },
   "Components": {

@@ -1,8 +1,9 @@
 // src/services/CategoriesService.ts
 import { CategoryType } from '@/types/categories';
 import { Category, PrismaClient } from '@prisma/client';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient().$extends(withAccelerate());
 
 // Interface para o corpo da requisição de criação de categoria
 interface CreateCategoryPayload {
