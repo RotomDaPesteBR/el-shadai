@@ -3,11 +3,14 @@
 
 .container {
   padding: 20px;
+  background-color: #ffddab; // Requested background color
+  color: black; // Requested text color
+  overflow-y: auto; // Added overflow-y
 
   .title {
     font-size: 2em;
     margin-bottom: 20px;
-    color: var(--text-color);
+    color: black; // Ensure title is black
   }
 
   .form {
@@ -26,18 +29,20 @@
       label {
         margin-bottom: 5px;
         font-weight: bold;
-        color: var(--text-color);
+        color: black; // Ensure label is black
       }
 
       input[type="text"],
       input[type="number"],
       input[type="file"],
-      textarea {
+      textarea,
+      select { // Added select
+        height: 40px; // Requested height
         padding: 10px;
         border: 1px solid var(--border-color);
         border-radius: 5px;
-        background-color: var(--input-bg-color);
-        color: var(--text-color);
+        background-color: white; // Requested background color
+        color: black; // Requested text color
 
         &:focus {
           outline: none;
@@ -52,9 +57,10 @@
     }
 
     .submit_button {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 12px 20px;
+      background-color: colors.$primary-main; // Requested background color
+      color: white; // Requested text color
+      height: 40px; // Requested height
+      padding: 0 20px; // Adjust padding for height
       border: none;
       border-radius: 5px;
       cursor: pointer;

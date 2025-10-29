@@ -23,9 +23,10 @@ interface DeliveryOrderDetails {
   products: ProductInOrder[];
 }
 
-export default async function DeliveryOrderDetailsPage({ params }: { params: { id: string } }) {
+export default async function DeliveryOrderDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const t = await getTranslations('Pages.DeliveryOrderDetails');
-  const orderId = params.id;
+  const { id } = await params;
+  const orderId = id;
 
   const session = await auth();
   const userId = session?.user?.id;

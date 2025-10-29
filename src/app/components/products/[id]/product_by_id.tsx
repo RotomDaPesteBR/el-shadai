@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
+import { useRouter } from 'next/navigation'; // Import useRouter
 import styles from './page.module.scss';
 
 // type ProductType = {
@@ -36,10 +37,12 @@ export default function ProductById({ product }: { product: ProductType }) {
   }
 
   const { addToCart } = useCart();
+  const router = useRouter(); // Initialize useRouter
 
   const handleAddToCart = () => {
     if (product) {
       addToCart(product, quantity);
+      router.push('/cart'); // Redirect to cart page
     }
   };
 

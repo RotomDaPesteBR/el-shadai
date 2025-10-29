@@ -1,10 +1,10 @@
 "use client";
 
 import { useTranslations } from 'next-intl';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, PieLabelRenderProps, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import styles from './DashboardClientPage.module.scss';
 
-interface StatusMetric {
+interface StatusMetric extends Record<string, string | number> {
   status: string;
   count: number;
   revenue: number;
@@ -30,6 +30,22 @@ interface DashboardClientPageProps {
 }
 
 const CHART_COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
+
+// Define the CustomPieLabel component
+const CustomPieLabel = ({ cx, cy, midAngle, outerRadius, percent, payload }: PieLabelRenderProps) => {
+  const RADIAN = Math.PI / 180;
+  const radius = (outerRadius as number) + 10;
+  const x = (cx as number) + radius * Math.cos(-(midAngle as number) * RADIAN);
+  const y = (cy as number) + radius * Math.sin(-(midAngle as number) * RADIAN);
+
+  const percentageValue = (percent as number) * 100; // Explicitly cast percent to number
+
+  return (
+    <text x={x} y={y} fill="black" textAnchor={x > (cx as number) ? 'start' : 'end'} dominantBaseline="central">
+      {`${(payload as StatusMetric).status} ${percentageValue.toFixed(0)}%`}
+    </text>
+  );
+};
 
 export default function DashboardClientPage({
   orderMetrics,
@@ -110,11 +126,12 @@ export default function DashboardClientPage({
                 fill={CHART_COLORS[0]}
                 dataKey="revenue"
                 nameKey="status"
-                label={({ status, percent }: { status: string; percent: number }) => `${status} ${(percent * 100).toFixed(0)}%`}
+                label={CustomPieLabel} 
               >
-                {orderMetrics?.statusMetrics.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                ))}
+                {orderMetrics?.statusMetrics && orderMetrics.statusMetrics.length > 0 && // Add conditional check
+                  orderMetrics.statusMetrics.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length] || '#CCCCCC'} /> // Added fallback
+                  ))}
               </Pie>
               <Tooltip formatter={(value) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} />
               <Legend />

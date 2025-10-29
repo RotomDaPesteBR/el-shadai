@@ -21,7 +21,7 @@ interface ProductDetails {
   categoryId: number;
 }
 
-export default async function AdminEditProductPage({ params }: { params: { id: string } }) {
+export default async function AdminEditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const t = await getTranslations('Pages.AdminEditProduct');
   const { id } = await params;
   const productId = id;

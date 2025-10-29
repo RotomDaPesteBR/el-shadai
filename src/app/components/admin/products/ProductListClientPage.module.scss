@@ -3,11 +3,14 @@
 
 .container {
   padding: 20px;
+  background-color: #ffddab; // Requested background color
+  color: black; // Requested text color
+  overflow-y: auto; // Added overflow-y
 
   .title {
     font-size: 2em;
     margin-bottom: 20px;
-    color: var(--text-color);
+    color: black; // Ensure title is black
   }
 
   .actions {
@@ -17,11 +20,12 @@
 
     .search_input {
       flex-grow: 1;
+      height: 40px; // Requested height
       padding: 10px;
       border: 1px solid var(--border-color);
       border-radius: 5px;
-      background-color: var(--input-bg-color);
-      color: var(--text-color);
+      background-color: white; // Requested background color
+      color: black; // Requested text color
 
       &::placeholder {
         color: var(--text-color-light);
@@ -29,9 +33,10 @@
     }
 
     .add_button {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 10px 15px;
+      background-color: colors.$primary-main; // Requested background color
+      color: white; // Requested text color
+      height: 40px; // Requested height
+      padding: 0 15px; // Adjust padding for height
       border-radius: 5px;
       text-decoration: none;
       display: flex;
@@ -54,7 +59,8 @@
       align-items: center;
       padding: 15px;
       margin-bottom: 10px;
-      background-color: var(--card-bg-color);
+      background-color: colors.$primary-main; // Requested background color
+      color: white; // Requested text color
       border-radius: 8px;
       box-shadow: var(--shadow);
 
@@ -70,17 +76,17 @@
 
         h3 {
           margin: 0;
-          color: var(--text-color);
+          color: white; // Ensure text is white
         }
 
         p {
           margin: 0;
-          color: var(--text-color-light);
+          color: white; // Ensure text is white
         }
       }
 
       .edit_button {
-        background-color: var(--secondary-color);
+        background-color: colors.$secondary-main; // Keep secondary color for edit button
         color: white;
         padding: 8px 12px;
         border-radius: 5px;

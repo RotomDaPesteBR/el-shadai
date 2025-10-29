@@ -1,9 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Role, User } from '@prisma/client';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient().$extends(withAccelerate());
+
+type UserWithRole = User & { role: Role };
 
 export async function POST(req: Request) {
   try {
@@ -19,19 +21,24 @@ export async function POST(req: Request) {
       );
     }
 
-    // Buscar o usuário e INCLUIR a relação 'role' para obter o nome do role
+    // Buscar o usuário e selecionar os campos necessários, incluindo o nome do role
     const user = await prisma.user.findFirst({
       where: {
         OR: [{ username: identifier }, { email: identifier }]
       },
-      include: {
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        email: true,
+        password: true, // Still need password for comparison
         role: {
           select: {
             role: true
           }
         }
-      }
-    });
+      },
+    }) as UserWithRole;
 
     if (!user) {
       return NextResponse.json(

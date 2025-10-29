@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -14,7 +14,8 @@ export async function GET(
     }
 
     const userId = session.user.id;
-    const orderId = parseInt(params.id, 10);
+    const { id } = await params;
+    const orderId = parseInt(id, 10);
 
     if (isNaN(orderId)) {
       return NextResponse.json({ message: 'Invalid Order ID' }, { status: 400 });

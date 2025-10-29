@@ -140,7 +140,7 @@ export class ProductsService {
         cacheStrategy: { // Added cacheStrategy
           swr: 60,
           ttl: 60,
-          tags: [`product-${id}`],
+          tags: [`products`],
         },
       });
 
@@ -215,18 +215,18 @@ export class ProductsService {
           image: data.image,
         },
       });
-      try {
-        await prisma.$accelerate.invalidate({
-          tags: ['products', `product-${id}`, 'categories'],
-        });
-      } catch (e) {
-        if (e instanceof Prisma.PrismaClientKnownRequestError) {
-          if (e.code === 'P6003') {
-            console.log('The cache invalidation rate limit has been reached. Please try again later.');
-          }
-        }
-        throw e; // Re-throw the error if it's not a rate limit issue
-      }
+      // try {
+      //   await prisma.$accelerate.invalidate({
+      //     tags: ['products', 'categories'],
+      //   });
+      // } catch (e) {
+      //   if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      //     if (e.code === 'P6003') {
+      //       console.log('The cache invalidation rate limit has been reached. Please try again later.');
+      //     }
+      //   }
+      //   throw e; // Re-throw the error if it's not a rate limit issue
+      // }
       return updatedProduct;
     } finally {
       // await prisma.$disconnect(); // Removed to allow Accelerate to manage connections

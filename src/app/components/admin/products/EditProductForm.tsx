@@ -1,11 +1,11 @@
 "use client";
 
-import styles from 'EditProductForm.module.scss';
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import styles from './EditProductForm.module.scss';
 
 interface CategorySummary {
   id: number;
@@ -210,7 +210,7 @@ export default function EditProductForm({
             onChange={handleImageChange}
           />
           {currentImage && (
-            <Image src={currentImage} alt="Product Preview" className={styles.image_preview} />
+            <Image width={500} height={500} src={currentImage} alt="Product Preview" className={styles.image_preview} />
           )}
         </div>
         <button type="submit" className={styles.submit_button} disabled={loading}>

@@ -5,17 +5,17 @@
   padding: 20px;
   max-width: 700px;
   margin: 20px auto;
-  background-color: #006b33;
+  background-color: #ffddab; // Changed background color
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   height: 80vh; /* Set a fixed height */
   overflow-y: auto; /* Enable vertical scrolling */
-  color: colors.$dark-text; /* Set text color to light */
+  color: black; // Changed text color
 }
 
 .checkout_title {
   font-size: 2.2em;
-  color: colors.$dark-text;
+  color: black; // Changed text color
   text-align: center;
   margin-bottom: 30px;
   border-bottom: 2px solid #eee;
@@ -36,7 +36,7 @@
 
 .section_title {
   font-size: 1.5em;
-  color: colors.$dark-text;
+  color: black; // Changed text color
   margin-bottom: 15px;
 }
 
@@ -57,7 +57,7 @@
   }
 
   span {
-    color: colors.$dark-text;
+    color: black; // Changed text color
   }
 }
 
@@ -65,7 +65,7 @@
   font-size: 1.3em;
   text-align: right;
   margin-top: 15px;
-  color: colors.$dark-text;
+  color: black; // Changed text color
 
   strong {
     font-weight: bold;
@@ -73,11 +73,11 @@
 }
 
 .address_text {
-  background-color: color.adjust(colors.$primary-main, $lightness: 10%);
-  border: 1px solid color.adjust(colors.$primary-main, $lightness: 20%);
+  background-color: white; // Changed background color
+  border: 1px solid var(--border-color);
   padding: 10px;
   border-radius: 5px;
-  color: colors.$dark-text;
+  color: black; // Changed text color
 }
 
 .delivery_options {
@@ -96,7 +96,7 @@
   display: flex;
   align-items: center;
   font-size: 1.1em;
-  color: colors.$dark-text;
+  color: black; // Changed text color
   cursor: pointer;
 
   input[type='radio'] {
@@ -111,7 +111,7 @@
   label {
     display: block;
     margin-bottom: 8px;
-    color: colors.$dark-text;
+    color: black; // Changed text color
   }
 }
 
@@ -122,31 +122,34 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1em;
-  color: #333; /* Ensure input text is dark for readability */
+  color: black; // Changed text color
+  height: 40px; // Requested height
+  background-color: white; // Requested background color
 }
 
 .confirm_order_btn {
   display: block;
   width: 100%;
-  padding: 15px;
-  background-color: #007bff;
-  color: white;
+  padding: 0 15px; // Adjust padding for height
+  background-color: colors.$primary-main; // Changed background color
+  color: white; // Changed text color
   border: none;
   border-radius: 5px;
   font-size: 1.2em;
   cursor: pointer;
   margin-top: 30px;
   transition: background-color 0.3s ease;
+  height: 40px; // Requested height
 
   &:hover {
-    background-color: #0056b3;
+    background-color: color.adjust(colors.$primary-main, $lightness: -10%);
   }
 }
 
 .confirmation_message {
   text-align: center;
   font-size: 1.2em;
-  color: colors.$dark-text;
+  color: black; // Changed text color
   margin-bottom: 10px;
 }
 

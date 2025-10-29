@@ -2,9 +2,10 @@ import { NextResponse } from 'next/server';
 import { ProductsService } from '@/services/ProductsService';
 import { uploadImageToCloudinary } from '@/lib/cloudinary';
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const productId = params.id;
+    const { id } = await params;
+    const productId = id;
     const formData = await request.formData();
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;

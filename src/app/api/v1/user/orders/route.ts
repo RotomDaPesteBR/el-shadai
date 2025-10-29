@@ -1,5 +1,5 @@
-import { auth } from '@/src/app/auth';
-import { OrderService } from '@/src/services/OrderService';
+import { auth } from '@/app/auth';
+import { OrderService } from '@/services/OrderService';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
