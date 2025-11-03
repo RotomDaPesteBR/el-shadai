@@ -9,8 +9,8 @@ export async function PUT(
   try {
     const session = await auth();
 
-    // Assuming a 'delivery' role for delivery personnel
-    if (!session || !session.user || session.user.role !== 'delivery') {
+    // Assuming 'delivery' or 'admin' role for delivery personnel
+    if (!session || !session.user || (session.user.role !== 'delivery' && session.user.role !== 'admin')) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 

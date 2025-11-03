@@ -45,6 +45,28 @@
     }
   }
 
+  .low_stock_list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    text-align: left;
+
+    .low_stock_item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: colors.$danger-main; // Red background for urgency
+      color: white;
+      padding: 8px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+
+      img {
+        border-radius: 3px;
+      }
+    }
+  }
+
   .charts_grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

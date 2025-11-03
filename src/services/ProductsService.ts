@@ -21,6 +21,13 @@ interface CategorySummary {
   categoryName: string;
 }
 
+interface LowStockProductSummary {
+  id: number;
+  name: string;
+  stock: number;
+  image?: string | null;
+}
+
 // Interface para o corpo da requisição de criação de produto
 interface CreateProductPayload {
   name: string;
@@ -76,7 +83,7 @@ export class ProductsService {
           id: product.id,
           name: product.name,
           description: product.description,
-          price: product.price instanceof Decimal ? product.price.toNumber() : Number(product.price),
+          price: product.price.toNumber(),
           stock: product.stock,
           image: product.image,
           categoryId: product.categoryId,
@@ -153,7 +160,7 @@ export class ProductsService {
       const modifiedProduct: ProductType = {
         ...productWithoutCategory,
         // Convert Decimal price to a plain number
-        price: price instanceof Decimal ? price.toNumber() : Number(price),
+        price: price.toNumber(),
         categoryName: category.categoryName
       };
 
@@ -215,18 +222,18 @@ export class ProductsService {
           image: data.image,
         },
       });
-      // try {
-      //   await prisma.$accelerate.invalidate({
-      //     tags: ['products', 'categories'],
-      //   });
-      // } catch (e) {
-      //   if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      //     if (e.code === 'P6003') {
-      //       console.log('The cache invalidation rate limit has been reached. Please try again later.');
-      //     }
-      //   }
-      //   throw e; // Re-throw the error if it's not a rate limit issue
-      // }
+      try {
+        await prisma.$accelerate.invalidate({
+          tags: ['products', `product-${id}`, 'categories'],
+        });
+      } catch (e) {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          if (e.code === 'P6003') {
+            console.log('The cache invalidation rate limit has been reached. Please try again later.');
+          }
+        }
+        throw e; // Re-throw the error if it's not a rate limit issue
+      }
       return updatedProduct;
     } finally {
       // await prisma.$disconnect(); // Removed to allow Accelerate to manage connections
@@ -236,17 +243,23 @@ export class ProductsService {
   static async getDashboardProductMetrics(lowStockThreshold: number = 10) {
     try {
       const totalProducts = await prisma.product.count();
-      const lowStockProducts = await prisma.product.count({
+      const lowStockProductsList = await prisma.product.findMany({
         where: {
           stock: {
             lt: lowStockThreshold,
           },
         },
+        select: {
+          id: true,
+          name: true,
+          stock: true,
+          image: true,
+        },
       });
 
       return {
         totalProducts,
-        lowStockProducts,
+        lowStockProducts: lowStockProductsList, // Return the list
         lowStockThreshold,
       };
     } finally {

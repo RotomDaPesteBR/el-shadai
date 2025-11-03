@@ -6,11 +6,18 @@ import { OrderService } from '@/services/OrderService';
 import { ProductsService } from '@/services/ProductsService';
 import DashboardClientPage from '@/app/components/admin/dashboard/DashboardClientPage';
 
+interface LowStockProductSummary {
+  id: number;
+  name: string;
+  stock: number;
+  image?: string | null;
+}
+
 export default async function DashboardPage() {
   const t = await getTranslations('Pages.Dashboard');
 
   let orderMetrics = null;
-  let productMetrics = null;
+  let productMetrics: { totalProducts: number; lowStockProducts: LowStockProductSummary[]; lowStockThreshold: number } | null = null;
   let initialLoading = true;
   let initialError: string | null = null;
 

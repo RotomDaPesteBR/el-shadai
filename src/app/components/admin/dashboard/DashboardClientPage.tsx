@@ -2,12 +2,20 @@
 
 import { useTranslations } from 'next-intl';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, PieLabelRenderProps, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import Image from 'next/image'; // Import Next.js Image component
 import styles from './DashboardClientPage.module.scss';
 
 interface StatusMetric extends Record<string, string | number> {
   status: string;
   count: number;
   revenue: number;
+}
+
+interface LowStockProductSummary {
+  id: number;
+  name: string;
+  stock: number;
+  image?: string | null;
 }
 
 interface OrderMetrics {
@@ -18,7 +26,7 @@ interface OrderMetrics {
 
 interface ProductMetrics {
   totalProducts: number;
-  lowStockProducts: number;
+  lowStockProducts: LowStockProductSummary[];
   lowStockThreshold: number;
 }
 
@@ -38,7 +46,7 @@ const CustomPieLabel = ({ cx, cy, midAngle, outerRadius, percent, payload }: Pie
   const x = (cx as number) + radius * Math.cos(-(midAngle as number) * RADIAN);
   const y = (cy as number) + radius * Math.sin(-(midAngle as number) * RADIAN);
 
-  const percentageValue = (percent as number) * 100; // Explicitly cast percent to number
+  const percentageValue = (percent as number) * 100;
 
   return (
     <text x={x} y={y} fill="black" textAnchor={x > (cx as number) ? 'start' : 'end'} dominantBaseline="central">
@@ -94,7 +102,18 @@ export default function DashboardClientPage({
         </div>
         <div className={styles.metric_card}>
           <h3>{t('LowStockProducts')}</h3>
-          <p>{productMetrics?.lowStockProducts} ({t('Below')} {productMetrics?.lowStockThreshold})</p>
+          {productMetrics?.lowStockProducts && productMetrics.lowStockProducts.length > 0 ? (
+            <ul className={styles.low_stock_list}>
+              {productMetrics.lowStockProducts.map((product) => (
+                <li key={product.id} className={styles.low_stock_item}>
+                  <Image src={product.image ?? '/images/food.png'} alt={product.name} width={30} height={30} />
+                  <span>{product.name} ({product.stock} {t('Units')})</span>
+                </li>
+              ))}
+            </ul>
+          ) : (productMetrics && productMetrics.lowStockThreshold !== undefined &&
+            <p>{t('NoLowStockProducts')}</p>
+          )}
         </div>
       </div>
 
@@ -128,9 +147,9 @@ export default function DashboardClientPage({
                 nameKey="status"
                 label={CustomPieLabel} 
               >
-                {orderMetrics?.statusMetrics && orderMetrics.statusMetrics.length > 0 && // Add conditional check
+                {orderMetrics?.statusMetrics && orderMetrics.statusMetrics.length > 0 &&
                   orderMetrics.statusMetrics.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length] || '#CCCCCC'} /> // Added fallback
+                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length] || '#CCCCCC'} />
                   ))}
               </Pie>
               <Tooltip formatter={(value) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} />

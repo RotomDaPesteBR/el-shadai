@@ -76,11 +76,16 @@ export class OrderService {
     const orderState = await prisma.orderState.findFirst({
       where: { state: 'Pending' }
     });
+    console.log('OrderState found:', orderState); // Add logging
+
     const deliveryMethod = await prisma.deliveryMethod.findFirst({
       where: { method: deliveryOption === 'delivery' ? 1 : 0 }
-    }); // Assuming 1 for delivery, 0 for pickup
+    });
+    console.log('DeliveryOption:', deliveryOption); // Add logging
+    console.log('DeliveryMethod found:', deliveryMethod); // Add logging
 
     if (!orderState || !deliveryMethod) {
+      console.error('Failed to determine order state or delivery method. OrderState:', orderState, 'DeliveryMethod:', deliveryMethod); // More detailed error logging
       throw new Error('Could not determine order state or delivery method.');
     }
 

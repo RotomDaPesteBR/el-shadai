@@ -29,7 +29,17 @@
       "CartEmptyMessage": "Adicione produtos para finalizar seu pedido.",
       "DeliveryOption": "Opção de Entrega",
       "HomeDelivery": "Entrega em Casa",
-      "StorePickup": "Buscar na Loja"
+      "StorePickup": "Buscar na Loja",
+      "DeliveryAddressRequired": "Por favor, selecione um endereço de entrega ou escolha buscar na loja.",
+      "FailedToConfirmOrder": "Erro ao confirmar o pedido.",
+      "StockProblemAvailable": "Apenas {count} em estoque.",
+      "StockProblemOutOfStock": "Fora de estoque.",
+      "StockProblemTitle": "Problema de estoque:",
+      "OrderConfirmedSuccessfully": "Pedido confirmado com sucesso!",
+      "UnexpectedErrorConfirmingOrder": "Ocorreu um erro inesperado ao confirmar o pedido.",
+      "FailedToLoadAddress": "Não foi possível carregar o endereço de entrega.",
+      "LoadingAddress": "Carregando endereço...",
+      "NoAddressFound": "Nenhum endereço encontrado. Por favor, atualize seu perfil."
     },
     "Orders": {
       "Title": "Meus Pedidos",
@@ -44,19 +54,36 @@
       "OrderNotFound": "Pedido não encontrado.",
       "OrderSummary": "Resumo do Pedido",
       "DeliveryMethod": "Método de Entrega",
-      "ProductsInOrder": "Produtos no Pedido"
+      "ProductsInOrder": "Produtos no Pedido",
+      "OrderNumber": "Pedido",
+      "TotalPrice": "Valor Total",
+      "Status": "Status",
+      "OrderDate": "Data do Pedido",
+      "HomeDelivery": "Entrega em Casa",
+      "StorePickup": "Buscar na Loja"
     },
     "DeliveryOrders": {
       "Title": "Pedidos para Entrega",
       "NoDeliveryOrders": "Não há pedidos pendentes para entrega.",
       "ClientName": "Nome do Cliente",
-      "ClientAddress": "Endereço do Cliente"
+      "ClientAddress": "Endereço do Cliente",
+      "OrderNumber": "Pedido",
+      "TotalPrice": "Valor Total",
+      "Status": "Status",
+      "OrderDate": "Data do Pedido"
     },
     "DeliveryOrderDetails": {
       "Title": "Detalhes do Pedido de Entrega",
       "OrderNotFound": "Pedido de entrega não encontrado.",
       "SetOnTheWay": "Definir como A Caminho",
-      "SetDelivered": "Definir como Entregue"
+      "SetDelivered": "Definir como Entregue",
+      "OrderSummary": "Resumo do Pedido",
+      "OrderNumber": "Pedido",
+      "TotalPrice": "Valor Total",
+      "Status": "Status",
+      "OrderDate": "Data do Pedido",
+      "ProductsInOrder": "Produtos no Pedido",
+      "DeliveryMethod": "Método de Entrega"
     },
     "AdminProducts": {
       "Title": "Gerenciar Produtos",
@@ -114,14 +141,22 @@
       "Below": "Abaixo de",
       "OrdersByStatus": "Pedidos por Status",
       "OrdersCount": "Contagem de Pedidos",
-      "RevenueByStatus": "Faturamento por Status"
+      "RevenueByStatus": "Faturamento por Status",
+      "Units": "unidades",
+      "NoLowStockProducts": "Nenhum produto com baixo estoque."
     }
   },
   "Components": {
     "Layout": {
       "Title": "El Shadai",
       "Navigation": {
-        "Home": "Início"
+        "Home": "Início",
+        "Products": "Produtos",
+        "Cart": "Carrinho",
+        "Orders": "Meus Pedidos",
+        "AdminDashboard": "Dashboard Admin",
+        "AdminProducts": "Gerenciar Produtos",
+        "DeliveryOrders": "Pedidos de Entrega"
       }
     },
     "Buttons": {},

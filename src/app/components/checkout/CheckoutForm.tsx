@@ -15,6 +15,7 @@ export default function CheckoutForm() {
   const [deliveryOption, setDeliveryOption] = useState<'delivery' | 'pickup'>(
     'delivery'
   );
+  const [formError, setFormError] = useState<string | null>(null); // New state for persistent error
 
   const t = useTranslations('Pages.Checkout');
 
@@ -23,15 +24,18 @@ export default function CheckoutForm() {
   const [addressError, setAddressError] = useState<string | null>(null);
 
   const handleConfirmOrder = async () => {
+    setFormError(null); // Clear previous errors
     if (cart.length === 0) {
-      toast.error('Seu carrinho está vazio.');
+      const errorMessage = t('CartEmptyMessage');
+      toast.error(errorMessage, { duration: 3000 });
+      setFormError(errorMessage);
       return;
     }
 
     if (deliveryOption === 'delivery' && !userAddress) {
-      toast.error(
-        'Por favor, selecione um endereço de entrega ou escolha buscar na loja.'
-      );
+      const errorMessage = t('DeliveryAddressRequired');
+      toast.error(errorMessage, { duration: 3000 });
+      setFormError(errorMessage);
       return;
     }
 
@@ -56,6 +60,7 @@ export default function CheckoutForm() {
       const data = await response.json();
 
       if (!response.ok) {
+        let errorMessage = data.message || t('FailedToConfirmOrder');
         if (response.status === 400 && data.errors) {
           // Stock validation failed
           const errorMessages = data.errors
@@ -63,26 +68,29 @@ export default function CheckoutForm() {
               (err: { productId: number; productName: string; availableStock: number }) =>
                 `${err.productName}: ${
                   err.availableStock > 0
-                    ? `Apenas ${err.availableStock} em estoque.`
-                    : `Fora de estoque.`
+                    ? t('StockProblemAvailable', { count: err.availableStock })
+                    : t('StockProblemOutOfStock')
                 }`
             )
             .join('\n');
-          toast.error(`Problema de estoque:\n${errorMessages}`, {
-            duration: 6000
-          });
+          errorMessage = `${t('StockProblemTitle')}\n${errorMessages}`;
+          toast.error(errorMessage, { duration: 6000 });
+          setFormError(errorMessage);
         } else {
-          toast.error(data.message || 'Erro ao confirmar o pedido.');
+          toast.error(errorMessage, { duration: 3000 });
+          setFormError(errorMessage);
         }
         return;
       }
 
-      toast.success('Pedido confirmado com sucesso!');
+      toast.success(t('OrderConfirmedSuccessfully'), { duration: 3000 });
       setOrderConfirmed(true);
       clearCart(); // Clear cart after order is placed
     } catch (error) {
       console.error('Error confirming order:', error);
-      toast.error('Ocorreu um erro inesperado ao confirmar o pedido.');
+      const errorMessage = t('UnexpectedErrorConfirmingOrder');
+      toast.error(errorMessage, { duration: 3000 });
+      setFormError(errorMessage);
     }
   };
 
@@ -97,7 +105,7 @@ export default function CheckoutForm() {
         setUserAddress(data.address);
       } catch (error) {
         console.error('Error fetching user address:', error);
-        setAddressError('Não foi possível carregar o endereço de entrega.');
+        setAddressError(t('FailedToLoadAddress'));
       } finally {
         setLoadingAddress(false);
       }
@@ -109,12 +117,12 @@ export default function CheckoutForm() {
   if (orderConfirmed) {
     return (
       <div className={styles.checkout_container}>
-        <h2 className={styles.checkout_title}>Pedido Confirmado!</h2>
+        <h2 className={styles.checkout_title}>{t('OrderConfirmedTitle')}</h2>
         <p className={styles.confirmation_message}>
-          Seu pedido foi recebido e será processado em breve.
+          {t('ConfirmationMessage1')}
         </p>
         <p className={styles.confirmation_message}>
-          Agradecemos a sua preferência!
+          {t('ConfirmationMessage2')}
         </p>
       </div>
     );
@@ -123,8 +131,8 @@ export default function CheckoutForm() {
   if (cart.length === 0) {
     return (
       <div className={styles.checkout_container}>
-        <h2 className={styles.checkout_title}>Seu carrinho está vazio.</h2>
-        <p>Adicione produtos para finalizar seu pedido.</p>
+        <h2 className={styles.checkout_title}>{t('CartEmptyTitle')}</h2>
+        <p>{t('CartEmptyMessage')}</p>
       </div>
     );
   }
@@ -160,13 +168,13 @@ export default function CheckoutForm() {
       {deliveryOption === 'delivery' && (
         <div className={styles.section}>
           <h3 className={styles.section_title}>{t('DeliveryAddress')}</h3>
-          {loadingAddress && <p>Carregando endereço...</p>}
+          {loadingAddress && <p>{t('LoadingAddress')}</p>}
           {addressError && (
             <p className={styles.error_message}>{addressError}</p>
           )}
           {userAddress && <p className={styles.address_text}>{userAddress}</p>}
           {!loadingAddress && !userAddress && !addressError && (
-            <p>Nenhum endereço encontrado. Por favor, atualize seu perfil.</p>
+            <p>{t('NoAddressFound')}</p>
           )}
           {/* In a real app, there would be an option to change/select address */}
         </div>
@@ -229,6 +237,8 @@ export default function CheckoutForm() {
           </div>
         )}
       </div>
+
+      {formError && <p className={styles.error_message}>{formError}</p>} {/* Display persistent error */}
 
       <button className={styles.confirm_order_btn} onClick={handleConfirmOrder}>
         {t('ConfirmOrder')}

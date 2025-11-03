@@ -44,6 +44,17 @@ async function main() {
   }
 
   // Add more neighborhoods as needed
+
+  // Create Delivery Methods
+  const deliveryMethodDelivery = await prisma.deliveryMethod.findFirst({ where: { method: 1 } });
+  if (!deliveryMethodDelivery) {
+    await prisma.deliveryMethod.create({ data: { method: 1 } }); // 1 for delivery
+  }
+
+  const deliveryMethodPickup = await prisma.deliveryMethod.findFirst({ where: { method: 0 } });
+  if (!deliveryMethodPickup) {
+    await prisma.deliveryMethod.create({ data: { method: 0 } }); // 0 for pickup
+  }
 }
 
 main()

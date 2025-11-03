@@ -1,46 +1,82 @@
 @use 'sass:color';
 @use '@/styles/colors.module' as colors;
 
-.Container {
-  width: calc(100% - 20px);
-  height: auto;
-  flex-shrink: 0;
+.navigation_bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: colors.$primary-main; // Primary color background
   display: flex;
-  flex-direction: row;
-  margin: 10px 10px 0px 10px;
-  overflow-y: hidden;
-  overflow-x: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-top-left-radius: 25px; // Mobile top-left
+  border-top-right-radius: 25px; // Mobile top-right
 
-  &::-webkit-scrollbar {
-    border: 1px solid colors.$background;
-    height: 8px;
-    background: colors.$background;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    box-sizing: border-box;
-    border-radius: 4px;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    border-color: color.adjust(colors.$background, $lightness: -20%);
-    background: color.adjust(colors.$background, $lightness: -20%);
+  @media (min-width: 768px) {
+    // top: 0; // Removed
+    left: 0;
+    bottom: auto;
+    width: 80px; // Sidebar width
+    height: fit-content;
+    flex-direction: column;
+    padding: 20px 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    top: 50%; // Center vertically
+    transform: translateY(-50%); // Adjust for its own height
+    border-top-left-radius: 0; // Reset mobile radius
+    border-top-right-radius: 0; // Reset mobile radius
+    border-bottom-left-radius: 0; // Reset mobile radius
+    border-bottom-right-radius: 0; // Reset mobile radius
+    border-top-right-radius: 25px; // Desktop top-right
+    border-bottom-right-radius: 25px; // Desktop bottom-right
   }
 }
 
-:root[data-theme='dark'] {
-  .Container {
-    &::-webkit-scrollbar {
-      border: 1px solid colors.$dark-background;
-      height: 8px;
-      background: colors.$dark-background;
-    }
+.nav_buttons_container {
+  display: flex;
+  gap: 10px;
+  // For mobile, center buttons and wrap content
+  width: fit-content; // Adjust width to fit content
+  justify-content: center;
+  align-items: center;
 
-    &::-webkit-scrollbar-thumb {
-      border-radius: 4px;
-      border-top: 1px solid;
-      border-bottom: 1px solid;
-      border-color: color.adjust(colors.$dark-background, $lightness: 20%);
-      background: color.adjust(colors.$dark-background, $lightness: 20%);
-    }
+  @media (min-width: 768px) {
+    flex-direction: column;
+    // For desktop, center buttons vertically and wrap content
+    height: fit-content;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+.nav_button {
+  background-color: colors.$primary-main; // Primary color background
+  color: white; // White text
+  border: none;
+  border-radius: 8px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: color.adjust(colors.$primary-main, $lightness: -10%);
+  }
+
+  @media (min-width: 768px) {
+    width: 60px;
+    height: 60px;
+    font-size: 2em;
   }
 }

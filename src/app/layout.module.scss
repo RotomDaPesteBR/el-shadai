@@ -17,4 +17,10 @@
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  padding-bottom: 70px; // Space for bottom nav on mobile
+
+  @media (min-width: 768px) {
+    // padding-left: 100px; // Removed to allow sidebar to overlay
+    padding-bottom: 0; // Remove bottom padding on desktop
+  }
 }

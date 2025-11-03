@@ -8,6 +8,9 @@ import {
   setRequestLocale
 } from 'next-intl/server';
 
+import { SessionProvider } from 'next-auth/react'; // Import SessionProvider
+import NavigationBar from '@/components/client/Navigation/NavigationBar'; // Import NavigationBar
+
 //import Header from '@/components/Header/Header';
 import { getTheme } from '@/lib/getTheme';
 import { CartProvider } from '@/context/CartContext';
@@ -57,21 +60,17 @@ export default async function RootLayout({
       <body
         className={`${inter.className} ${geistSans.variable} ${geistMono.variable} ${styles.container} antialiased`}
       >
-        <CartProvider>
-          <NextIntlClientProvider
-            timeZone="America/Sao_Paulo"
-            messages={messages}
-          >
-          {/*<Header />*/}
-          {/* <NavigationBar>
-            <NavigationItem href="/">{t('Navigation.Home')}</NavigationItem>
-          </NavigationBar> */}
-          <main className={styles.page_wrapper}>{children}</main>
-          {/* <Footer>
-            <ToggleTheme />
-          </Footer> */}
-        </NextIntlClientProvider>
-        </CartProvider>
+        <SessionProvider>
+          <CartProvider>
+            <NextIntlClientProvider
+              timeZone="America/Sao_Paulo"
+              messages={messages}
+            >
+              <NavigationBar />
+              <main className={styles.page_wrapper}>{children}</main>
+            </NextIntlClientProvider>
+          </CartProvider>
+        </SessionProvider>
       </body>
     </html>
   );
