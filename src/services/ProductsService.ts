@@ -199,30 +199,27 @@ export class ProductsService {
     }
   }
 
-  static async getDashboardProductMetrics(lowStockThreshold: number = 10) {
+  static async getDashboardProductMetrics() {
     try {
-      const totalProducts = await prisma.product.count();
-      const lowStockProductsList = await prisma.product.findMany({
-        where: {
-          stock: {
-            lt: lowStockThreshold,
-          },
-        },
+      const allProducts = await prisma.product.findMany({
         select: {
           id: true,
           name: true,
           stock: true,
-          image: true,
-        },
+          minimumStock: true,
+          image: true
+        }
       });
 
+      const lowStockProductsList = allProducts
+        .filter(p => p.stock <= p.minimumStock)
+        .map(({ minimumStock, ...rest }) => rest); // Remove minimumStock from the final list
+
       return {
-        totalProducts,
-        lowStockProducts: lowStockProductsList, // Return the list
-        lowStockThreshold,
+        totalProducts: allProducts.length,
+        lowStockProducts: lowStockProductsList // Return the filtered list
       };
     } finally {
-      
     }
   }
 }

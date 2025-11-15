@@ -8,11 +8,11 @@ import {
   setRequestLocale
 } from 'next-intl/server';
 
-
 //import Header from '@/components/Header/Header';
 import { CartProvider } from '@/context/CartContext';
 import { getTheme } from '@/lib/getTheme';
 
+import PageHeader from '@/components/shared/PageHeader';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './layout.module.scss';
 
@@ -58,14 +58,14 @@ export default async function RootLayout({
       <body
         className={`${inter.className} ${geistSans.variable} ${geistMono.variable} ${styles.container} antialiased`}
       >
-          <CartProvider>
-            <NextIntlClientProvider
-              timeZone="America/Sao_Paulo"
-              messages={messages}
-            >
-              <main className={styles.page_wrapper}>{children}</main>
-            </NextIntlClientProvider>
-          </CartProvider>
+        <CartProvider>
+          <NextIntlClientProvider
+            timeZone="America/Sao_Paulo"
+            messages={messages}
+          >
+            {children}
+          </NextIntlClientProvider>
+        </CartProvider>
       </body>
     </html>
   );

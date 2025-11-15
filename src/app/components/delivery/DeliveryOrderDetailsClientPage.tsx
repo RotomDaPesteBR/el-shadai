@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
+import styles from '@/app/(main)/(delivery)/delivery/[id]/page.module.scss';
 import { toFormattedPrice } from '@/lib/toFormattedPrice';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
-import styles from '../../delivery/[id]/page.module.scss';
 
 interface ProductInOrder {
   id: number;
@@ -34,7 +34,7 @@ export default function DeliveryOrderDetailsClientPage({
   initialOrderDetails,
   initialLoading,
   initialError,
-  orderId,
+  orderId
 }: DeliveryOrderDetailsClientPageProps) {
   const t = useTranslations('Pages.DeliveryOrderDetails');
 
@@ -47,9 +47,9 @@ export default function DeliveryOrderDetailsClientPage({
       const response = await fetch(`/api/v1/order/${orderId}/status`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newStatus }),
+        body: JSON.stringify({ newStatus })
       });
 
       if (!response.ok) {
@@ -59,8 +59,12 @@ export default function DeliveryOrderDetailsClientPage({
       toast.success(`Status do pedido atualizado para ${newStatus}!`);
       // No re-fetch here, rely on server revalidation or state management
     } catch (err: unknown) {
-      console.error("Error updating order status:", err);
-      toast.error(err instanceof Error ? err.message : "Erro ao atualizar o status do pedido.");
+      console.error('Error updating order status:', err);
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : 'Erro ao atualizar o status do pedido.'
+      );
     }
   };
 
@@ -96,25 +100,27 @@ export default function DeliveryOrderDetailsClientPage({
       <h2 className={styles.delivery_order_details_title}>{t('Title')}</h2>
 
       <div className={styles.section}>
-          <h3 className={styles.section_title}>{t('OrderSummary')}</h3>
-          <p>
-            <strong>{t('OrderNumber')}:</strong> {orderDetails.id}
-          </p>
+        <h3 className={styles.section_title}>{t('OrderSummary')}</h3>
         <p>
-          <strong>{t('TotalPrice')}:</strong> {toFormattedPrice(orderDetails.totalPrice.toString())}
+          <strong>{t('OrderNumber')}:</strong> {orderDetails.id}
+        </p>
+        <p>
+          <strong>{t('TotalPrice')}:</strong>{' '}
+          {toFormattedPrice(orderDetails.totalPrice.toString())}
         </p>
         <p>
           <strong>{t('Status')}:</strong> {orderDetails.status}
         </p>
         <p>
-          <strong>{t('OrderDate')}:</strong> {new Date(orderDetails.createdAt).toLocaleDateString()}
+          <strong>{t('OrderDate')}:</strong>{' '}
+          {new Date(orderDetails.createdAt).toLocaleDateString()}
         </p>
       </div>
 
       <div className={styles.section}>
         <h3 className={styles.section_title}>{t('ProductsInOrder')}</h3>
         <ul className={styles.product_list}>
-          {orderDetails.products.map((product) => (
+          {orderDetails.products.map(product => (
             <li key={product.id} className={styles.product_list_item}>
               <Image
                 src={product.image ?? '/images/food.png'}
@@ -126,7 +132,9 @@ export default function DeliveryOrderDetailsClientPage({
               <div className={styles.product_info}>
                 <p className={styles.product_name}>{product.name}</p>
                 <p className={styles.product_quantity}>x{product.quantity}</p>
-                <p className={styles.product_price}>{toFormattedPrice(product.price.toString())}</p>
+                <p className={styles.product_price}>
+                  {toFormattedPrice(product.price.toString())}
+                </p>
               </div>
             </li>
           ))}
@@ -134,14 +142,15 @@ export default function DeliveryOrderDetailsClientPage({
       </div>
 
       <div className={styles.action_buttons}>
-        {orderDetails.status !== 'On the way' && orderDetails.status !== 'Delivered' && (
-          <button
-            className={styles.status_button}
-            onClick={() => handleUpdateStatus('On the way')}
-          >
-            {t('SetOnTheWay')}
-          </button>
-        )}
+        {orderDetails.status !== 'On the way' &&
+          orderDetails.status !== 'Delivered' && (
+            <button
+              className={styles.status_button}
+              onClick={() => handleUpdateStatus('On the way')}
+            >
+              {t('SetOnTheWay')}
+            </button>
+          )}
         {orderDetails.status !== 'Delivered' && (
           <button
             className={`${styles.status_button} ${styles.delivered_button}`}

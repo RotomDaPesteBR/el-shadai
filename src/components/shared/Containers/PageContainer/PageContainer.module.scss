@@ -8,6 +8,10 @@
   flex-direction: column;
   padding: 10px 10px 10px 10px;
   box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    padding: 10px 90px;
+  }
 }
 
 .inner {

@@ -10,6 +10,14 @@
     "Error": {
       "Title": "An error occurred",
       "Message": "An error occurred"
+    },
+    "Dashboard": {
+      "MonthlySales": "Monthly Sales",
+      "TotalSales": "Total Sales",
+      "SalesByCategory": "Sales by Category"
+    },
+    "AdminAddProduct": {
+      "AddProduct": "Add Product"
     }
   },
   "Components": {

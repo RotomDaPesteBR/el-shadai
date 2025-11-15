@@ -9,7 +9,7 @@ export default function BackButton({}) {
 
   return (
     <button title="Voltar" className={styles.btn} onClick={goBack}>
-      <Image src="/images/back.svg" alt="Back" width={45} height={45} />
+      <Image src="/images/back.svg" alt="Back" width={60} height={60} />
     </button>
   );
 }

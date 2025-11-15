@@ -106,6 +106,7 @@
       "ProductStock": "Estoque",
       "ProductImage": "Imagem do Produto",
       "AddingProduct": "Adicionando Produto...",
+      "AddProduct": "Adicionar Produto",
       "ProductCategory": "Categoria do Produto",
       "SelectCategory": "Selecione uma categoria"
     },
@@ -143,7 +144,10 @@
       "OrdersCount": "Contagem de Pedidos",
       "RevenueByStatus": "Faturamento por Status",
       "Units": "unidades",
-      "NoLowStockProducts": "Nenhum produto com baixo estoque."
+      "NoLowStockProducts": "Nenhum produto com baixo estoque.",
+      "MonthlySales": "Vendas Mensais",
+      "TotalSales": "Vendas Totais",
+      "SalesByCategory": "Vendas por Categoria"
     }
   },
   "Components": {

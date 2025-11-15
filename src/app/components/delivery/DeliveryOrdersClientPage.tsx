@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
+import styles from '@/app/(main)/(delivery)/delivery/page.module.scss';
 import { toFormattedPrice } from '@/lib/toFormattedPrice';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import styles from '../../delivery/page.module.scss';
 
 interface ProductInOrder {
   name: string;
@@ -28,7 +28,11 @@ interface DeliveryOrdersClientPageProps {
   initialError: string | null;
 }
 
-export default function DeliveryOrdersClientPage({ initialOrders, initialLoading, initialError }: DeliveryOrdersClientPageProps) {
+export default function DeliveryOrdersClientPage({
+  initialOrders,
+  initialLoading,
+  initialError
+}: DeliveryOrdersClientPageProps) {
   const t = useTranslations('Pages.DeliveryOrders');
   const orders = initialOrders;
   const loading = initialLoading;
@@ -65,7 +69,7 @@ export default function DeliveryOrdersClientPage({ initialOrders, initialLoading
     <div className={styles.delivery_orders_container}>
       <h2 className={styles.delivery_orders_title}>{t('Title')}</h2>
       <ul className={styles.order_list}>
-        {orders.map((order) => (
+        {orders.map(order => (
           <li key={order.id} className={styles.order_list_item}>
             <Link href={`/delivery/${order.id}`} className={styles.order_link}>
               <div className={styles.order_summary}>
@@ -79,14 +83,15 @@ export default function DeliveryOrdersClientPage({ initialOrders, initialLoading
                   {t('ClientAddress')}: {order.clientAddress}
                 </span>
                 <span>
-                  {t('TotalPrice')}: {toFormattedPrice(order.totalPrice.toString())}
+                  {t('TotalPrice')}:{' '}
+                  {toFormattedPrice(order.totalPrice.toString())}
                 </span>
                 <span>
                   {t('Status')}: {order.status}
                 </span>
                 <span>
                   {t('OrderDate')}: {order.createdAt.toLocaleDateString()}
-                  </span>
+                </span>
               </div>
             </Link>
           </li>

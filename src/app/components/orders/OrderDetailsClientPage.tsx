@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
+import styles from '@/app/(main)/(costumer)/orders/[id]/page.module.scss';
 import { toFormattedPrice } from '@/lib/toFormattedPrice';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import styles from '../../orders/[id]/page.module.scss';
 
 interface ProductInOrder {
   id: number;
@@ -32,7 +32,7 @@ interface OrderDetailsClientPageProps {
 export default function OrderDetailsClientPage({
   initialOrderDetails,
   initialLoading,
-  initialError,
+  initialError
 }: OrderDetailsClientPageProps) {
   const t = useTranslations('Pages.OrderDetails');
 
@@ -46,7 +46,7 @@ export default function OrderDetailsClientPage({
         <h2 className={styles.order_details_title}>{t('Title')}</h2>
         <p>Carregando detalhes do pedido...</p>
       </div>
-    ); 
+    );
   }
 
   if (error) {
@@ -80,12 +80,14 @@ export default function OrderDetailsClientPage({
           <strong>{t('Status')}:</strong> {orderDetails.status}
         </p>
         <p>
-          <strong>{t('OrderDate')}:</strong> {orderDetails.createdAt.toLocaleDateString()}
+          <strong>{t('OrderDate')}:</strong>{' '}
+          {orderDetails.createdAt.toLocaleDateString()}
         </p>
         <p>
-          <strong>{t('DeliveryMethod')}:</strong> {
-            orderDetails.deliveryMethod === 'delivery' ? t('HomeDelivery') : t('StorePickup')
-          }
+          <strong>{t('DeliveryMethod')}:</strong>{' '}
+          {orderDetails.deliveryMethod === 'delivery'
+            ? t('HomeDelivery')
+            : t('StorePickup')}
         </p>
         {/* Add payment method if available in OrderDetails */}
       </div>
@@ -93,7 +95,7 @@ export default function OrderDetailsClientPage({
       <div className={styles.section}>
         <h3 className={styles.section_title}>{t('ProductsInOrder')}</h3>
         <ul className={styles.product_list}>
-          {orderDetails.products.map((product) => (
+          {orderDetails.products.map(product => (
             <li key={product.id} className={styles.product_list_item}>
               <Image
                 src={product.image ?? '/images/food.png'}
@@ -105,7 +107,9 @@ export default function OrderDetailsClientPage({
               <div className={styles.product_info}>
                 <p className={styles.product_name}>{product.name}</p>
                 <p className={styles.product_quantity}>x{product.quantity}</p>
-                <p className={styles.product_price}>{toFormattedPrice(product.price.toString())}</p>
+                <p className={styles.product_price}>
+                  {toFormattedPrice(product.price.toString())}
+                </p>
               </div>
             </li>
           ))}
@@ -113,7 +117,8 @@ export default function OrderDetailsClientPage({
       </div>
 
       <div className={styles.total_amount}>
-        <strong>{t('TotalPrice')}:</strong> {toFormattedPrice(orderDetails.totalPrice.toString())}
+        <strong>{t('TotalPrice')}:</strong>{' '}
+        {toFormattedPrice(orderDetails.totalPrice.toString())}
       </div>
     </div>
   );

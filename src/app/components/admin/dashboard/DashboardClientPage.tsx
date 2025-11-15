@@ -1,33 +1,38 @@
 "use client";
 
 import { useTranslations } from 'next-intl';
-import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, PieLabelRenderProps, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import Image from 'next/image'; // Import Next.js Image component
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
+import Image from 'next/image';
 import styles from './DashboardClientPage.module.scss';
 
-interface StatusMetric extends Record<string, string | number> {
-  status: string;
-  count: number;
-  revenue: number;
-}
-
-interface LowStockProductSummary {
-  id: number;
-  name: string;
-  stock: number;
-  image?: string | null;
-}
-
+// Updated interfaces to match new service responses
 interface OrderMetrics {
   totalOrders: number;
   totalRevenue: number;
-  statusMetrics: StatusMetric[];
+  monthlySales: number[];
+  categoryMetrics: { name: string; value: number }[];
 }
 
 interface ProductMetrics {
   totalProducts: number;
-  lowStockProducts: LowStockProductSummary[];
-  lowStockThreshold: number;
+  lowStockProducts: {
+    id: number;
+    name: string;
+    stock: number;
+    image?: string | null;
+  }[];
 }
 
 interface DashboardClientPageProps {
@@ -37,23 +42,7 @@ interface DashboardClientPageProps {
   initialError: string | null;
 }
 
-const CHART_COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
-
-// Define the CustomPieLabel component
-const CustomPieLabel = ({ cx, cy, midAngle, outerRadius, percent, payload }: PieLabelRenderProps) => {
-  const RADIAN = Math.PI / 180;
-  const radius = (outerRadius as number) + 10;
-  const x = (cx as number) + radius * Math.cos(-(midAngle as number) * RADIAN);
-  const y = (cy as number) + radius * Math.sin(-(midAngle as number) * RADIAN);
-
-  const percentageValue = (percent as number) * 100;
-
-  return (
-    <text x={x} y={y} fill="black" textAnchor={x > (cx as number) ? 'start' : 'end'} dominantBaseline="central">
-      {`${(payload as StatusMetric).status} ${percentageValue.toFixed(0)}%`}
-    </text>
-  );
-};
+const CHART_COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 export default function DashboardClientPage({
   orderMetrics,
@@ -83,6 +72,13 @@ export default function DashboardClientPage({
 
   const totalRevenueFormatted = orderMetrics?.totalRevenue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
+  // Prepare data for the monthly sales chart
+  const monthLabels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+  const monthlySalesData = orderMetrics?.monthlySales.map((total, index) => ({
+    month: monthLabels[index],
+    total: total,
+  }));
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{t('Title')}</h2>
@@ -111,7 +107,7 @@ export default function DashboardClientPage({
                 </li>
               ))}
             </ul>
-          ) : (productMetrics && productMetrics.lowStockThreshold !== undefined &&
+          ) : (
             <p>{t('NoLowStockProducts')}</p>
           )}
         </div>
@@ -119,40 +115,39 @@ export default function DashboardClientPage({
 
       <div className={styles.charts_grid}>
         <div className={styles.chart_card}>
-          <h3>{t('OrdersByStatus')}</h3>
+          <h3>{t('MonthlySales')}</h3>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={orderMetrics?.statusMetrics}>
+            <BarChart data={monthlySalesData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="status" />
+              <XAxis dataKey="month" />
               <YAxis />
-              <Tooltip />
+              <Tooltip formatter={(value: number) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} />
               <Legend />
-              <Bar dataKey="count" name={t('OrdersCount')} fill={CHART_COLORS[0]} />
+              <Bar dataKey="total" name={t('TotalSales')} fill={CHART_COLORS[0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         <div className={styles.chart_card}>
-          <h3>{t('RevenueByStatus')}</h3>
+          <h3>{t('SalesByCategory')}</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
-                data={orderMetrics?.statusMetrics}
+                data={orderMetrics?.categoryMetrics}
                 cx="50%"
                 cy="50%"
-                labelLine={false}
+                labelLine={true}
                 outerRadius={80}
-                fill={CHART_COLORS[0]}
-                dataKey="revenue"
-                nameKey="status"
-                label={CustomPieLabel} 
+                fill={CHART_COLORS[1]}
+                dataKey="value"
+                nameKey="name"
+                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
               >
-                {orderMetrics?.statusMetrics && orderMetrics.statusMetrics.length > 0 &&
-                  orderMetrics.statusMetrics.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length] || '#CCCCCC'} />
-                  ))}
+                {orderMetrics?.categoryMetrics.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                ))}
               </Pie>
-              <Tooltip formatter={(value) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} />
+              <Tooltip />
               <Legend />
             </PieChart>
           </ResponsiveContainer>

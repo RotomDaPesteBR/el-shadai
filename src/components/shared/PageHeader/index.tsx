@@ -1,13 +1,14 @@
 import LogoutButton from '../Buttons/LogoutButton';
 import Logo from '../Logo';
 import styles from './PageHeader.module.scss';
+import PageHeaderClientWrapper from './PageHeaderClientWrapper';
 
 export default function PageHeader() {
   return (
     <div className={styles.header}>
-      <LogoutButton />
+      <PageHeaderClientWrapper />
       <Logo />
-      <div className={styles.header_spacing} />
+      <LogoutButton />
     </div>
   );
 }

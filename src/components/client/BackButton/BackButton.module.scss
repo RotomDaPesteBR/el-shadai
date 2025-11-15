@@ -3,28 +3,18 @@
 
 .btn {
   display: flex;
-
   justify-content: center;
   align-items: center;
-  text-align: center;
-
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-
-  border: none;
-  border-radius: 5px;
-
+  width: 75px;
+  height: 75px;
+  background: colors.$primary-main;
+  color: colors.$dark-text;
+  border: 0;
+  border-radius: 3px;
+  font-size: 1rem;
   cursor: pointer;
 
-  font-size: 1rem;
-  font-weight: bold;
-
-  color: white;
-  background: colors.$primary-main;
-  transition: background-color 0.2s ease-in-out;
-
   &:hover {
-    background: color.adjust(colors.$primary-main, $lightness: -5%);
+    background: color.adjust(colors.$primary-main, $lightness: -10%);
   }
 }

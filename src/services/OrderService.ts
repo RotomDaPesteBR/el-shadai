@@ -298,47 +298,69 @@ export class OrderService {
 
   static async getDashboardOrderMetrics() {
     try {
+      // 1. Total Orders and Revenue
       const totalOrders = await prisma.order.count();
       const totalRevenueResult = await prisma.order.aggregate({
         _sum: {
-          price: true,
-        },
+          price: true
+        }
       });
       const totalRevenue = totalRevenueResult._sum.price?.toNumber() || 0;
 
-      const ordersByStatus = (await prisma.order.groupBy({
-        by: ['orderStateId'],
-        _count: {
-          id: true,
-        },
-        _sum: {
-          price: true,
-        },
-      }));
-
-      const orderStates = await prisma.orderState.findMany({
-        select: {
-          id: true,
-          state: true,
-        },
+      // 2. Monthly Sales for the Current Year
+      const orders = await prisma.order.findMany({
+        select: { createdAt: true, price: true }
       });
 
-      const statusMetrics = ordersByStatus.map(group => {
-        const state = orderStates.find(s => s.id === group.orderStateId)?.state || 'Unknown';
-        return {
-          status: state,
-          count: group._count.id,
-          revenue: group._sum.price?.toNumber() || 0,
-        };
+      const monthlySales = Array(12).fill(0);
+      const currentYear = new Date().getFullYear();
+
+      orders.forEach(order => {
+        if (order.createdAt.getFullYear() === currentYear) {
+          const month = order.createdAt.getMonth(); // 0-indexed (0 for Jan, 11 for Dec)
+          monthlySales[month] += order.price.toNumber();
+        }
       });
+
+      // 3. Sales by Category
+      const itemsSold = await prisma.itemProduct.findMany({
+        include: {
+          product: {
+            select: {
+              category: {
+                select: {
+                  categoryName: true
+                }
+              }
+            }
+          }
+        }
+      });
+
+      const salesByCategory = new Map<string, number>();
+      itemsSold.forEach(item => {
+        const categoryName = item.product.category.categoryName;
+        salesByCategory.set(
+          categoryName,
+          (salesByCategory.get(categoryName) || 0) + 1
+        );
+      });
+
+      const categoryMetrics = Array.from(
+        salesByCategory,
+        ([name, value]) => ({
+          name,
+          value
+        })
+      );
 
       return {
         totalOrders,
         totalRevenue,
-        statusMetrics,
+        monthlySales,
+        categoryMetrics
       };
     } finally {
-      
     }
   }
 }

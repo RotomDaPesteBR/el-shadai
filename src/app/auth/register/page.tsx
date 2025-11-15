@@ -56,12 +56,24 @@ export default async function RegisterPage({ params }: any) {
   return (
     <>
       <title>{t('Title')}</title>
-      <Toaster />
       <div className={`${styles.container}`}>
         <div className={`${styles.content}`}>
           <Register neighborhoods={neighborhoods} />
         </div>
       </div>
+      <Toaster
+        toastOptions={{
+          style: {
+            textAlign: 'center'
+          },
+          success: {
+            duration: 5000
+          },
+          error: {
+            duration: 10000
+          }
+        }}
+      />
     </>
   );
 }
