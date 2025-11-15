@@ -1,9 +1,6 @@
+import { prisma } from '@/prisma';
 import { ProductType } from '@/types/products';
-import { Prisma, PrismaClient, Product } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime/library';
-import { withAccelerate } from '@prisma/extension-accelerate';
-
-const prisma = new PrismaClient().$extends(withAccelerate());
+import { Product } from '@prisma/client';
 
 interface ProductSummary {
   id: number;
@@ -71,11 +68,6 @@ export class ProductsService {
             }
           }
         },
-        cacheStrategy: { // Added cacheStrategy
-          swr: 60,
-          ttl: 60,
-          tags: ['products'],
-        },
       });
 
       const modifiedProducts: ProductSummary[] = products.map(product => {
@@ -93,7 +85,7 @@ export class ProductsService {
 
       return modifiedProducts;
     } finally {
-      // await prisma.$disconnect(); // Removed to allow Accelerate to manage connections
+      
     }
   }
 
@@ -108,15 +100,10 @@ export class ProductsService {
           id: true,
           categoryName: true,
         },
-        cacheStrategy: { // Added cacheStrategy
-          swr: 60,
-          ttl: 60,
-          tags: ['categories'],
-        },
       });
       return categories;
     } finally {
-      // await prisma.$disconnect(); // Removed to allow Accelerate to manage connections
+      
     }
   }
 
@@ -144,11 +131,6 @@ export class ProductsService {
             }
           }
         },
-        cacheStrategy: { // Added cacheStrategy
-          swr: 60,
-          ttl: 60,
-          tags: [`products`],
-        },
       });
 
       if (!product) {
@@ -166,7 +148,7 @@ export class ProductsService {
 
       return modifiedProduct;
     } finally {
-      // await prisma.$disconnect(); // Removed to allow Accelerate to manage connections
+      
     }
   }
 
@@ -188,21 +170,9 @@ export class ProductsService {
           image: data.image,
         }
       });
-      try {
-        await prisma.$accelerate.invalidate({
-          tags: ['products', 'categories'],
-        });
-      } catch (e) {
-        if (e instanceof Prisma.PrismaClientKnownRequestError) {
-          if (e.code === 'P6003') {
-            console.log('The cache invalidation rate limit has been reached. Please try again later.');
-          }
-        }
-        throw e; // Re-throw the error if it's not a rate limit issue
-      }
+      
       return newProduct;
     } finally {
-      // await prisma.$disconnect(); // Removed to allow Accelerate to manage connections
     }
   }
 
@@ -222,21 +192,10 @@ export class ProductsService {
           image: data.image,
         },
       });
-      try {
-        await prisma.$accelerate.invalidate({
-          tags: ['products', `product-${id}`, 'categories'],
-        });
-      } catch (e) {
-        if (e instanceof Prisma.PrismaClientKnownRequestError) {
-          if (e.code === 'P6003') {
-            console.log('The cache invalidation rate limit has been reached. Please try again later.');
-          }
-        }
-        throw e; // Re-throw the error if it's not a rate limit issue
-      }
+      
       return updatedProduct;
     } finally {
-      // await prisma.$disconnect(); // Removed to allow Accelerate to manage connections
+      
     }
   }
 
@@ -263,7 +222,7 @@ export class ProductsService {
         lowStockThreshold,
       };
     } finally {
-      // await prisma.$disconnect(); // Removed to allow Accelerate to manage connections
+      
     }
   }
 }

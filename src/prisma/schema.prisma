@@ -90,6 +90,8 @@ model Product {
     id            Int @id @default(autoincrement())
     categoryId    Int
     stock         Int
+    minimumStock  Int @default(1) // New field
+    disabled      Boolean @default(false) // New field
     name          String
     description   String
     price         Decimal
@@ -137,7 +139,7 @@ model OrderState{
 
 model DeliveryMethod{
     id      Int  @id @default(autoincrement())
-    method  Int
+    method  String @unique
 
     order Order[]
 

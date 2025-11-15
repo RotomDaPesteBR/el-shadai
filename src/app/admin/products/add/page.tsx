@@ -3,6 +3,7 @@ import AddProductForm from '@/app/components/admin/products/AddProductForm';
 import RouteProtection from '@/components/server/RouteProtection';
 import PageContainer from '@/components/shared/Containers/PageContainer';
 import PageHeader from '@/components/shared/PageHeader';
+import NavigationBar from '@/components/shared/Navigation'; // Import NavigationBar
 import { ProductsService } from '@/services/ProductsService';
 import { getTranslations } from 'next-intl/server';
 
@@ -51,6 +52,7 @@ export default async function AdminAddProductPage() {
       <RouteProtection roles={['admin']} />
       <PageContainer>
         <PageHeader />
+        <NavigationBar />
         <AddProductForm
           initialLoading={false}
           initialError={null}

@@ -3,6 +3,7 @@ import OrdersClientPage from '@/app/components/orders/OrdersClientPage';
 import RouteProtection from '@/components/server/RouteProtection';
 import PageContainer from '@/components/shared/Containers/PageContainer';
 import PageHeader from '@/components/shared/PageHeader';
+import NavigationBar from '@/components/shared/Navigation'; // Import NavigationBar
 import { OrderService } from '@/services/OrderService';
 import { getTranslations } from 'next-intl/server';
 
@@ -56,6 +57,7 @@ export default async function OrdersPage() {
       <RouteProtection />
       <PageContainer>
         <PageHeader />
+        <NavigationBar />
         <OrdersClientPage
           initialOrders={initialOrders}
           initialLoading={initialLoading}

@@ -1,10 +1,11 @@
 'use client';
 
 import { CartItem } from '@/types';
-import { ProductType } from '@/types/products'; // Assuming Product type is defined here
+import { ProductType } from '@/types/products';
 import {
   createContext,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useState
@@ -17,6 +18,9 @@ interface CartContextType {
   updateQuantity: (productId: number, newQuantity: number) => void;
   clearCart: () => void;
   getCartTotal: () => number;
+  updateCartItemStock: (productId: number, newStock: number) => void; // New function
+  isCartValid: () => boolean; // New function
+  getInvalidCartItems: () => CartItem[];
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -35,48 +39,77 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     if (cart.length > 0) {
       localStorage.setItem('cart', JSON.stringify(cart));
     } else if (typeof window !== 'undefined' && localStorage.getItem('cart')) {
-      // Only clear if cart is empty and there was something in localStorage
       localStorage.removeItem('cart');
     }
   }, [cart]);
 
-  const addToCart = (product: ProductType, quantity: number) => {
+  const addToCart = useCallback((product: ProductType, quantity: number) => {
     setCart(prevCart => {
       const existingItem = prevCart.find(item => item.id === product.id);
       if (existingItem) {
+        const newQuantity = existingItem.quantity + quantity;
+        if (newQuantity > product.stock) {
+          // Optionally, show a toast here or handle in the component calling addToCart
+          return prevCart; // Do not add if it exceeds stock
+        }
         return prevCart.map(item =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
+            ? { ...item, quantity: newQuantity }
             : item
         );
       } else {
-        return [...prevCart, { ...product, quantity }];
+        if (quantity > product.stock) {
+          // Optionally, show a toast here
+          return prevCart; // Do not add if initial quantity exceeds stock
+        }
+        return [...prevCart, { ...product, quantity, stock: product.stock }];
       }
     });
-  };
+  }, []);
 
-  const removeFromCart = (productId: number) => {
+  const removeFromCart = useCallback((productId: number) => {
     setCart(prevCart => prevCart.filter(item => item.id !== productId));
-  };
+  }, []);
 
-  const updateQuantity = (productId: number, newQuantity: number) => {
+  const updateQuantity = useCallback((productId: number, newQuantity: number) => {
     setCart(
       prevCart =>
         prevCart
-          .map(item =>
-            item.id === productId ? { ...item, quantity: newQuantity } : item
-          )
-          .filter(item => item.quantity > 0) // Remove if quantity becomes 0 or less
+          .map(item => {
+            if (item.id === productId) {
+              // Ensure newQuantity does not exceed stock
+              const quantityToSet = Math.min(Math.max(0, newQuantity), item.stock);
+              return { ...item, quantity: quantityToSet };
+            }
+            return item;
+          })
+          .filter(item => item.quantity > 0)
     );
-  };
+  }, []);
 
-  const clearCart = () => {
+  const updateCartItemStock = useCallback((productId: number, newStock: number) => {
+    setCart(prevCart =>
+      prevCart.map(item =>
+        item.id === productId ? { ...item, stock: newStock } : item
+      )
+    );
+  }, []);
+
+  const clearCart = useCallback(() => {
     setCart([]);
-  };
+  }, []);
 
-  const getCartTotal = () => {
+  const getCartTotal = useCallback(() => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
+  }, [cart]);
+
+  const isCartValid = useCallback(() => {
+    return cart.every(item => item.quantity <= item.stock);
+  }, [cart]);
+
+  const getInvalidCartItems = useCallback(() => {
+    return cart.filter(item => item.quantity > item.stock);
+  }, [cart]);
 
   return (
     <CartContext.Provider
@@ -86,7 +119,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         removeFromCart,
         updateQuantity,
         clearCart,
-        getCartTotal
+        getCartTotal,
+        updateCartItemStock,
+        isCartValid,
+        getInvalidCartItems
       }}
     >
       {children}

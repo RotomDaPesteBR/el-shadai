@@ -1,10 +1,12 @@
+import DashboardClientPage from '@/app/components/admin/dashboard/DashboardClientPage';
 import RouteProtection from '@/components/server/RouteProtection';
 import PageContainer from '@/components/shared/Containers/PageContainer';
+import NavigationBar from '@/components/shared/Navigation';
 import PageHeader from '@/components/shared/PageHeader';
-import { getTranslations } from 'next-intl/server';
 import { OrderService } from '@/services/OrderService';
 import { ProductsService } from '@/services/ProductsService';
-import DashboardClientPage from '@/app/components/admin/dashboard/DashboardClientPage';
+import { getTranslations } from 'next-intl/server';
+import { Toaster } from 'react-hot-toast';
 
 interface LowStockProductSummary {
   id: number;
@@ -17,7 +19,11 @@ export default async function DashboardPage() {
   const t = await getTranslations('Pages.Dashboard');
 
   let orderMetrics = null;
-  let productMetrics: { totalProducts: number; lowStockProducts: LowStockProductSummary[]; lowStockThreshold: number } | null = null;
+  let productMetrics: {
+    totalProducts: number;
+    lowStockProducts: LowStockProductSummary[];
+    lowStockThreshold: number;
+  } | null = null;
   let initialLoading = true;
   let initialError: string | null = null;
 
@@ -25,8 +31,11 @@ export default async function DashboardPage() {
     orderMetrics = await OrderService.getDashboardOrderMetrics();
     productMetrics = await ProductsService.getDashboardProductMetrics();
   } catch (err: unknown) {
-    console.error("Error fetching dashboard metrics:", err);
-    initialError = err instanceof Error ? err.message : "Não foi possível carregar as métricas do dashboard.";
+    console.error('Error fetching dashboard metrics:', err);
+    initialError =
+      err instanceof Error
+        ? err.message
+        : 'Não foi possível carregar as métricas do dashboard.';
   } finally {
     initialLoading = false;
   }
@@ -37,6 +46,7 @@ export default async function DashboardPage() {
       <RouteProtection roles={['admin']} />
       <PageContainer>
         <PageHeader />
+        <NavigationBar />
         <DashboardClientPage
           orderMetrics={orderMetrics}
           productMetrics={productMetrics}
@@ -44,6 +54,19 @@ export default async function DashboardPage() {
           initialError={initialError}
         />
       </PageContainer>
+      <Toaster
+        toastOptions={{
+          style: {
+            textAlign: 'center'
+          },
+          success: {
+            duration: 5000
+          },
+          error: {
+            duration: 10000
+          }
+        }}
+      />
     </>
   );
 }

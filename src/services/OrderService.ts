@@ -1,8 +1,6 @@
+import { prisma } from '@/prisma';
 import { CartItem } from '@/types';
-import { Prisma, PrismaClient } from '@prisma/client';
-import { withAccelerate } from '@prisma/extension-accelerate';
-
-const prisma = new PrismaClient().$extends(withAccelerate());
+import { Prisma } from '@prisma/client';
 
 interface OrderGroupByResult {
   orderStateId: number;
@@ -74,12 +72,12 @@ export class OrderService {
     // 2. Determine OrderState and DeliveryMethod (placeholders for now)
     // In a real app, these would likely come from configuration or user selection
     const orderState = await prisma.orderState.findFirst({
-      where: { state: 'Pending' }
+      where: { id: 1 } // 1: pendente
     });
     console.log('OrderState found:', orderState); // Add logging
 
     const deliveryMethod = await prisma.deliveryMethod.findFirst({
-      where: { method: deliveryOption === 'delivery' ? 1 : 0 }
+      where: { id: deliveryOption === 'delivery' ? 1 : 2 } // 1 for 'Entrega', 2 for 'Retirada'
     });
     console.log('DeliveryOption:', deliveryOption); // Add logging
     console.log('DeliveryMethod found:', deliveryMethod); // Add logging
@@ -166,6 +164,7 @@ export class OrderService {
         },
         deliveryMethod: {
           select: {
+            id: true, // Select the id field
             method: true
           }
         },
@@ -201,7 +200,7 @@ export class OrderService {
       id: order.id,
       totalPrice: order.price.toNumber(),
       status: order.orderState.state,
-      deliveryMethod: order.deliveryMethod.method === 1 ? 'delivery' : 'pickup',
+      deliveryMethod: order.deliveryMethod.id === 1 ? 'delivery' : 'pickup',
       createdAt: order.createdAt,
       products: productsInOrder
       // Add payment method details if stored in Order model
@@ -212,11 +211,11 @@ export class OrderService {
     const orders = await prisma.order.findMany({
       where: {
         deliveryMethod: {
-          method: 1, // Assuming 1 for delivery
+          id: 1, // Assuming 1 for delivery (Entrega)
         },
         orderState: {
           NOT: {
-            state: 'Delivered',
+            id: 3, // 3 for Delivered
           },
         },
       },
@@ -271,13 +270,13 @@ export class OrderService {
     }));
   }
 
-  static async updateOrderStatus(orderId: number, newStatus: string) {
+  static async updateOrderStatus(orderId: number, newStatusId: number) {
     const orderState = await prisma.orderState.findFirst({
-      where: { state: newStatus },
+      where: { id: newStatusId },
     });
 
     if (!orderState) {
-      throw new Error(`Invalid order status: ${newStatus}`);
+      throw new Error(`Invalid order status: ${newStatusId}`);
     }
 
     const updatedOrder = await prisma.order.update({
@@ -307,7 +306,7 @@ export class OrderService {
       });
       const totalRevenue = totalRevenueResult._sum.price?.toNumber() || 0;
 
-      const ordersByStatus: OrderGroupByResult[] = (await prisma.order.groupBy({
+      const ordersByStatus = (await prisma.order.groupBy({
         by: ['orderStateId'],
         _count: {
           id: true,
@@ -315,7 +314,7 @@ export class OrderService {
         _sum: {
           price: true,
         },
-      })) as OrderGroupByResult[];
+      }));
 
       const orderStates = await prisma.orderState.findMany({
         select: {
@@ -339,7 +338,7 @@ export class OrderService {
         statusMetrics,
       };
     } finally {
-      // await prisma.$disconnect(); // Removed to allow Accelerate to manage connections
+      
     }
   }
 }

@@ -1,6 +1,7 @@
 import RouteProtection from '@/components/server/RouteProtection';
 import PageContainer from '@/components/shared/Containers/PageContainer';
 import PageHeader from '@/components/shared/PageHeader';
+import NavigationBar from '@/components/shared/Navigation'; // Import NavigationBar
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import CheckoutForm from '@/app/components/checkout/CheckoutForm';
 
@@ -17,6 +18,7 @@ export default async function CheckoutPage({ params }: any) {
       <RouteProtection />
       <PageContainer>
         <PageHeader />
+        <NavigationBar />
         <CheckoutForm />
       </PageContainer>
     </>

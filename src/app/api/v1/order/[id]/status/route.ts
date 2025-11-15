@@ -20,12 +20,12 @@ export async function PUT(
       return NextResponse.json({ message: 'Invalid Order ID' }, { status: 400 });
     }
 
-    const { newStatus } = await request.json();
-    if (!newStatus) {
-      return NextResponse.json({ message: 'New status is required' }, { status: 400 });
+    const { newStatusId } = await request.json();
+    if (typeof newStatusId !== 'number') {
+      return NextResponse.json({ message: 'New status ID is required and must be a number' }, { status: 400 });
     }
 
-    const updatedOrder = await OrderService.updateOrderStatus(orderId, newStatus);
+    const updatedOrder = await OrderService.updateOrderStatus(orderId, newStatusId);
 
     return NextResponse.json({ message: 'Order status updated successfully', order: updatedOrder }, { status: 200 });
   } catch (error) {

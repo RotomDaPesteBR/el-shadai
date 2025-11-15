@@ -2,6 +2,7 @@ import { auth } from '@/app/auth';
 import EditProductForm from '@/app/components/admin/products/EditProductForm';
 import RouteProtection from '@/components/server/RouteProtection';
 import PageContainer from '@/components/shared/Containers/PageContainer';
+import NavigationBar from '@/components/shared/Navigation';
 import PageHeader from '@/components/shared/PageHeader';
 import { ProductsService } from '@/services/ProductsService';
 import { getTranslations } from 'next-intl/server';
@@ -46,6 +47,7 @@ export default async function AdminEditProductPage({ params }: { params: Promise
         <RouteProtection roles={['admin']} />
         <PageContainer>
           <PageHeader />
+          <NavigationBar />
           <EditProductForm
             initialProduct={null}
             initialLoading={false}
@@ -94,6 +96,7 @@ export default async function AdminEditProductPage({ params }: { params: Promise
       <RouteProtection roles={['admin']} />
       <PageContainer>
         <PageHeader />
+        <NavigationBar />
         <EditProductForm
           initialProduct={initialProduct}
           initialLoading={initialLoading}

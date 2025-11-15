@@ -1,8 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-import { withAccelerate } from '@prisma/extension-accelerate';
-
-const prisma = new PrismaClient().$extends(withAccelerate());
+import { prisma } from '@/prisma';
 
 export class UserService {
   static async getUserAddress(userId: string) {

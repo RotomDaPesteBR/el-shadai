@@ -1,11 +1,13 @@
 import RouteProtection from '@/components/server/RouteProtection';
 import PageContainer from '@/components/shared/Containers/PageContainer';
+import NavigationBar from '@/components/shared/Navigation';
 import PageHeader from '@/components/shared/PageHeader';
 import { CategoriesService } from '@/services/CategoriesService';
 import { ProductsService } from '@/services/ProductsService';
 import { CategoryType } from '@/types/categories';
 import { GroupedProducts, ProductType } from '@/types/products';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Toaster } from 'react-hot-toast';
 import Catalog from '../components/products/catalog';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,8 +47,22 @@ export default async function Products({ params }: any) {
       <RouteProtection />
       <PageContainer>
         <PageHeader />
+        <NavigationBar />
         <Catalog categories={categories} products={groupedProducts} />
       </PageContainer>
+      <Toaster
+        toastOptions={{
+          style: {
+            textAlign: 'center'
+          },
+          success: {
+            duration: 5000
+          },
+          error: {
+            duration: 10000
+          }
+        }}
+      />
     </>
   );
 }

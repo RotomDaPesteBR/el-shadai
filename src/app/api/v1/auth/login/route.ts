@@ -1,9 +1,7 @@
-import { PrismaClient, Role, User } from '@prisma/client';
-import { withAccelerate } from '@prisma/extension-accelerate';
+import { prisma } from '@/prisma';
+import { Role, User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { NextResponse } from 'next/server';
-
-const prisma = new PrismaClient().$extends(withAccelerate());
 
 type UserWithRole = User & { role: Role };
 

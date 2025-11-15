@@ -1,8 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { withAccelerate } from '@prisma/extension-accelerate';
+import { prisma } from '@/prisma';
 import { NextResponse } from 'next/server';
-
-const prisma = new PrismaClient().$extends(withAccelerate());
 
 export async function GET() {
   try {

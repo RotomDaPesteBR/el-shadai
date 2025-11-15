@@ -7,6 +7,7 @@ import styles from './page.module.scss';
 // Importe o ProductsService e o tipo ProductType
 import PageContainer from '@/components/shared/Containers/PageContainer';
 import PageHeader from '@/components/shared/PageHeader';
+import NavigationBar from '@/components/shared/Navigation'; // Import NavigationBar
 import { ProductsService } from '@/services/ProductsService';
 import { ProductType } from '@/types/products';
 
@@ -79,6 +80,7 @@ export default async function ProductById_Page({ params }: any) {
       <RouteProtection />
       <PageContainer>
         <PageHeader />
+        <NavigationBar />
         <Product_Page product={product} />
       </PageContainer>
     </>
