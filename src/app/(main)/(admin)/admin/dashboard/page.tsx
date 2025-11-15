@@ -20,7 +20,6 @@ export default async function DashboardPage() {
   let productMetrics: {
     totalProducts: number;
     lowStockProducts: LowStockProductSummary[];
-    lowStockThreshold: number;
   } | null = null;
   let initialLoading = true;
   let initialError: string | null = null;
