@@ -85,6 +85,11 @@
   padding: 10px;
   border-radius: 5px;
   box-sizing: border-box;
+
+  @media screen and (max-height: 900px) {
+    overflow-y: auto;
+    justify-content: unset;
+  }
 }
 
 .product_name {
