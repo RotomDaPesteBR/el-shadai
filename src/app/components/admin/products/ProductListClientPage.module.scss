@@ -36,6 +36,7 @@
       background-color: colors.$primary-main; // Requested background color
       color: white; // Requested text color
       height: 40px; // Requested height
+      width: 275px;
       padding: 0 15px; // Adjust padding for height
       border-radius: 5px;
       text-decoration: none;
@@ -93,7 +94,10 @@
         text-decoration: none;
 
         &:hover {
-          background-color: color.adjust(colors.$secondary-main, $lightness: -10%);
+          background-color: color.adjust(
+            colors.$secondary-main,
+            $lightness: -10%
+          );
         }
       }
     }

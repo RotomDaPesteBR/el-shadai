@@ -28,9 +28,10 @@ interface LowStockProductSummary {
 // Interface para o corpo da requisição de criação de produto
 interface CreateProductPayload {
   name: string;
-  description: string; // Corrected to non-nullable
+  description: string;
   price: number;
   stock: number;
+  minimumStock?: number;
   categoryId: number;
   image?: string | null;
 }
@@ -38,9 +39,10 @@ interface CreateProductPayload {
 // Interface for updating product payload
 interface UpdateProductPayload {
   name?: string;
-  description?: string; // Corrected to optional string, not null
+  description?: string;
   price?: number;
   stock?: number;
+  minimumStock?: number;
   categoryId?: number;
   image?: string | null;
 }
@@ -67,7 +69,7 @@ export class ProductsService {
               categoryName: true
             }
           }
-        },
+        }
       });
 
       const modifiedProducts: ProductSummary[] = products.map(product => {
@@ -85,7 +87,6 @@ export class ProductsService {
 
       return modifiedProducts;
     } finally {
-      
     }
   }
 
@@ -98,12 +99,11 @@ export class ProductsService {
       const categories = await prisma.category.findMany({
         select: {
           id: true,
-          categoryName: true,
-        },
+          categoryName: true
+        }
       });
       return categories;
     } finally {
-      
     }
   }
 
@@ -130,7 +130,7 @@ export class ProductsService {
               categoryName: true
             }
           }
-        },
+        }
       });
 
       if (!product) {
@@ -148,7 +148,6 @@ export class ProductsService {
 
       return modifiedProduct;
     } finally {
-      
     }
   }
 
@@ -163,14 +162,14 @@ export class ProductsService {
         data: {
           name: data.name,
           description: data.description,
-          // Prisma handles conversion from number to Decimal on insert
           price: data.price,
           stock: data.stock,
+          minimumStock: data.minimumStock,
           categoryId: data.categoryId,
-          image: data.image,
+          image: data.image
         }
       });
-      
+
       return newProduct;
     } finally {
     }
@@ -179,7 +178,10 @@ export class ProductsService {
   /**
    * Updates an existing product.
    * @param id The ID of the product to update.\n   * @param data The product data to update.\n   * @returns A promise that resolves to the updated Product.\n   */
-  static async updateProduct(id: number, data: UpdateProductPayload): Promise<Product> {
+  static async updateProduct(
+    id: number,
+    data: UpdateProductPayload
+  ): Promise<Product> {
     try {
       const updatedProduct = await prisma.product.update({
         where: { id: id },
@@ -188,14 +190,14 @@ export class ProductsService {
           description: data.description,
           price: data.price,
           stock: data.stock,
+          minimumStock: data.minimumStock,
           categoryId: data.categoryId,
-          image: data.image,
-        },
+          image: data.image
+        }
       });
-      
+
       return updatedProduct;
     } finally {
-      
     }
   }
 

@@ -104,6 +104,7 @@
       "ProductDescription": "Descrição do Produto",
       "ProductPrice": "Preço",
       "ProductStock": "Estoque",
+      "MinimumStock": "Estoque Mínimo",
       "ProductImage": "Imagem do Produto",
       "AddingProduct": "Adicionando Produto...",
       "AddProduct": "Adicionar Produto",
@@ -121,6 +122,7 @@
       "ProductDescription": "Descrição do Produto",
       "ProductPrice": "Preço",
       "ProductStock": "Estoque",
+      "MinimumStock": "Estoque Mínimo",
       "ProductImage": "Imagem do Produto",
       "ProductCategory": "Categoria do Produto",
       "SelectCategory": "Selecione uma categoria"

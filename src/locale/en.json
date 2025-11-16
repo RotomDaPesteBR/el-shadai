@@ -17,7 +17,20 @@
       "SalesByCategory": "Sales by Category"
     },
     "AdminAddProduct": {
-      "AddProduct": "Add Product"
+      "Title": "Add New Product",
+      "AllFieldsRequired": "All required fields must be filled.",
+      "ProductAddedSuccessfully": "Product added successfully!",
+      "FailedToAddProduct": "Failed to add product.",
+      "ProductName": "Product Name",
+      "ProductDescription": "Product Description",
+      "ProductPrice": "Price",
+      "ProductStock": "Stock",
+      "MinimumStock": "Minimum Stock",
+      "ProductImage": "Product Image",
+      "AddingProduct": "Adding Product...",
+      "AddProduct": "Add Product",
+      "ProductCategory": "Product Category",
+      "SelectCategory": "Select a category"
     }
   },
   "Components": {

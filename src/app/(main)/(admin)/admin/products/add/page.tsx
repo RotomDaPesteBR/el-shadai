@@ -1,6 +1,4 @@
-import { auth } from '@/app/auth';
 import AddProductForm from '@/app/components/admin/products/AddProductForm';
-import RouteProtection from '@/components/server/RouteProtection';
 import PageContainer from '@/components/shared/Containers/PageContainer';
 import NavigationBar from '@/components/shared/Navigation'; // Import NavigationBar
 import { ProductsService } from '@/services/ProductsService';
@@ -15,9 +13,6 @@ interface CategorySummary {
 export default async function AdminAddProductPage() {
   const t = await getTranslations('Pages.AdminAddProduct');
 
-  const session = await auth();
-  const userId = session?.user?.id;
-
   let categories: CategorySummary[] = [];
   let categoriesError: string | null = null;
 
@@ -29,23 +24,6 @@ export default async function AdminAddProductPage() {
       err instanceof Error
         ? err.message
         : 'Não foi possível carregar as categorias.';
-  }
-
-  if (!userId) {
-    return (
-      <>
-        <title>{t('Title')}</title>
-        <RouteProtection roles={['admin']} />
-        <PageContainer>
-          <AddProductForm
-            initialLoading={false}
-            initialError="Usuário não autenticado."
-            categories={categories}
-            categoriesError={categoriesError}
-          />
-        </PageContainer>
-      </>
-    );
   }
 
   return (

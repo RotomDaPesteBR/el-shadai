@@ -17,7 +17,20 @@
       "SalesByCategory": "Ventas por Categoría"
     },
     "AdminAddProduct": {
-      "AddProduct": "Añadir Producto"
+      "Title": "Añadir Nuevo Producto",
+      "AllFieldsRequired": "Todos los campos obligatorios deben ser completados.",
+      "ProductAddedSuccessfully": "¡Producto añadido con éxito!",
+      "FailedToAddProduct": "Error al añadir el producto.",
+      "ProductName": "Nombre del Producto",
+      "ProductDescription": "Descripción del Producto",
+      "ProductPrice": "Precio",
+      "ProductStock": "Existencias",
+      "MinimumStock": "Existencias Mínimas",
+      "ProductImage": "Imagen del Producto",
+      "AddingProduct": "Añadiendo Producto...",
+      "AddProduct": "Añadir Producto",
+      "ProductCategory": "Categoría del Producto",
+      "SelectCategory": "Seleccione una categoría"
     }
   },
   "Components": {

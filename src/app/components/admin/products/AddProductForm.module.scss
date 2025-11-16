@@ -3,83 +3,181 @@
 
 .container {
   padding: 20px;
-  background-color: #ffddab; // Requested background color
-  color: black; // Requested text color
-  overflow-y: auto; // Added overflow-y
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ffddab;
+  overflow-y: auto;
+}
 
-  .title {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: black; // Ensure title is black
+.title {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: var(--card-bg-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.form_grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+  }
+}
+
+.image_column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fields_column {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text-color);
+  }
+}
+
+.form_group_inline {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.image_preview {
+  width: 100%;
+  padding-top: 100%; // 1:1 Aspect Ratio
+  position: relative;
+  border: 1px solid #999;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: white;
+
+  img {
+    border-radius: 8px;
+    object-fit: cover;
   }
 
-  .form {
-    display: flex;
+  &:focus-within {
+    outline: none;
+    border-color: colors.$primary-main;
+  }
+}
+
+.image_placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.file_input {
+  // Visually hide the input but keep it accessible
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.textarea,
+.select {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  background: #fafafa;
+  padding: 0 10px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  font-size: 1rem; // Adjusted for consistency
+  color: var(--text-color);
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: colors.$primary-main;
+  }
+}
+
+.textarea {
+  min-height: 80px;
+  padding: 10px;
+  resize: vertical;
+
+  &:focus {
+    outline: none;
+    border-color: colors.$primary-main;
+  }
+}
+
+.submit_button {
+  background-color: colors.$primary-main;
+  color: white;
+  height: 45px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: color.adjust(colors.$primary-main, $lightness: -10%);
+  }
+
+  &:disabled {
+    background-color: var(--disabled-color);
+    cursor: not-allowed;
+  }
+}
+
+.error_message {
+  color: var(--error-color);
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .form_group_inline {
     flex-direction: column;
     gap: 15px;
-    background-color: var(--card-bg-color);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
-
-    .form_group {
-      display: flex;
-      flex-direction: column;
-
-      label {
-        margin-bottom: 5px;
-        font-weight: bold;
-        color: black; // Ensure label is black
-      }
-
-      input[type="text"],
-      input[type="number"],
-      input[type="file"],
-      textarea,
-      select { // Added select
-        height: 40px; // Requested height
-        padding: 10px;
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
-        background-color: white; // Requested background color
-        color: black; // Requested text color
-
-        &:focus {
-          outline: none;
-          border-color: var(--primary-color);
-        }
-      }
-
-      textarea {
-        resize: vertical;
-        min-height: 80px;
-      }
-    }
-
-    .submit_button {
-      background-color: colors.$primary-main; // Requested background color
-      color: white; // Requested text color
-      height: 40px; // Requested height
-      padding: 0 20px; // Adjust padding for height
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-
-      &:hover {
-        background-color: color.adjust(colors.$primary-main, $lightness: -10%);
-      }
-
-      &:disabled {
-        background-color: var(--disabled-color);
-        cursor: not-allowed;
-      }
-    }
   }
 
-  .error_message {
-    color: var(--error-color);
-    font-weight: bold;
-    margin-top: 10px;
+  .image_column {
+    max-width: 200px;
+    margin: 0 auto;
   }
 }
