@@ -228,6 +228,15 @@
   background: color.adjust(colors.$primary-main, $lightness: -10%);
 }
 
+.out_of_stock_btn {
+  background: #cccccc; // Gray background
+  color: #666666; // Darker text color
+  cursor: not-allowed; // Indicate it's not clickable
+  &:hover {
+    background: #cccccc; // No change on hover for disabled state
+  }
+}
+
 .cancel_btn {
   display: flex;
   flex-direction: row;
