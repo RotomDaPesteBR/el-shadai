@@ -93,7 +93,21 @@
       "Price": "Preço",
       "Stock": "Estoque",
       "Edit": "Editar",
-      "Category": "Categoria"
+      "Category": "Categoria",
+      "Delete": "Excluir",
+      "UpdateStock": "Atualizar Estoque",
+      "ConfirmDeleteTitle": "Confirmar Exclusão",
+      "ConfirmDeleteMessage": "Tem certeza que deseja excluir o produto {productName}?",
+      "Cancel": "Cancelar",
+      "Update": "Atualizar",
+      "UpdateStockTitle": "Atualizar Estoque do Produto",
+      "CurrentStock": "Estoque Atual: {stock}",
+      "NewStockQuantity": "Nova Quantidade em Estoque",
+      "ProductDeletedSuccessfully": "Produto excluído com sucesso!",
+      "FailedToDeleteProduct": "Falha ao excluir produto.",
+      "InvalidStockQuantity": "Quantidade em estoque inválida.",
+      "StockUpdatedSuccessfully": "Estoque atualizado com sucesso!",
+      "FailedToUpdateStock": "Falha ao atualizar estoque."
     },
     "AdminAddProduct": {
       "Title": "Adicionar Novo Produto",

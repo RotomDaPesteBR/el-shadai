@@ -224,5 +224,40 @@ export class ProductsService {
     } finally {
     }
   }
+
+  /**
+   * Deletes a product by its ID.
+   * @param productId The ID of the product to delete.
+   * @returns A promise that resolves to the deleted Product.
+   */
+  static async deleteProduct(productId: number): Promise<Product> {
+    try {
+      const deletedProduct = await prisma.product.delete({
+        where: { id: productId }
+      });
+      return deletedProduct;
+    } finally {
+    }
+  }
+
+  /**
+   * Updates the stock of a product.
+   * @param productId The ID of the product to update.
+   * @param newStock The new stock quantity.
+   * @returns A promise that resolves to the updated Product.
+   */
+  static async updateProductStock(
+    productId: number,
+    newStock: number
+  ): Promise<Product> {
+    try {
+      const updatedProduct = await prisma.product.update({
+        where: { id: productId },
+        data: { stock: newStock }
+      });
+      return updatedProduct;
+    } finally {
+    }
+  }
 }
 

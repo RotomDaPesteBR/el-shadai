@@ -6,105 +6,144 @@
   background-color: #ffddab; // Requested background color
   color: black; // Requested text color
   overflow-y: auto; // Added overflow-y
+}
 
-  .title {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: black; // Ensure title is black
+.title {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: black; // Ensure title is black
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .search_input {
+    flex-grow: 1;
+    height: 40px; // Requested height
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: white; // Requested background color
+    color: black; // Requested text color
+
+    &::placeholder {
+      color: var(--text-color-light);
+    }
   }
 
-  .actions {
+  .add_button {
+    background-color: colors.$primary-main; // Requested background color
+    color: white; // Requested text color
+    height: 40px; // Requested height
+    width: 275px;
+    padding: 0 15px; // Adjust padding for height
+    border-radius: 5px;
+    text-decoration: none;
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
 
-    .search_input {
-      flex-grow: 1;
-      height: 40px; // Requested height
-      padding: 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 5px;
-      background-color: white; // Requested background color
-      color: black; // Requested text color
+    &:hover {
+      background-color: color.adjust(colors.$primary-main, $lightness: -10%);
+    }
+  }
+}
 
-      &::placeholder {
-        color: var(--text-color-light);
+.product_list {
+  list-style: none;
+  padding: 0;
+
+  .product_list_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: colors.$primary-main; // Requested background color
+    color: white; // Requested text color
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+
+    .product_info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .product_image {
+        border-radius: 5px;
+        object-fit: cover;
+      }
+
+      h3 {
+        margin: 0;
+        color: white; // Ensure text is white
+      }
+
+      p {
+        margin: 0;
+        color: white; // Ensure text is white
       }
     }
 
-    .add_button {
-      background-color: colors.$primary-main; // Requested background color
-      color: white; // Requested text color
-      height: 40px; // Requested height
-      width: 275px;
-      padding: 0 15px; // Adjust padding for height
+    .edit_button {
+      background-color: colors.$secondary-main; // Keep secondary color for edit button
+      color: white;
+      padding: 8px 12px;
       border-radius: 5px;
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
 
       &:hover {
-        background-color: color.adjust(colors.$primary-main, $lightness: -10%);
+        background-color: color.adjust(
+          colors.$secondary-main,
+          $lightness: -10%
+        );
       }
     }
   }
+}
 
-  .product_list {
-    list-style: none;
-    padding: 0;
+.product_actions {
+  display: flex;
+  gap: 10px;
 
-    .product_list_item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-      margin-bottom: 10px;
-      background-color: colors.$primary-main; // Requested background color
-      color: white; // Requested text color
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-
-      .product_info {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-
-        .product_image {
-          border-radius: 5px;
-          object-fit: cover;
-        }
-
-        h3 {
-          margin: 0;
-          color: white; // Ensure text is white
-        }
-
-        p {
-          margin: 0;
-          color: white; // Ensure text is white
-        }
-      }
-
-      .edit_button {
-        background-color: colors.$secondary-main; // Keep secondary color for edit button
-        color: white;
-        padding: 8px 12px;
-        border-radius: 5px;
-        text-decoration: none;
-
-        &:hover {
-          background-color: color.adjust(
-            colors.$secondary-main,
-            $lightness: -10%
-          );
-        }
-      }
-    }
-  }
-
-  .error_message {
-    color: var(--error-color);
+  button {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      filter: brightness(1.1);
+    }
   }
+
+  .delete_button {
+    background-color: colors.$danger-main;
+  }
+
+  .update_stock_button {
+    background-color: colors.$secondary-alt;
+  }
+}
+
+.modal_form_group {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  label {
+    font-weight: bold;
+    color: var(--text-color);
+  }
+}
+
+.error_message {
+  color: var(--error-color);
+  font-weight: bold;
 }
