@@ -68,7 +68,7 @@ export default function ProductListClientPage({
     setIsSubmitting(true);
     try {
       const response = await fetch(
-        `/api/v1/admin/products/${selectedProduct.id}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/admin/products/${selectedProduct.id}`,
         {
           method: 'DELETE'
         }
@@ -118,7 +118,7 @@ export default function ProductListClientPage({
     setIsSubmitting(true);
     try {
       const response = await fetch(
-        `/api/v1/admin/products/${selectedProduct.id}/stock`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/admin/products/${selectedProduct.id}/stock`,
         {
           method: 'PATCH',
           headers: {

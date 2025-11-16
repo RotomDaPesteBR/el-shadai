@@ -56,6 +56,9 @@ export class ProductsService {
   static async getAllProducts(): Promise<ProductSummary[]> {
     try {
       const products = await prisma.product.findMany({
+        where: {
+          disabled: false
+        },
         select: {
           id: true,
           name: true,
@@ -116,7 +119,7 @@ export class ProductsService {
   static async getProductById(id: number): Promise<ProductType | null> {
     try {
       const product = await prisma.product.findUnique({
-        where: { id: id },
+        where: { id: id, disabled: false },
         select: {
           id: true,
           name: true,
@@ -204,6 +207,9 @@ export class ProductsService {
   static async getDashboardProductMetrics() {
     try {
       const allProducts = await prisma.product.findMany({
+        where: {
+          disabled: false
+        },
         select: {
           id: true,
           name: true,
@@ -232,10 +238,11 @@ export class ProductsService {
    */
   static async deleteProduct(productId: number): Promise<Product> {
     try {
-      const deletedProduct = await prisma.product.delete({
-        where: { id: productId }
+      const updatedProduct = await prisma.product.update({
+        where: { id: productId },
+        data: { disabled: true }
       });
-      return deletedProduct;
+      return updatedProduct;
     } finally {
     }
   }
