@@ -1,5 +1,4 @@
 import DeliveryOrdersClientPage from '@/app/components/delivery/DeliveryOrdersClientPage';
-import RouteProtection from '@/components/server/RouteProtection';
 import PageContainer from '@/components/shared/Containers/PageContainer';
 import NavigationBar from '@/components/shared/Navigation'; // Import NavigationBar
 import { OrderService } from '@/services/OrderService';
@@ -46,7 +45,6 @@ export default async function DeliveryOrdersPage() {
   return (
     <>
       <title>{t('Title')}</title>
-      <RouteProtection roles={['delivery']} />
       <PageContainer>
         <NavigationBar />
         <DeliveryOrdersClientPage

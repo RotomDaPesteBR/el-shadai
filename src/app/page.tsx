@@ -18,5 +18,9 @@ export default async function Index() {
     redirect('/admin/dashboard');
   }
 
+  if (user.role && user.role == 'delivery') {
+    redirect('/delivery');
+  }
+
   redirect('/products');
 }

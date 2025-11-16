@@ -1,6 +1,7 @@
-"use client";
+'use client';
 
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import {
   Bar,
   BarChart,
@@ -14,7 +15,6 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
-import Image from 'next/image';
 import styles from './DashboardClientPage.module.scss';
 
 // Updated interfaces to match new service responses
@@ -42,13 +42,22 @@ interface DashboardClientPageProps {
   initialError: string | null;
 }
 
-const CHART_COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const CHART_COLORS = [
+  '#8884d8',
+  '#82ca9d',
+  '#ffc658',
+  '#ff7300',
+  '#0088FE',
+  '#00C49F',
+  '#FFBB28',
+  '#FF8042'
+];
 
 export default function DashboardClientPage({
   orderMetrics,
   productMetrics,
   initialLoading,
-  initialError,
+  initialError
 }: DashboardClientPageProps) {
   const t = useTranslations('Pages.Dashboard');
 
@@ -70,19 +79,33 @@ export default function DashboardClientPage({
     );
   }
 
-  const totalRevenueFormatted = orderMetrics?.totalRevenue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  const totalRevenueFormatted = orderMetrics?.totalRevenue.toLocaleString(
+    'pt-BR',
+    { style: 'currency', currency: 'BRL' }
+  );
 
   // Prepare data for the monthly sales chart
-  const monthLabels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+  const monthLabels = [
+    'Jan',
+    'Fev',
+    'Mar',
+    'Abr',
+    'Mai',
+    'Jun',
+    'Jul',
+    'Ago',
+    'Set',
+    'Out',
+    'Nov',
+    'Dez'
+  ];
   const monthlySalesData = orderMetrics?.monthlySales.map((total, index) => ({
     month: monthLabels[index],
-    total: total,
+    total: total
   }));
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>{t('Title')}</h2>
-
       <div className={styles.metrics_grid}>
         <div className={styles.metric_card}>
           <h3>{t('TotalOrders')}</h3>
@@ -98,12 +121,20 @@ export default function DashboardClientPage({
         </div>
         <div className={styles.metric_card}>
           <h3>{t('LowStockProducts')}</h3>
-          {productMetrics?.lowStockProducts && productMetrics.lowStockProducts.length > 0 ? (
+          {productMetrics?.lowStockProducts &&
+          productMetrics.lowStockProducts.length > 0 ? (
             <ul className={styles.low_stock_list}>
-              {productMetrics.lowStockProducts.map((product) => (
+              {productMetrics.lowStockProducts.map(product => (
                 <li key={product.id} className={styles.low_stock_item}>
-                  <Image src={product.image ?? '/images/food.png'} alt={product.name} width={30} height={30} />
-                  <span>{product.name} ({product.stock} {t('Units')})</span>
+                  <Image
+                    src={product.image ?? '/images/food.png'}
+                    alt={product.name}
+                    width={30}
+                    height={30}
+                  />
+                  <span>
+                    {product.name} ({product.stock} {t('Units')})
+                  </span>
                 </li>
               ))}
             </ul>
@@ -121,9 +152,20 @@ export default function DashboardClientPage({
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
-              <Tooltip formatter={(value: number) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} />
+              <Tooltip
+                formatter={(value: number) =>
+                  value.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                  })
+                }
+              />
               <Legend />
-              <Bar dataKey="total" name={t('TotalSales')} fill={CHART_COLORS[0]} />
+              <Bar
+                dataKey="total"
+                name={t('TotalSales')}
+                fill={CHART_COLORS[0]}
+              />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -141,10 +183,15 @@ export default function DashboardClientPage({
                 fill={CHART_COLORS[1]}
                 dataKey="value"
                 nameKey="name"
-                label={({ name, percent }) => `${name} ${(((percent ?? 0) as number) * 100).toFixed(0)}%`}
+                label={({ name, percent }) =>
+                  `${name} ${(((percent ?? 0) as number) * 100).toFixed(0)}%`
+                }
               >
                 {orderMetrics?.categoryMetrics.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={CHART_COLORS[index % CHART_COLORS.length]}
+                  />
                 ))}
               </Pie>
               <Tooltip />

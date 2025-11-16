@@ -1,6 +1,5 @@
 import { auth } from '@/app/auth';
 import DeliveryOrderDetailsClientPage from '@/app/components/delivery/DeliveryOrderDetailsClientPage';
-import RouteProtection from '@/components/server/RouteProtection';
 import PageContainer from '@/components/shared/Containers/PageContainer';
 import NavigationBar from '@/components/shared/Navigation'; // Import NavigationBar
 import { OrderService } from '@/services/OrderService';
@@ -42,7 +41,6 @@ export default async function DeliveryOrderDetailsPage({
     return (
       <>
         <title>{t('Title')}</title>
-        <RouteProtection roles={['delivery']} />
         <PageContainer>
           <DeliveryOrderDetailsClientPage
             initialOrderDetails={null}
@@ -80,7 +78,6 @@ export default async function DeliveryOrderDetailsPage({
   return (
     <>
       <title>{t('Title')}</title>
-      <RouteProtection roles={['delivery']} />
       <PageContainer>
         <NavigationBar />
         <DeliveryOrderDetailsClientPage
