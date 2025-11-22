@@ -16,7 +16,7 @@
 .title {
   font-size: 2em;
   margin-bottom: 20px;
-  color: var(--text-color);
+  color: colors.$text;
   text-align: center;
 }
 
@@ -61,7 +61,7 @@
   label {
     margin-bottom: 8px;
     font-weight: bold;
-    color: var(--text-color);
+    color: colors.$text;
   }
 }
 
@@ -164,13 +164,13 @@
   }
 
   &:disabled {
-    background-color: var(--disabled-color);
+    background-color: color.adjust(colors.$gray-30, $lightness: -20%);
     cursor: not-allowed;
   }
 }
 
 .error_message {
-  color: var(--error-color);
+  color: colors.$danger-main;
   font-weight: bold;
   margin-top: 10px;
   text-align: center;

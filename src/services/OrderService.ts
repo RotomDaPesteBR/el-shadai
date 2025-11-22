@@ -92,7 +92,6 @@ export class OrderService {
       data: {
         price: totalOrderPrice,
         clientId: userId,
-        staffId: userId, // Assuming client is also staff for now, or needs to be assigned later
         orderStateId: orderState.id,
         deliveryMethodId: deliveryMethod.id
         // Add payment method details if needed in Order model
@@ -151,10 +150,18 @@ export class OrderService {
   }
 
   static async getOrderDetails(orderId: number, userId: string) {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: { role: true }
+    });
+
+    if (!user) {
+      return null; // User not found
+    }
+
     const order = await prisma.order.findUnique({
       where: {
-        id: orderId,
-        clientId: userId // Ensure the order belongs to the user
+        id: orderId
       },
       include: {
         orderState: {
@@ -184,7 +191,30 @@ export class OrderService {
     });
 
     if (!order) {
-      return null;
+      return null; // Order not found
+    }
+
+    const userRole = user.role.role;
+    let hasAccess = false;
+
+    if (userRole === 'admin') {
+      hasAccess = true;
+    } else if (userRole === 'delivery') {
+      if (
+        order.staffId === userId ||
+        (order.staffId === null && order.deliveryMethodId === 1)
+      ) {
+        hasAccess = true;
+      }
+    } else {
+      // Assuming other roles are 'costumer' or similar
+      if (order.clientId === userId) {
+        hasAccess = true;
+      }
+    }
+
+    if (!hasAccess) {
+      return null; // Access denied
     }
 
     // Transform the order details to a more consumable format
@@ -203,7 +233,7 @@ export class OrderService {
       deliveryMethod: order.deliveryMethod.id === 1 ? 'delivery' : 'pickup',
       createdAt: order.createdAt,
       products: productsInOrder
-      // Add payment method details if stored in Order model
+      // Add payment payment details if stored in Order model
     };
   }
 
@@ -270,7 +300,7 @@ export class OrderService {
     }));
   }
 
-  static async updateOrderStatus(orderId: number, newStatusId: number) {
+  static async updateOrderStatus(orderId: number, newStatusId: number, staffUserId?: string) {
     const orderState = await prisma.orderState.findFirst({
       where: { id: newStatusId },
     });
@@ -279,11 +309,25 @@ export class OrderService {
       throw new Error(`Invalid order status: ${newStatusId}`);
     }
 
+    const data: Prisma.OrderUpdateInput = {
+      orderState: {
+        connect: {
+          id: orderState.id
+        }
+      }
+    };
+
+    if (staffUserId) {
+      data.staff = {
+        connect: {
+          id: staffUserId
+        }
+      };
+    }
+
     const updatedOrder = await prisma.order.update({
       where: { id: orderId },
-      data: {
-        orderStateId: orderState.id,
-      },
+      data,
       include: {
         orderState: {
           select: {

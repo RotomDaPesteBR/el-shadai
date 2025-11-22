@@ -74,7 +74,7 @@
 
 .address_text {
   background-color: white; // Changed background color
-  border: 1px solid var(--border-color);
+  border: 1px solid colors.$border;
   padding: 10px;
   border-radius: 5px;
   color: black; // Changed text color

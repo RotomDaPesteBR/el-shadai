@@ -18,7 +18,7 @@
 }
 
 .cart_items {
-  border: 1px solid var(--border-color);
+  border: 1px solid colors.$border;
   border-radius: 8px;
   margin-bottom: 20px;
 }
@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   padding: 15px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid colors.$border;
 
   &:last-child {
     border-bottom: none;
@@ -78,7 +78,7 @@
 .quantity_input {
   width: 50px;
   text-align: center;
-  border: 1px solid var(--border-color);
+  border: 1px solid colors.$border;
   border-radius: 4px;
   padding: 5px;
   height: 40px; // Requested height
@@ -104,7 +104,7 @@
 
 .cart_summary {
   text-align: right;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid colors.$border;
   padding-top: 20px;
 }
 

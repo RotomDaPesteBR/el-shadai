@@ -23,13 +23,13 @@
     flex-grow: 1;
     height: 40px; // Requested height
     padding: 10px;
-    border: 1px solid var(--border-color);
+    border: 1px solid colors.$border;
     border-radius: 5px;
     background-color: white; // Requested background color
     color: black; // Requested text color
 
     &::placeholder {
-      color: var(--text-color-light);
+      color: color.adjust(colors.$gray-30, $lightness: -5%);
     }
   }
 
@@ -139,11 +139,11 @@
 
   label {
     font-weight: bold;
-    color: var(--text-color);
+    color: colors.$text;
   }
 }
 
 .error_message {
-  color: var(--error-color);
+  color: colors.$danger-main;
   font-weight: bold;
 }

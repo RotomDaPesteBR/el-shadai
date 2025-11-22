@@ -151,14 +151,14 @@ model Order{
     id      Int  @id @default(autoincrement())
     price  Decimal
     clientId  String
-    staffId   String
+    staffId   String?
     orderStateId    Int
     deliveryMethodId    Int
     
     itemProduct ItemProduct[]
 
     client  User    @relation("client", fields: [clientId], references: [id])
-    staff   User    @relation("staff", fields: [staffId], references: [id])
+    staff   User?    @relation("staff", fields: [staffId], references: [id])
     orderState OrderState  @relation(fields: [orderStateId], references: [id])
     deliveryMethod DeliveryMethod  @relation(fields: [deliveryMethodId], references: [id])
 

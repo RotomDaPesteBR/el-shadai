@@ -32,14 +32,15 @@
         color: black; // Ensure label is black
       }
 
-      input[type="text"],
-      input[type="number"],
-      input[type="file"],
+      input[type='text'],
+      input[type='number'],
+      input[type='file'],
       textarea,
-      select { // Added select
+      select {
+        // Added select
         height: 40px; // Requested height
         padding: 10px;
-        border: 1px solid var(--border-color);
+        border: 1px solid colors.$border;
         border-radius: 5px;
         background-color: white; // Requested background color
         color: black; // Requested text color
@@ -60,7 +61,7 @@
         max-width: 100px;
         height: auto;
         border-radius: 5px;
-        border: 1px solid var(--border-color);
+        border: 1px solid colors.$border;
       }
     }
 
@@ -79,14 +80,14 @@
       }
 
       &:disabled {
-        background-color: var(--disabled-color);
+        background-color: color.adjust(colors.$gray-30, $lightness: -20%);
         cursor: not-allowed;
       }
     }
   }
 
   .error_message {
-    color: var(--error-color);
+    color: colors.$danger-main;
     font-weight: bold;
     margin-top: 10px;
   }

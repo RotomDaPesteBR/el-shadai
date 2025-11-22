@@ -92,7 +92,7 @@
   }
 
   .error_message {
-    color: var(--error-color);
+    color: colors.$danger-main;
     font-weight: bold;
     margin-top: 10px;
   }
