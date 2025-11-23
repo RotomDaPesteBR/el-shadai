@@ -4,6 +4,7 @@ import styles from '@/app/(main)/(delivery)/delivery/[id]/page.module.scss';
 import { toFormattedPrice } from '@/lib/toFormattedPrice';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 interface ProductInOrder {
@@ -38,26 +39,30 @@ export default function DeliveryOrderDetailsClientPage({
 }: DeliveryOrderDetailsClientPageProps) {
   const t = useTranslations('Pages.DeliveryOrderDetails');
 
-  const orderDetails = initialOrderDetails;
+  const [orderDetails, setOrderDetails] = useState(initialOrderDetails);
   const loading = initialLoading;
   const error = initialError;
 
-  const handleUpdateStatus = async (newStatus: string) => {
+  const handleUpdateStatus = async (newStatusId: number, statusLabel: string) => {
     try {
       const response = await fetch(`/api/v1/order/${orderId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ newStatus })
+        body: JSON.stringify({ newStatusId })
       });
 
       if (!response.ok) {
         throw new Error('Failed to update order status');
       }
 
-      toast.success(`Status do pedido atualizado para ${newStatus}!`);
-      // No re-fetch here, rely on server revalidation or state management
+      toast.success(`Status do pedido atualizado para ${statusLabel}!`);
+      
+      setOrderDetails(prevDetails => {
+        if (!prevDetails) return null;
+        return { ...prevDetails, status: statusLabel };
+      });
     } catch (err: unknown) {
       console.error('Error updating order status:', err);
       toast.error(
@@ -142,19 +147,19 @@ export default function DeliveryOrderDetailsClientPage({
       </div>
 
       <div className={styles.action_buttons}>
-        {orderDetails.status !== 'On the way' &&
-          orderDetails.status !== 'Delivered' && (
+        {orderDetails.status !== 'A caminho' &&
+          orderDetails.status !== 'Entregue' && (
             <button
               className={styles.status_button}
-              onClick={() => handleUpdateStatus('On the way')}
+              onClick={() => handleUpdateStatus(2, 'A caminho')}
             >
               {t('SetOnTheWay')}
             </button>
           )}
-        {orderDetails.status !== 'Delivered' && (
+        {orderDetails.status !== 'Entregue' && (
           <button
             className={`${styles.status_button} ${styles.delivered_button}`}
-            onClick={() => handleUpdateStatus('Delivered')}
+            onClick={() => handleUpdateStatus(3, 'Entregue')}
           >
             {t('SetDelivered')}
           </button>

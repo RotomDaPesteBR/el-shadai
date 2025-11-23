@@ -25,7 +25,12 @@ export async function PUT(
       return NextResponse.json({ message: 'New status ID is required and must be a number' }, { status: 400 });
     }
 
-    const updatedOrder = await OrderService.updateOrderStatus(orderId, newStatusId);
+    const staffUserId = session.user.id;
+    const updatedOrder = await OrderService.updateOrderStatus(
+      orderId,
+      newStatusId,
+      staffUserId
+    );
 
     return NextResponse.json({ message: 'Order status updated successfully', order: updatedOrder }, { status: 200 });
   } catch (error) {
