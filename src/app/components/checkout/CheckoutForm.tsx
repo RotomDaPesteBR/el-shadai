@@ -10,7 +10,7 @@ import styles from './CheckoutForm.module.scss';
 export default function CheckoutForm() {
   const { cart, getCartTotal, clearCart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState<'cash' | 'card' | 'pix'>(
-    'cash'
+    'card'
   );
   const [changeNeeded, setChangeNeeded] = useState<number | ''>('');
   const [orderConfirmed, setOrderConfirmed] = useState(false);
@@ -49,7 +49,7 @@ export default function CheckoutForm() {
         },
         body: JSON.stringify({
           paymentMethod,
-          changeNeeded: paymentMethod === 'cash' ? changeNeeded : undefined,
+          // changeNeeded: paymentMethod === 'cash' ? changeNeeded : undefined, // ChangeNeeded is only relevant for cash payment
           deliveryOption,
           cartItems: cart.map(item => ({
             id: item.id,
@@ -202,7 +202,8 @@ export default function CheckoutForm() {
           {toFormattedPrice(getCartTotal().toString())}
         </div>
       </div>
-      <div className={styles.section}>
+      {/* Payment Method Section */}
+      {/* <div className={styles.section}>
         <h3 className={styles.section_title}>{t('PaymentMethod')}</h3>
         <div className={styles.payment_options}>
           <label className={styles.radio_label}>
@@ -238,7 +239,7 @@ export default function CheckoutForm() {
             />
           </div>
         )}
-      </div>
+      </div> */}
       {formError && <p className={styles.error_message}>{formError}</p>}{' '}
       {/* Display persistent error */}
       <button className={styles.confirm_order_btn} onClick={handleConfirmOrder}>
