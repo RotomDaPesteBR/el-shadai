@@ -6,6 +6,8 @@
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   color: #f3f3f3;
+  max-height: 85vh; /* Added to make the outer container scrollable */
+  overflow-y: auto; /* Added for vertical scrolling of the outer container */
 }
 
 .orders_title {
@@ -20,6 +22,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  max-height: 50vh; /* Added to enable scrolling */
+  overflow-y: auto; /* Added for vertical scrolling */
 }
 
 .order_list_item {
