@@ -3,11 +3,19 @@
 
 .cart_container {
   padding: 20px;
-  max-width: 900px;
+  width: 90%; /* Stretched width */
+  max-width: 950px; /* Slightly increased max-width */
   margin: 0 auto;
-  background-color: #ffddab; // Requested background color
-  color: black; // Requested text color
-  overflow-y: auto; // Added overflow-y
+  background-color: #ffddab;
+  color: black;
+  overflow-y: auto;
+  height: 80vh;
+  border-radius: 8px;
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Keep content in a column */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  text-align: center; /* For text inside p tag */
 }
 
 .cart_title {
