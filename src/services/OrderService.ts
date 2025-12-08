@@ -340,34 +340,60 @@ export class OrderService {
     return updatedOrder;
   }
 
-  static async getDashboardOrderMetrics() {
+  static async getDashboardOrderMetrics(startDate?: Date, endDate?: Date) {
     try {
+      const whereClause: Prisma.OrderWhereInput = {};
+      if (startDate && endDate) {
+        whereClause.createdAt = {
+          gte: startDate,
+          lte: endDate
+        };
+      }
+
       // 1. Total Orders and Revenue
-      const totalOrders = await prisma.order.count();
+      const totalOrders = await prisma.order.count({
+        where: whereClause
+      });
       const totalRevenueResult = await prisma.order.aggregate({
         _sum: {
           price: true
-        }
+        },
+        where: whereClause
       });
       const totalRevenue = totalRevenueResult._sum.price?.toNumber() || 0;
 
-      // 2. Monthly Sales for the Current Year
+      // 2. Monthly Sales
+      // If date range is provided, we use it. Otherwise, default to current year.
+      let monthlySalesOrdersWhere = whereClause;
+      if (!startDate && !endDate) {
+        const currentYear = new Date().getFullYear();
+        const startOfYear = new Date(currentYear, 0, 1);
+        const endOfYear = new Date(currentYear, 11, 31, 23, 59, 59);
+        monthlySalesOrdersWhere = {
+            createdAt: {
+                gte: startOfYear,
+                lte: endOfYear
+            }
+        }
+      }
+
       const orders = await prisma.order.findMany({
+        where: monthlySalesOrdersWhere,
         select: { createdAt: true, price: true }
       });
 
       const monthlySales = Array(12).fill(0);
-      const currentYear = new Date().getFullYear();
 
       orders.forEach(order => {
-        if (order.createdAt.getFullYear() === currentYear) {
-          const month = order.createdAt.getMonth(); // 0-indexed (0 for Jan, 11 for Dec)
+          const month = order.createdAt.getMonth(); // 0-indexed
           monthlySales[month] += order.price.toNumber();
-        }
       });
 
       // 3. Sales by Category
       const itemsSold = await prisma.itemProduct.findMany({
+        where: {
+            order: whereClause
+        },
         include: {
           product: {
             select: {

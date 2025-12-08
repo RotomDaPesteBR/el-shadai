@@ -9,7 +9,9 @@ import styles from './CheckoutForm.module.scss';
 
 export default function CheckoutForm() {
   const { cart, getCartTotal, clearCart } = useCart();
-  const [paymentMethod, setPaymentMethod] = useState<'cash' | 'card'>('cash');
+  const [paymentMethod, setPaymentMethod] = useState<'cash' | 'card' | 'pix'>(
+    'cash'
+  );
   const [changeNeeded, setChangeNeeded] = useState<number | ''>('');
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [deliveryOption, setDeliveryOption] = useState<'delivery' | 'pickup'>(
@@ -65,7 +67,11 @@ export default function CheckoutForm() {
           // Stock validation failed
           const errorMessages = data.errors
             .map(
-              (err: { productId: number; productName: string; availableStock: number }) =>
+              (err: {
+                productId: number;
+                productName: string;
+                availableStock: number;
+              }) =>
                 `${err.productName}: ${
                   err.availableStock > 0
                     ? t('StockProblemAvailable', { count: err.availableStock })
@@ -140,7 +146,6 @@ export default function CheckoutForm() {
   return (
     <div className={styles.checkout_container}>
       <h2 className={styles.checkout_title}>{t('Title')}</h2>
-
       <div className={styles.section}>
         <h3 className={styles.section_title}>{t('DeliveryOption')}</h3>
         <div className={styles.delivery_options}>
@@ -164,7 +169,6 @@ export default function CheckoutForm() {
           </label>
         </div>
       </div>
-
       {deliveryOption === 'delivery' && (
         <div className={styles.section}>
           <h3 className={styles.section_title}>{t('DeliveryAddress')}</h3>
@@ -179,7 +183,6 @@ export default function CheckoutForm() {
           {/* In a real app, there would be an option to change/select address */}
         </div>
       )}
-
       <div className={styles.section}>
         <h3 className={styles.section_title}>{t('OrderItems')}</h3>
         <ul className={styles.item_list}>
@@ -199,7 +202,6 @@ export default function CheckoutForm() {
           {toFormattedPrice(getCartTotal().toString())}
         </div>
       </div>
-
       <div className={styles.section}>
         <h3 className={styles.section_title}>{t('PaymentMethod')}</h3>
         <div className={styles.payment_options}>
@@ -237,9 +239,8 @@ export default function CheckoutForm() {
           </div>
         )}
       </div>
-
-      {formError && <p className={styles.error_message}>{formError}</p>} {/* Display persistent error */}
-
+      {formError && <p className={styles.error_message}>{formError}</p>}{' '}
+      {/* Display persistent error */}
       <button className={styles.confirm_order_btn} onClick={handleConfirmOrder}>
         {t('ConfirmOrder')}
       </button>

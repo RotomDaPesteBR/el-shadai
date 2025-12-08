@@ -7,7 +7,7 @@
 
   & :global(.react-datepicker-wrapper) {
     height: 100%;
-    width: 240px;
+    width: 100%;
     box-sizing: border-box;
   }
 
@@ -17,15 +17,24 @@
     box-sizing: border-box;
   }
 
+  & :global(.date-picker)[disabled] {
+    background: colors.$gray-10 !important;
+  }
+
+  & :global(.react-datepicker-popper) {
+    z-index: 1000 !important;
+  }
+
   svg {
-    height: 21px;
-    width: 21px;
+    height: 24px;
+    width: 24px;
   }
 
   input {
+    min-width: 140px;
     height: 100%;
     width: 100%;
-    padding: 2px 0 0 34px;
+    padding: 2px 0 0 10px;
     font-size: 1.2rem;
     display: flex;
     line-height: 5px;
@@ -34,7 +43,32 @@
     box-sizing: border-box;
     background: #ffffff;
     color: colors.$text;
-    border: 1px solid color.adjust(colors.$background, $lightness: -22.5%);
+    border: 1px solid colors.$border;
+    border-radius: 5px;
+  }
+
+  & :global(.react-datepicker__calendar-icon) {
+    right: 0;
+  }
+
+  & :global(.react-datepicker__close-icon) {
+    box-sizing: border-box;
+
+    &::after {
+      background: color.adjust(colors.$gray-40, $lightness: -10%);
+      transition: background-color 0.2s ease-in-out;
+      border-radius: 5px;
+      box-sizing: border-box;
+      width: 30px;
+      height: 30px;
+      content: '╳';
+    }
+
+    &:hover {
+      &::after {
+        background: color.adjust(colors.$gray-40, $lightness: -20%);
+      }
+    }
   }
 }
 
@@ -43,7 +77,7 @@
     input {
       background: #ffffff;
       color: colors.$text;
-      border: 1px solid color.adjust(colors.$dark-background, $lightness: 22.5%);
+      border: 1px solid colors.$border;
     }
   }
 }

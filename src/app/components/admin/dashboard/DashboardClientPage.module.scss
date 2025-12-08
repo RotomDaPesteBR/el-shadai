@@ -6,6 +6,7 @@
   background-color: #ffddab; // Requested background color
   color: black; // Requested text color
   overflow-y: auto; // Added overflow-y
+  border-radius: 8px;
 
   .title {
     font-size: 2em;
@@ -69,12 +70,11 @@
 
   .charts_grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(350px, 1fr)
+    ); /* Increased minmax for better spacing */
     gap: 20px;
-
-    @media (min-width: 1024px) {
-      grid-template-columns: repeat(2, 1fr); // 2 columns on larger screens
-    }
 
     .chart_card {
       background-color: var(--card-bg-color);
@@ -87,6 +87,19 @@
         margin-bottom: 20px;
         color: black; // Ensure text is black
         text-align: center;
+      }
+    }
+
+    .low_stock_chart_card {
+      background-color: colors.$primary-main; // Match metric_card background
+      color: white;
+
+      h3 {
+        color: white; // Ensure title is white
+      }
+
+      p {
+        color: white; // Ensure text is white
       }
     }
   }

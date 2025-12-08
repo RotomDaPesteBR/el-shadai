@@ -1,18 +1,41 @@
 import { ptBR } from 'date-fns/locale';
+import { ReactNode } from 'react';
 import { default as Picker, registerLocale } from 'react-datepicker';
 import styles from './DatePicker.module.scss';
 
 registerLocale('ptBR', ptBR);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-export default function DatePicker({ children, className, ...props }: any) {
+interface DatePickerProps {
+  children?: ReactNode;
+  className?: string;
+  inputClassName?: string;
+  [key: string]: unknown;
+}
+
+export default function DatePicker({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  children,
+  className,
+  inputClassName,
+  ...props
+}: DatePickerProps) {
+  const classes = [styles.datePickerWrapper];
+  if (className) {
+    classes.push(className);
+  }
+  const classNames = classes.join(' ');
+
+  const inputClasses = ['date-picker'];
+  if (inputClassName) {
+    inputClasses.push(inputClassName);
+  }
+  const inputClassNames = inputClasses.join(' ');
+
   return (
-    <div className={styles.datePickerWrapper}>
+    <div className={classNames}>
       <Picker
         name="date"
-        className={`date-picker${
-          className != undefined ? ' ' + className : ''
-        }`}
+        className={inputClassNames}
         locale="ptBR"
         dateFormat="dd/MM/yyyy"
         showIcon

@@ -20,6 +20,7 @@
       "PaymentMethod": "Método de Pagamento",
       "Cash": "Dinheiro",
       "CardMachine": "Máquina de Cartão",
+      "Pix": "Pix",
       "ChangeNeeded": "Precisa de troco para quanto?",
       "ConfirmOrder": "Confirmar Pedido",
       "OrderConfirmedTitle": "Pedido Confirmado!",

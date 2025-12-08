@@ -11,7 +11,7 @@ export default function LogoutButton() {
         return;
       }}
     >
-      <button className={styles.btn}>
+      <button className={styles.btn} title="Sair da conta">
         <Image src="/images/exit.svg" alt="Logout" height={50} width={50} />
       </button>
     </form>
