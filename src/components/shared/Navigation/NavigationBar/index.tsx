@@ -14,15 +14,19 @@ export default async function NavigationBar() {
   return (
     <nav className={styles.navigation_bar}>
       <div className={styles.nav_buttons_container}>
-        <Link href="/products" className={styles.nav_button} title={t('Products')}>
-          🛍️
-        </Link>
-        <Link href="/cart" className={styles.nav_button} title={t('Cart')}>
-          🛒
-        </Link>
-        <Link href="/orders" className={styles.nav_button} title={t('Orders')}>
-          📦
-        </Link>
+        {userRole !== 'delivery' && (
+          <>
+            <Link href="/products" className={styles.nav_button} title={t('Products')}>
+              🛍️
+            </Link>
+            <Link href="/cart" className={styles.nav_button} title={t('Cart')}>
+              🛒
+            </Link>
+            <Link href="/orders" className={styles.nav_button} title={t('Orders')}>
+              📦
+            </Link>
+          </>
+        )}
         
         {(userRole === 'delivery' || userRole === 'admin')&& (
           <Link href="/delivery" className={styles.nav_button} title={t('DeliveryOrders')}>

@@ -1,3 +1,4 @@
+import { auth } from '@/app/auth';
 import { prisma } from '@/prisma';
 import { CartItem } from '@/types';
 import { Prisma } from '@prisma/client';
@@ -238,17 +239,32 @@ export class OrderService {
   }
 
   static async getPendingDeliveryOrders() {
-    const orders = await prisma.order.findMany({
-      where: {
-        deliveryMethod: {
-          id: 1, // Assuming 1 for delivery (Entrega)
-        },
-        orderState: {
-          NOT: {
-            id: 3, // 3 for Delivered
-          },
+    const session = await auth();
+    const userId = session?.user?.id;
+    const userRole = session?.user?.role;
+
+    const whereClause: Prisma.OrderWhereInput = {
+      deliveryMethod: {
+        id: 1, // Assuming 1 for delivery (Entrega)
+      },
+      orderState: {
+        NOT: {
+          id: 3, // 3 for Delivered
         },
       },
+    };
+
+    if (userRole === 'delivery' && userId) {
+      whereClause.AND = {
+        OR: [
+          { staffId: userId },
+          { staffId: null }
+        ]
+      };
+    }
+
+    const orders = await prisma.order.findMany({
+      where: whereClause,
       include: {
         client: {
           select: {

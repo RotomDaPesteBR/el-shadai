@@ -6,8 +6,8 @@ export async function GET() {
   try {
     const session = await auth();
 
-    // Assuming a 'delivery' role for delivery personnel
-    if (!session || !session.user || session.user.role !== 'delivery') {
+    // Check for 'delivery' or 'admin' role
+    if (!session || !session.user || (session.user.role !== 'delivery' && session.user.role !== 'admin')) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
