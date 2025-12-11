@@ -80,6 +80,7 @@
       "SetDelivered": "Definir como Entregue",
       "OrderSummary": "Resumo do Pedido",
       "OrderNumber": "Pedido",
+      "ClientAddress": "Endereço do Cliente",
       "TotalPrice": "Valor Total",
       "Status": "Status",
       "OrderDate": "Data do Pedido",

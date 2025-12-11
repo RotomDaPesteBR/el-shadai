@@ -21,6 +21,7 @@ interface DeliveryOrderDetails {
   status: string;
   deliveryMethod: string;
   createdAt: Date;
+  clientAddress: string;
   products: ProductInOrder[];
 }
 
@@ -108,6 +109,9 @@ export default function DeliveryOrderDetailsClientPage({
         <h3 className={styles.section_title}>{t('OrderSummary')}</h3>
         <p>
           <strong>{t('OrderNumber')}:</strong> {orderDetails.id}
+        </p>
+        <p>
+          <strong>{t('ClientAddress')}:</strong> {orderDetails.clientAddress}
         </p>
         <p>
           <strong>{t('TotalPrice')}:</strong>{' '}

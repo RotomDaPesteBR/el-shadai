@@ -172,7 +172,7 @@ export class OrderService {
         },
         deliveryMethod: {
           select: {
-            id: true, // Select the id field
+            id: true,
             method: true
           }
         },
@@ -187,12 +187,23 @@ export class OrderService {
               }
             }
           }
+        },
+        client: {
+          select: {
+            address: true,
+            neighborhood: {
+              select: {
+                description: true,
+                zone: true
+              }
+            }
+          }
         }
       }
     });
 
     if (!order) {
-      return null; // Order not found
+      return null;
     }
 
     const userRole = user.role.role;
@@ -208,24 +219,24 @@ export class OrderService {
         hasAccess = true;
       }
     } else {
-      // Assuming other roles are 'costumer' or similar
       if (order.clientId === userId) {
         hasAccess = true;
       }
     }
 
     if (!hasAccess) {
-      return null; // Access denied
+      return null;
     }
 
-    // Transform the order details to a more consumable format
     const productsInOrder = order.itemProduct.map(item => ({
       id: item.product.id,
       name: item.product.name,
       price: item.product.price.toNumber(),
       image: item.product.image,
-      quantity: 1 // Assuming ItemProduct doesn't have quantity, default to 1 for now
+      quantity: 1
     }));
+
+    const clientAddress = `${order.client.address}, ${order.client.neighborhood?.description} - ${order.client.neighborhood?.zone}`;
 
     return {
       id: order.id,
@@ -233,8 +244,8 @@ export class OrderService {
       status: order.orderState.state,
       deliveryMethod: order.deliveryMethod.id === 1 ? 'delivery' : 'pickup',
       createdAt: order.createdAt,
-      products: productsInOrder
-      // Add payment payment details if stored in Order model
+      products: productsInOrder,
+      clientAddress: clientAddress
     };
   }
 

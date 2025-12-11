@@ -1,11 +1,13 @@
 .delivery_orders_container {
   padding: 20px;
+  width: 100%;
   max-width: 900px;
-  margin: 20px auto;
+  height: 100%;
   background-color: #006b33;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   color: #f3f3f3;
+  box-sizing: border-box;
 }
 
 .delivery_orders_title {
@@ -20,8 +22,12 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 50vh; /* Added to enable scrolling */
+  max-height: 70vh; /* Added to enable scrolling */
   overflow-y: auto; /* Added for vertical scrolling */
+
+  @media screen and (max-width: 768px) {
+    max-height: 64vh;
+  }
 }
 
 .order_list_item {

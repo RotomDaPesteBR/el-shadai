@@ -85,6 +85,20 @@
       "FailedToLoadAddress": "No se pudo cargar la dirección de entrega.",
       "LoadingAddress": "Cargando dirección...",
       "NoAddressFound": "No se encontró ninguna dirección. Por favor, actualice su perfil."
+    },
+    "DeliveryOrderDetails": {
+      "Title": "Detalles del Pedido de Entrega",
+      "OrderNotFound": "Pedido de entrega no encontrado.",
+      "SetOnTheWay": "Establecer En Camino",
+      "SetDelivered": "Establecer Entregado",
+      "OrderSummary": "Resumen del Pedido",
+      "OrderNumber": "Pedido",
+      "ClientAddress": "Dirección del Cliente",
+      "TotalPrice": "Precio Total",
+      "Status": "Estado",
+      "OrderDate": "Fecha del Pedido",
+      "ProductsInOrder": "Productos en el Pedido",
+      "DeliveryMethod": "Método de Entrega"
     }
   },
   "Components": {

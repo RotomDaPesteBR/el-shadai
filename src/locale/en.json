@@ -85,6 +85,20 @@
       "FailedToLoadAddress": "Failed to load delivery address.",
       "LoadingAddress": "Loading address...",
       "NoAddressFound": "No address found. Please update your profile."
+    },
+    "DeliveryOrderDetails": {
+      "Title": "Delivery Order Details",
+      "OrderNotFound": "Delivery order not found.",
+      "SetOnTheWay": "Set On the Way",
+      "SetDelivered": "Set Delivered",
+      "OrderSummary": "Order Summary",
+      "OrderNumber": "Order",
+      "ClientAddress": "Client Address",
+      "TotalPrice": "Total Price",
+      "Status": "Status",
+      "OrderDate": "Order Date",
+      "ProductsInOrder": "Products in Order",
+      "DeliveryMethod": "Delivery Method"
     }
   },
   "Components": {

@@ -20,6 +20,7 @@ interface DeliveryOrderDetails {
   status: string;
   deliveryMethod: string;
   createdAt: Date;
+  clientAddress: string;
   products: ProductInOrder[];
 }
 
