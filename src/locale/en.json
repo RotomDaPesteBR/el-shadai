@@ -1,39 +1,39 @@
 {
   "Pages": {
-    "Index": {
-      "Title": "Home"
-    },
     "404": {
       "Title": "Page not found",
-      "Message": "Error 404 - Page not found"
+      "Message": "Error 404 - page not found"
+    },
+    "Index": {
+      "Title": "Home"
     },
     "Error": {
       "Title": "An error occurred",
       "Message": "An error occurred"
     },
     "Dashboard": {
-      "MonthlySales": "Monthly Sales",
-      "TotalSales": "Total Sales",
-      "SalesByCategory": "Sales by Category"
+      "MonthlySales": "Monthly sales",
+      "TotalSales": "Total sales",
+      "SalesByCategory": "Sales by category"
     },
     "AdminProducts": {
-      "Title": "Manage Products",
+      "Title": "Manage products",
       "SearchPlaceholder": "Search products...",
-      "AddProduct": "Add Product",
+      "AddProduct": "Add product",
       "NoProductsFound": "No products found.",
       "Price": "Price",
       "Stock": "Stock",
       "Edit": "Edit",
       "Category": "Category",
       "Delete": "Delete",
-      "UpdateStock": "Update Stock",
-      "ConfirmDeleteTitle": "Confirm Deletion",
+      "UpdateStock": "Update stock",
+      "ConfirmDeleteTitle": "Confirm deletion",
       "ConfirmDeleteMessage": "Are you sure you want to delete product {productName}?",
       "Cancel": "Cancel",
       "Update": "Update",
-      "UpdateStockTitle": "Update Product Stock",
-      "CurrentStock": "Current Stock: {stock}",
-      "NewStockQuantity": "New Stock Quantity",
+      "UpdateStockTitle": "Update product stock",
+      "CurrentStock": "Current stock: {stock}",
+      "NewStockQuantity": "New stock quantity",
       "ProductDeletedSuccessfully": "Product deleted successfully!",
       "FailedToDeleteProduct": "Failed to delete product.",
       "InvalidStockQuantity": "Invalid stock quantity.",
@@ -41,40 +41,40 @@
       "FailedToUpdateStock": "Failed to update stock."
     },
     "AdminAddProduct": {
-      "Title": "Add New Product",
+      "Title": "Add new product",
       "AllFieldsRequired": "All required fields must be filled.",
       "ProductAddedSuccessfully": "Product added successfully!",
       "FailedToAddProduct": "Failed to add product.",
-      "ProductName": "Product Name",
-      "ProductDescription": "Product Description",
+      "ProductName": "Product name",
+      "ProductDescription": "Product description",
       "ProductPrice": "Price",
       "ProductStock": "Stock",
-      "MinimumStock": "Minimum Stock",
-      "ProductImage": "Product Image",
-      "AddingProduct": "Adding Product...",
-      "AddProduct": "Add Product",
-      "ProductCategory": "Product Category",
+      "MinimumStock": "Minimum stock",
+      "ProductImage": "Product image",
+      "AddingProduct": "Adding product...",
+      "AddProduct": "Add product",
+      "ProductCategory": "Product category",
       "SelectCategory": "Select a category"
     },
     "Checkout": {
-      "Title": "Order Confirmation",
-      "OrderItems": "Order Items",
+      "Title": "Order confirmation",
+      "OrderItems": "Order items",
       "Total": "Total:",
-      "DeliveryAddress": "Delivery Address",
-      "PaymentMethod": "Payment Method",
+      "DeliveryAddress": "Delivery address",
+      "PaymentMethod": "Payment method",
       "Cash": "Cash",
-      "CardMachine": "Card Machine",
+      "CardMachine": "Card machine",
       "Pix": "Pix",
       "ChangeNeeded": "Change needed for how much?",
-      "ConfirmOrder": "Confirm Order",
-      "OrderConfirmedTitle": "Order Confirmed!",
+      "ConfirmOrder": "Confirm order",
+      "OrderConfirmedTitle": "Order confirmed!",
       "ConfirmationMessage1": "Your order has been received and will be processed shortly.",
       "ConfirmationMessage2": "Thank you for your preference!",
       "CartEmptyTitle": "Your cart is empty.",
       "CartEmptyMessage": "Add products to complete your order.",
-      "DeliveryOption": "Delivery Option",
-      "HomeDelivery": "Home Delivery",
-      "StorePickup": "Store Pickup",
+      "DeliveryOption": "Delivery option",
+      "HomeDelivery": "Home delivery",
+      "StorePickup": "Store pickup",
       "DeliveryAddressRequired": "Please select a delivery address or choose store pickup.",
       "FailedToConfirmOrder": "Failed to confirm order.",
       "StockProblemAvailable": "Only {count} in stock.",
@@ -84,21 +84,21 @@
       "UnexpectedErrorConfirmingOrder": "An unexpected error occurred while confirming the order.",
       "FailedToLoadAddress": "Failed to load delivery address.",
       "LoadingAddress": "Loading address...",
-      "NoAddressFound": "No address found. Please update your profile."
+      "NoAddressFound": "No address found. please update your profile."
     },
     "DeliveryOrderDetails": {
-      "Title": "Delivery Order Details",
+      "Title": "Delivery order details",
       "OrderNotFound": "Delivery order not found.",
-      "SetOnTheWay": "Set On the Way",
-      "SetDelivered": "Set Delivered",
-      "OrderSummary": "Order Summary",
+      "SetOnTheWay": "Set on the way",
+      "SetDelivered": "Set delivered",
+      "OrderSummary": "Order summary",
       "OrderNumber": "Order",
-      "ClientAddress": "Client Address",
-      "TotalPrice": "Total Price",
+      "ClientAddress": "Client address",
+      "TotalPrice": "Total price",
       "Status": "Status",
-      "OrderDate": "Order Date",
-      "ProductsInOrder": "Products in Order",
-      "DeliveryMethod": "Delivery Method"
+      "OrderDate": "Order date",
+      "ProductsInOrder": "Products in order",
+      "DeliveryMethod": "Delivery method"
     }
   },
   "Components": {
@@ -110,8 +110,8 @@
     },
     "Buttons": {},
     "ToggleTheme": {
-      "Light": "Light Mode",
-      "Dark": "Dark Mode",
+      "Light": "Light mode",
+      "Dark": "Dark mode",
       "Loading": "Loading"
     },
     "Error": {

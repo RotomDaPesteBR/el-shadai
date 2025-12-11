@@ -1,39 +1,39 @@
 {
   "Pages": {
-    "Index": {
-      "Title": "Inicio"
-    },
     "404": {
       "Title": "Página no encontrada",
-      "Message": "Error 404 - Página no encontrada"
+      "Message": "Error 404 - página no encontrada"
+    },
+    "Index": {
+      "Title": "Inicio"
     },
     "Error": {
       "Title": "Se produjo un error",
       "Message": "Se produjo un error"
     },
     "Dashboard": {
-      "MonthlySales": "Ventas Mensuales",
-      "TotalSales": "Ventas Totales",
-      "SalesByCategory": "Ventas por Categoría"
+      "MonthlySales": "Ventas mensuales",
+      "TotalSales": "Ventas totales",
+      "SalesByCategory": "Ventas por categoría"
     },
     "AdminProducts": {
-      "Title": "Gestionar Productos",
+      "Title": "Gestionar productos",
       "SearchPlaceholder": "Buscar productos...",
-      "AddProduct": "Añadir Producto",
+      "AddProduct": "Añadir producto",
       "NoProductsFound": "No se encontraron productos.",
       "Price": "Precio",
       "Stock": "Existencias",
       "Edit": "Editar",
       "Category": "Categoría",
       "Delete": "Eliminar",
-      "UpdateStock": "Actualizar Stock",
-      "ConfirmDeleteTitle": "Confirmar Eliminación",
+      "UpdateStock": "Actualizar stock",
+      "ConfirmDeleteTitle": "Confirmar eliminación",
       "ConfirmDeleteMessage": "¿Está seguro de que desea eliminar el producto {productName}?",
       "Cancel": "Cancelar",
       "Update": "Actualizar",
-      "UpdateStockTitle": "Actualizar Stock del Producto",
-      "CurrentStock": "Stock Actual: {stock}",
-      "NewStockQuantity": "Nueva Cantidad en Stock",
+      "UpdateStockTitle": "Actualizar stock del producto",
+      "CurrentStock": "Stock actual: {stock}",
+      "NewStockQuantity": "Nueva cantidad en stock",
       "ProductDeletedSuccessfully": "¡Producto eliminado con éxito!",
       "FailedToDeleteProduct": "Error al eliminar el producto.",
       "InvalidStockQuantity": "Cantidad en stock inválida.",
@@ -41,40 +41,40 @@
       "FailedToUpdateStock": "Error al actualizar el stock."
     },
     "AdminAddProduct": {
-      "Title": "Añadir Nuevo Producto",
+      "Title": "Añadir nuevo producto",
       "AllFieldsRequired": "Todos los campos obligatorios deben ser completados.",
       "ProductAddedSuccessfully": "¡Producto añadido con éxito!",
       "FailedToAddProduct": "Error al añadir el producto.",
-      "ProductName": "Nombre del Producto",
-      "ProductDescription": "Descripción del Producto",
+      "ProductName": "Nombre del producto",
+      "ProductDescription": "Descripción del producto",
       "ProductPrice": "Precio",
       "ProductStock": "Existencias",
-      "MinimumStock": "Existencias Mínimas",
-      "ProductImage": "Imagen del Producto",
-      "AddingProduct": "Añadiendo Producto...",
-      "AddProduct": "Añadir Producto",
-      "ProductCategory": "Categoría del Producto",
+      "MinimumStock": "Existencias mínimas",
+      "ProductImage": "Imagen del producto",
+      "AddingProduct": "Añadiendo producto...",
+      "AddProduct": "Añadir producto",
+      "ProductCategory": "Categoría del producto",
       "SelectCategory": "Seleccione una categoría"
     },
     "Checkout": {
-      "Title": "Confirmación del Pedido",
-      "OrderItems": "Artículos del Pedido",
+      "Title": "Confirmación del pedido",
+      "OrderItems": "Artículos del pedido",
       "Total": "Total:",
-      "DeliveryAddress": "Dirección de Entrega",
-      "PaymentMethod": "Método de Pago",
+      "DeliveryAddress": "Dirección de entrega",
+      "PaymentMethod": "Método de pago",
       "Cash": "Efectivo",
-      "CardMachine": "Terminal de Tarjetas",
+      "CardMachine": "Terminal de tarjetas",
       "Pix": "Pix",
       "ChangeNeeded": "¿Cuánto cambio necesita?",
-      "ConfirmOrder": "Confirmar Pedido",
-      "OrderConfirmedTitle": "¡Pedido Confirmado!",
+      "ConfirmOrder": "Confirmar pedido",
+      "OrderConfirmedTitle": "¡Pedido confirmado!",
       "ConfirmationMessage1": "Su pedido ha sido recibido y será procesado en breve.",
       "ConfirmationMessage2": "¡Gracias por su preferencia!",
       "CartEmptyTitle": "Su carrito está vacío.",
       "CartEmptyMessage": "Añada productos para completar su pedido.",
-      "DeliveryOption": "Opción de Entrega",
-      "HomeDelivery": "Entrega a Domicilio",
-      "StorePickup": "Recoger en Tienda",
+      "DeliveryOption": "Opción de entrega",
+      "HomeDelivery": "Entrega a domicilio",
+      "StorePickup": "Recoger en tienda",
       "DeliveryAddressRequired": "Por favor, seleccione una dirección de entrega o elija recoger en tienda.",
       "FailedToConfirmOrder": "Error al confirmar el pedido.",
       "StockProblemAvailable": "Solo {count} en stock.",
@@ -84,21 +84,21 @@
       "UnexpectedErrorConfirmingOrder": "Ocurrió un error inesperado al confirmar el pedido.",
       "FailedToLoadAddress": "No se pudo cargar la dirección de entrega.",
       "LoadingAddress": "Cargando dirección...",
-      "NoAddressFound": "No se encontró ninguna dirección. Por favor, actualice su perfil."
+      "NoAddressFound": "No se encontró ninguna dirección. por favor, actualice su perfil."
     },
     "DeliveryOrderDetails": {
-      "Title": "Detalles del Pedido de Entrega",
+      "Title": "Detalles del pedido de entrega",
       "OrderNotFound": "Pedido de entrega no encontrado.",
-      "SetOnTheWay": "Establecer En Camino",
-      "SetDelivered": "Establecer Entregado",
-      "OrderSummary": "Resumen del Pedido",
+      "SetOnTheWay": "Establecer en camino",
+      "SetDelivered": "Establecer entregado",
+      "OrderSummary": "Resumen del pedido",
       "OrderNumber": "Pedido",
-      "ClientAddress": "Dirección del Cliente",
-      "TotalPrice": "Precio Total",
+      "ClientAddress": "Dirección del cliente",
+      "TotalPrice": "Precio total",
       "Status": "Estado",
-      "OrderDate": "Fecha del Pedido",
-      "ProductsInOrder": "Productos en el Pedido",
-      "DeliveryMethod": "Método de Entrega"
+      "OrderDate": "Fecha del pedido",
+      "ProductsInOrder": "Productos en el pedido",
+      "DeliveryMethod": "Método de entrega"
     }
   },
   "Components": {
@@ -110,8 +110,8 @@
     },
     "Buttons": {},
     "ToggleTheme": {
-      "Light": "Modo Claro",
-      "Dark": "Modo Oscuro",
+      "Light": "Modo claro",
+      "Dark": "Modo oscuro",
       "Loading": "Cargando"
     },
     "Error": {
